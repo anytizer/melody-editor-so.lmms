@@ -12,9 +12,6 @@
 
 #include <QString>
 #include <QList>
-#include <QFile>
-#include <QTextStream>
-#include <QByteArray>
 
 namespace lmms::gui::editor::pianoroll::parsing
 {

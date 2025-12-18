@@ -14,11 +14,11 @@
 namespace lmms::gui::editor::pianoroll::parsing
 {
 
-class NashvilleParser: public AbstractParser
-{
-    public:
-        virtual void setup() override;
-        QList<NotationCell *> parse(QString text) override;
-};
+    class NashvilleParser: public AbstractParser
+    {
+        public:
+            virtual void setup() override;
+            QList<NotationCell *> parse(QString text) override;
+    };
 
 }

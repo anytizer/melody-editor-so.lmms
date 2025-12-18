@@ -4,8 +4,8 @@
 Creates a plugin: libmelodyeditor.so - under LMMS/Qt6.
 ```
 
-A text based melody notations parser for [LMMS](https://github.com/LMMS/lmms); feeding SARGAM and English Notations.
-It is asscessible from Tools > Melody Editor.
+A text based melody parser plugin for [LMMS](https://github.com/LMMS/lmms);
+feeding SARGAM and English Notations. It is asscessible from `Tools > Melody Editor`.
 
 This plguin allows a user to type in or drop in song notations file into an editor area.
 These notations are then parsed to create a MIDI Clip Data within the Piano-Roll window.
@@ -13,17 +13,15 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 
 # Features
 
-- Ctrl+Wheel to zoom in/out notations text.
+- Ctrl+Wheel to zoom in/out notations font size.
 - Double click on text area to choose a notation file.
 - Drag and Drop of a notation file into the melody editor area.
-- File system watcher for a dropped in file, if it is edited externally: it updates here, silently.
 - Extremely powerful parser for SARGAM notations in Romanized forms; and Devangari scripts.
   - A little memory usage while operating.
-  - Fast and Light weight, and small footprint.
-  - 20kb limits applied on input file size.
+  - Fast, light weight, and small footprint.
+  - 20kb limits applied on input size.
   - Does not obstruct live playing in the Piano Roll.
 - Multiple parsers (SARGAM, Carnatic, English, and some more in progress.)
-- Works by manipulation of .xpt format input from text notations.
 
 # Quick Manual
 
@@ -41,13 +39,13 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 
 # Compile as a native plugin for LMMS
 
-Prepare to patch your LMMS source codebase.
+1. Prepare to patch your LMMS source codebase.
 
 (PianoRoll.cpp, PianoRoll.h)'s currentMidiClip() is a 'const'.
-- Remove the object's `const` marker(s). Change as:
+- Remove the class's `const` marker(s). Change from:
 
 ```
-~~const~~ MidiClip* currentMidiClip() ~~const~~
+const MidiClip* currentMidiClip() const
 ```
 
 to:
@@ -56,7 +54,7 @@ to:
 MidiClip* currentMidiClip() ()
 ```
 
-Then, import this plugin into LMMS's plugin repository.
+2. Then, import this plugin into LMMS's plugin repository.
 
 ```
 cd lmms/plugins
@@ -64,51 +62,45 @@ ln -s <THIS-PROJECT's-ROOT-PATH> MelodyEditor
 
 # eg.
 # cd lmms/plugins
-# ln -s /media/USER/DISK/path/to/MelodyEditor MelodyEditor
+# ln -s /media/USER/DISK/path/to/[MelodyEditor] MelodyEditor
 ```
 
 Or, copy the plugin's source code (aka MelodyEditor) into __lmms/plugins__ folder.
 
-Enable (or add) `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
+3. Enable `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
 
-Then `make` or compile the copy of your LMMS.
-It will add `libmelodyeditor.so` file into the plugin repository.
-This plugin is now accessible from the Tools Menu; sending data to a Piano-Roll.
+4. Then `make` or compile the copy of your LMMS.
+It will create `libmelodyeditor.so` file into the plugin repository. There may be .dll in case of Windows.
+This plugin is now accessible from the Tools Menu; ready to process your melody notations.
 
-# Change History
+# Change History / Monthly
 
-## 2025-12-16
+## 2025-12
 
+ - Progress log on monthly basis.
  - Better variable names.
  - Enhance documentation, and links.
  - Screenhot added [here](src/assets/screenshot.png).
  - Icons for identification of the notation system.
-
-## 2025-12-11
-
- - Clearly pointed which files to modify to compile it as an LMMS Plugin.
+ - Clearly point which files to modify to compile it as an LMMS Plugin.
  - A notification is added to open a Piano-Roll first; when __Update MIDI Clip__ applied to an empty target.
  - Changed binary name to more specific name libmelodyeditor.so from libmelody.so
  - Setting stay-on-top window flag by default.
- - Smoother text zoom.
+ - Smoother text zoom; factor realculations
  - Applied scroll bar with text zoom.
- - Improved documentation texts.
  - Removed unnecessary UI elements that were originally intended to write to external files.
  - A lot of source code commented, in order to remove them in future.
 
-## 2025-09-28
+## 2025-09
 
  - Using custom text editor for zooming text with mouse wheel and ctrl key
  - Open a notation file with double click on the editor
  - comment a line ctrl+slash
  - ctrl+enter to update the midi clip instantly
-
-## 2025-09-15
-
  - Plugin compiled back in Qt 5 as well. However, Qt6 preferred.
  - Updated the documentations.
 
-## 2025-07-08
+## 2025-07
 
  - Disabled incomplete parsers. Rework and Help required.
  - Decopupling MelodyEditor and MelodyEditorView. Remove friend functions.
@@ -118,20 +110,17 @@ This plugin is now accessible from the Tools Menu; sending data to a Piano-Roll.
  - Some sample notations added for testing purpose.
  - Example for testing English notes added.
 
-## 2025-06-28
+## 2025-06
 
  - Early version of Carnatic parser added.
  - Individualized parsers on their own files.
  - Project started as a decopupled code from previous efforts.
-
-## 2025-06-19
-
-- `class` to `struct` for Cell, and FindAndReplace
-- Improve and fix typos in comments.
-- Bring .h file contents together on top of the code.
-- Bit length controller in pixels - comments changed for Cell.
-- fr changed to replaces.
-- Removed some completed todos.
+ - `class` to `struct` for Cell, and FindAndReplace
+ - Improve and fix typos in comments.
+ - Bring .h file contents together on top of the code.
+ - Bit length controller in pixels - comments changed for Cell.
+ - fr changed to replaces.
+ - Removed some completed todos.
 
 # Documentation
 
@@ -159,9 +148,8 @@ Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | 
 
 * Chords must have been terminated with corresponding `]`.
 * __Error Count__: Number of notes that were NOT converted for use in LMMS is returned. __Remedies__:
-  - Look for accidentally joined notations
-  - Or illegal notes or characters like: __E#__.
-  - Non-existing notation like __J__.
+  - Look for accidentally joined notations.
+  - Or illegal notes or characters like: __E#__, __J__.
 
 # Testing Examples
 
@@ -173,9 +161,9 @@ Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | 
 * Hit "Update MIDI Clip".
 * Now, play the song ;-)
 
-## Courtesy/Resemblance:
+## Courtesy / Resemblance:
 
-- __Happy Birthday__ / AI search results and human edits.
+- __Happy Birthday__ song / AI search results and human edits.
 
 ## Example 1: SARGAM in Romanized Letters
 
@@ -186,6 +174,8 @@ x r,r r* - n M - g -
 x N,N n  - M d - M -
 ```
 
+For this notation set, pick "SARGAM".
+
 ## Example 2: SARGAM in Devaganari Scripts
 
 ```
@@ -194,6 +184,8 @@ x रे॒,रे॒   ग॒   -  रे॒  मे  -  मे -
 x रे॒,रे॒   रे॒*  -  नि॒  मे  -  ग॒ -
 x नि,नि  नि॒  -  मे  नि॒  -  मे -
 ```
+
+For this notation set, pick "SARGAM".
 
 ## Example 3: English, with Symbols
 
@@ -204,6 +196,8 @@ x C#,C# C#* - A# F# - D# -
 x B,B   A#  - F# G# - F# -
 ```
 
+For this notation set, pick "ENGLISH".
+
 ## Example 4: English, with Octave Numbers
 
 ```
@@ -212,6 +206,8 @@ x C#4,C#4 D#4 - C#4 F#4 - F#4 -
 x C#4,C#4 C#5 - A#4 F#4 - D#4 -
 x B4,B4   A#4 - F#4 G#4 - F#4 -
 ```
+
+For this notation set, pick "ENGLISH".
 
 # Notes Allowed
 
@@ -235,7 +231,7 @@ Completed?   | MIDI           | Notes
 -------------|----------------|--------------------------
 [ Yes ]      | SARGAM         | Romanized Letters
 [ Yes ]      | स र ग म        | komal or flats are underlined. Devangari Scripts
-[ No ]       | Carnatic       | `Partial Performance`
+[ No ]       | Carnatic       | `Partial Performance`; NOT tested
 [ Yes ]      | English        | Without octave number
 [ Yes ]      | English        | With octave number
 [ No ]       | German         | Without octave number
@@ -258,4 +254,5 @@ Some special keys are also allowed, in order to be maximum user friendly typed n
 Example: `/` for `|`. `~` for `-`. Please study the source code variables for find and replace.
 
 # ToDOs
-Please see [ToDOs](TODO.md) file.
+
+Please see [ToDOs](TODO.md) file. Also, a help is needed.

@@ -38,7 +38,6 @@ namespace lmms::gui
     		void dropEvent(QDropEvent *event) override;
 			void wheelEvent(QWheelEvent *event) override;
 			
-			QString MELODY_EXTENSION = "txt";
 			Utilities* u = new Utilities();
 			
 		public:

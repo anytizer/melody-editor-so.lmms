@@ -11,6 +11,9 @@
 
 namespace lmms::gui::editor::pianoroll::parsing
 {
+	/**
+	 * For  individual <note/> node in the xml
+	 */
 	struct NotationCell
 	{
 		public:
@@ -19,13 +22,17 @@ namespace lmms::gui::editor::pianoroll::parsing
 			QString notation = "";
 	};
 
+	/**
+	 * To build a dataset of find and replace strings.
+	 */
 	struct FindAndReplace
 	{
 		public:
 			QString find = "";
 			QString replaceWith = "";
 			FindAndReplace(): find(""), replaceWith(""){}
-			FindAndReplace(QString f, QString r): find(f), replaceWith(r){
+			FindAndReplace(QString f, QString r): find(f), replaceWith(r)
+			{
 				this->find = f;
 				this->replaceWith = r;
 			}

@@ -15,14 +15,14 @@
 namespace lmms::gui::editor::pianoroll::parsing
 {
 
-class ParsersFactory
-{
-    public:
-        ParsersFactory();
-        ~ParsersFactory();
+    class ParsersFactory
+    {
+        public:
+            ParsersFactory();
+            ~ParsersFactory();
 
-        QList<AbstractParser *> parsers = QList<AbstractParser *>(); // {};
-};
+            QList<AbstractParser *> parsers = QList<AbstractParser *>(); // {};
+    };
 
 }
 

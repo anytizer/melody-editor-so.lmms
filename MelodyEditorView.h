@@ -24,27 +24,29 @@ namespace lmms::gui
 
 class MelodyEditorView : public ToolPluginView
 {
-private:
-	Q_OBJECT
+	private:
+		Q_OBJECT
 
-	MelodyEditor* m_plugin;
+		MelodyEditor* m_plugin;
 
-public:
-	MelodyEditorView(MelodyEditor* plugin);
-	void updateMidiClip();
-	
-	MelodyEditorTextArea *pte = new MelodyEditorTextArea();
-	ParsersFactory *pf = new ParsersFactory();
-	
-	// defaults to first registered parser into the factory.
-	// despite of -1 as placeholder.
-	int parser_id = 0;
-	
-	void openNotationsFileSelector();
+	public:
+		MelodyEditorView(MelodyEditor* plugin);
+		void updateMidiClip();
+		
+		MelodyEditorTextArea *pte = new MelodyEditorTextArea();
+		const ParsersFactory *pf = new ParsersFactory();
+		
+		/**
+		 * Defaults to first registered parser into the factory.
+		 * Despite of -1 as placeholder.
+		 */
+		int parser_id = 0;
+		
+		void openNotationsFileSelector();
 
-protected:
-	void closeEvent(QCloseEvent*) override;
-};
+	protected:
+		void closeEvent(QCloseEvent*) override;
+	};
 
 } // namespace lmms::gui
 

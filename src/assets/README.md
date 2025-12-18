@@ -1,5 +1,5 @@
 Notation System icons are named as:
 
 ```
-ns-IDENTIFIER.svg
+    ns-[IDENTIFIER].svg
 ```

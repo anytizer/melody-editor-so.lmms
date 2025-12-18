@@ -24,7 +24,13 @@ class CarnaticParser: public AbstractParser
         // Where can I find some notations?
         // https://carnaticnotations.blogspot.com/
         // https://www.shivkumar.org/music/index.html
+        // https://www.karnatik.com/beginners.pdf
 
+        // Some videos explaining how to write the notes
+        // https://www.youtube.com/watch?v=Z0XXbU3NyLY
+        // https://www.youtube.com/watch?v=kLopt9b66Dc
+
+        // Educational Resources
         // https://ccrma.stanford.edu/~arvindh/cmt/the_12_notes.html
         // https://en.wikipedia.org/wiki/Melakarta
         // https://en.wikipedia.org/wiki/Kriti_(music)
@@ -48,8 +54,8 @@ class CarnaticParser: public AbstractParser
             {"N2", "A#"},
             {"N3", "B"},
         };
-        QList<NotationCell *> parse(QString text) override;
         virtual void setup() override;        
+        QList<NotationCell *> parse(QString text) override;
     };
 
 }

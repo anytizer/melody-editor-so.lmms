@@ -26,14 +26,21 @@ namespace lmms::gui::editor::pianoroll::parsing
 
     }
 
+    /**
+     * Return the melody notations text from external file.
+     */
     QString Utilities::fileContents(QString filePath)
     {
         QString notations = "";
 
         QFile file(filePath);
+        //if(file.exists()) // @todo Check if this is applied already.
         if (file.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             QTextStream in(&file);
+            
+            // Preferably ASCII Contents only.
+            // However, Devangarari Scripts based Notations are also tested.
             notations = in.readAll();
             
             file.close();
@@ -42,6 +49,10 @@ namespace lmms::gui::editor::pianoroll::parsing
         return notations;
     }
 
+
+    /**
+     * Do NOT process too large files.
+     */
     bool Utilities::sizeCheck(QString filePath)
     {
         QFile file(filePath);
