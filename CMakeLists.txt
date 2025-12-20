@@ -4,7 +4,7 @@ INCLUDE(BuildPlugin)
 # SET(RESOURCES icons.qrc)
 
 BUILD_PLUGIN(
-  # @see Utilities.cpp => identifier | They MUST match
+  # @see Utilities.cpp => internal identifier | They MUST match
   melodyeditor
     MelodyEditor.cpp
     MelodyEditorTextArea.cpp

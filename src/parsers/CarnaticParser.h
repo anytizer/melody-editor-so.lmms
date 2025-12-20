@@ -15,21 +15,6 @@
 
 using lmms::gui::editor::pianoroll::parsing::NotationCell;
 
-// Where can I find some notations?
-// https://carnaticnotations.blogspot.com/
-// https://www.shivkumar.org/music/index.html
-// https://www.karnatik.com/beginners.pdf
-
-// Some videos explaining how to write the notes
-// https://www.youtube.com/watch?v=Z0XXbU3NyLY
-// https://www.youtube.com/watch?v=kLopt9b66Dc
-
-// Educational Resources
-// https://ccrma.stanford.edu/~arvindh/cmt/the_12_notes.html
-// https://en.wikipedia.org/wiki/Melakarta
-// https://en.wikipedia.org/wiki/Kriti_(music)
-// https://en.wikipedia.org/wiki/Carnatic_music
-// https://www.melakarta.com/education.html
 namespace lmms::gui::editor::pianoroll::parsing
 {
 

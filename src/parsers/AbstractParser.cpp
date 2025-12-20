@@ -83,48 +83,6 @@ namespace lmms::gui::editor::pianoroll::parsing
 
         return text;
     }
-
-    // /**
-    //  * The symbols being replaced are absolutey case-based.
-    //  */
-    // QString AbstractParser::replace_symbols(QString text)
-    // {
-    //     QString notes = text;
-    //     notes.replace("™", "#");
-    //     // notes.replace("‘", replace = SpecialKeys.LOWER_OCTAVE_NOTATION }); // appears in front
-        
-    //     // common symbols
-    //     //notes.replace("*", replace = sk.HIGHER_OCTAVE_NOTATION }); // not necessary | same destination
-        
-    //     // super oddities, rather used in octave identification
-    //     // notes.replace("`", "#"); // sharp/flat
-    //     // notes.replace("'", "#"); // sharp/flat
-    //     // notes.replace("’", "#"); // sharp/flat ??
-        
-    //     QString higher_octavemarker = "*";
-    //     notes.replace("º", higher_octavemarker);
-    //     notes.replace("°", higher_octavemarker);
-    //     notes.replace("’", higher_octavemarker); // octave change!!
-    //     //notes.replace("'", higher_octavemarker); // octave change!!
-
-    //     // continuation mark
-    //     QString continuation = "-";
-    //     notes.replace("-", continuation); // ??
-    //     notes.replace("-", continuation);
-    //     notes.replace("_", continuation);
-    //     notes.replace("—", continuation);
-    //     notes.replace("~", continuation);
-    //     notes.replace("ऽ", continuation); // avagraha
-
-    //     // division / bar separator
-    //     QString division = "|";
-    //     notes.replace("/", division);
-    //     notes.replace("।", division);
-    //     notes.replace("|", division);
-    //     notes.replace("\\", division);
-
-    //     return notes;
-    // }
     
     /**
      * @todo Reuse data from PianoRoll if possible
@@ -156,8 +114,6 @@ namespace lmms::gui::editor::pianoroll::parsing
         // -1 is an erraneous entry
         return pianokey;
     }
-
-
 
     /**
      * Output of this call MUST be similar to Export MIDI Clip.
@@ -295,7 +251,10 @@ namespace lmms::gui::editor::pianoroll::parsing
 	int AbstractParser::process_beatnotes(const QString column, QList<NotationCell *> &cells, int &position)
 	{
 		int errors = 0;
-		int width = 48; // 16 x 4? nominator x denominator? Not sure.
+        
+        // 16 x 4? nominator x denominator? Not sure.
+        // @see below function also
+		int width = 48;
 
 		if(column.contains(","))
 		{

@@ -24,22 +24,57 @@ namespace lmms::gui::editor::pianoroll::parsing
         // If parser is not completed: Do not expose it.
         // Parsers will appear in the same order as registered.
         this->parsers = {};
+        
+        /**
+         * SARGAM Parser in Romanized letters.
+         * SARGAM Parser in Devangari scripts.
+         */
         this->parsers.append(new HindustaniParser());
-        this->parsers.append(new CarnaticParser());
+        
+        /**
+         * Partially similar to regular SARGAMs
+         * @todo incomplete | partially functioning
+         */
+        //this->parsers.append(new CarnaticParser());
+        
+        /**
+         * English keyboard based
+         */
         this->parsers.append(new EnglishParser());
-        this->parsers.append(new GermanParser());
-        this->parsers.append(new NashvilleParser());
-        this->parsers.append(new VirtualpianoParser());
+
+        /**
+         * German notes
+         */
+        //this->parsers.append(new GermanParser());
+
+        /**
+         * Numbered system
+         */
+        //this->parsers.append(new NashvilleParser());
+
+        /**
+         * Various virtual piano - using QWERTY keyboard data entry
+         */
+        //this->parsers.append(new VirtualpianoParser());
+        
+        // @todo Keyboard settings differences!!
         // LMMS Mac Build keyboard layout
         // LMMS Windows Build keyboard layout
         // LMMS Linux Build keyboard layout
         
+        /**
+         * If we missed a parser above...
+         * DO NOT queue it as a general purpose parser in abovez code.
+         */
         if(!this->parsers.count())
         {
-            // DO NOT queue it as a general purpose parser in above code.
             this->parsers.append(new MissingParser());
         }
 
+        /**
+         * Each parser has a setup() method.
+         * Invoke them.
+         */
         this->setup_all_registered_parsers();
     }
 

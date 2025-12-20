@@ -209,6 +209,29 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 
 For this notation set, pick "ENGLISH".
 
+
+## Example 4: English, with Octave Numbers
+
+```
+# Happy Birthday to You
+# (C - C - F - C)
+1 - 1 - 4 - 1
+
+# Happy Birthday to You
+# (F - F - G - F)
+4 - 4 - 5 - 4
+
+# Happy Birthday dear [Name]
+# (C - C - Am - F)
+1 - 1 - 6m - 4
+
+# Happy Birthday to You
+# (C - G - C - G)
+1 - 5 - 1 - 5
+```
+
+For this notation set, pick "Nashville".
+
 # Notes Allowed
 
 You can pick your notation system and allowed notes. [reference reading...](https://en.wikipedia.org/wiki/Key_signature_names_and_translations)

@@ -12,7 +12,7 @@
 namespace lmms::gui::editor::pianoroll::parsing
 {
 	/**
-	 * For  individual <note/> node in the xml
+	 * For individual <note/> node in the xml
 	 */
 	struct NotationCell
 	{
@@ -24,7 +24,7 @@ namespace lmms::gui::editor::pianoroll::parsing
 
 	/**
 	 * To build a dataset of find and replace strings.
-	 * @todo Replace with QMap
+	 * @todo Replace with QMap; for speedy operation?
 	 * @see https://doc.qt.io/qt-6/qmap.html
 	 */
 	struct FindAndReplace

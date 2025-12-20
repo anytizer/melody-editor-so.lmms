@@ -3,10 +3,6 @@
  *
  * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
-
-#include "MelodyEditor.h"
-#include "MelodyEditorView.h"
-
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -21,6 +17,9 @@
 #include <QTextStream>
 #include <QEvent>
 #include <QDebug>
+
+#include "MelodyEditor.h"
+#include "MelodyEditorView.h"
 
 #include "src/includes/DataStructures.h"
 #include "src/includes/Utilities.h"
@@ -41,6 +40,7 @@
 #include "MidiClipView.h"
 #include "Editor.h"
 
+//using lmms::MelodyEditor;
 using lmms::gui::editor::pianoroll::parsing::Utilities;
 using lmms::gui::editor::pianoroll::parsing::AbstractParser;
 using lmms::gui::PianoRollWindow;
@@ -116,6 +116,7 @@ namespace lmms::gui
 		layout2->addLayout(layout1);
 		this->setLayout(layout2);
 
+		this->hide();
 		QWidget* pw = parentWidget();
 		if (pw!=nullptr)
 		{

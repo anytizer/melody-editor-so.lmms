@@ -7,18 +7,21 @@
 #ifndef LMMS_GUI_MELODY_EDITOR_TEXTAREA_CPP
 #define LMMS_GUI_MELODY_EDITOR_TEXTAREA_CPP
 
-#include "MelodyEditorTextArea.h"
-#include "src/includes/Utilities.h"
-
 #include <QMimeData>
 #include <QTextStream>
-#include <QMessageBox>
 #include <QString>
 #include <QFont>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QTextCursor>
 #include <QPlainTextEdit>
+
+#include "MelodyEditorTextArea.h"
+#include "src/includes/Utilities.h"
+
+#include "FileDialog.h"
+#include "ConfigManager.h"
+
 
 using lmms::gui::editor::pianoroll::parsing::Utilities;
 
@@ -63,6 +66,11 @@ namespace lmms::gui
 			QString notations = u->fileContents(filename);
 			this->setPlainText(notations);
 		}
+		// else
+		// {
+		// 	// @todo Warning|Information not working
+		// 	this->setPlainText("# File was too large to open!");
+		// }
 
 		return loadable;
 	}
@@ -71,17 +79,25 @@ namespace lmms::gui
 	{
 		if (event->button() == Qt::LeftButton)
 		{
-			QString filename = QFileDialog::getOpenFileName(
-				this,                                   // Parent widget
-				QObject::tr("Select a melody notations file"),          // Dialog caption
-				"~/Desktop",                            // Initial directory
-				QString("Notations File (*.%1);;").arg(this->u->MELODY_EXTENSION) // File filters: double semi-colons
-			);
-
-			if (!filename.isEmpty())
+			// QString filename = QFileDialog::getOpenFileName(
+			// 	this,                                   // Parent widget
+			// 	QObject::tr("Select a melody notations file"),          // Dialog caption
+			// 	"~/Desktop",                            // Initial directory
+			// 	QString("Notations File (*.%1);;").arg(this->u->MELODY_EXTENSION), // File filters: double semi-colons
+			// 	// 0
+			// );
+			FileDialog ofd( this, "Open melody notations", "", "Melodies (*.txt)");
+			//ofd.setDirectory(ConfigManager::inst()->userProjectsDir()); // @todo Remember last selected directory
+			ofd.setFileMode(FileDialog::ExistingFiles);
+			if( ofd.exec () == QDialog::Accepted && !ofd.selectedFiles().isEmpty() )
 			{
-				this->loadNotationsFile(filename);
+				this->loadNotationsFile(ofd.selectedFiles()[0]);
 			}
+
+			// if (!filename.isEmpty())
+			// {
+			// 	this->loadNotationsFile(filename);
+			// }
 		}
 	}
 

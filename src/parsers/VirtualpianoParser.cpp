@@ -105,13 +105,6 @@ namespace lmms::gui::editor::pianoroll::parsing
 	* 
 	* @todo Pick one virtual piano keyboard.
 	* eg.: LMMS internal virual keyboard?
-	* eg.: https://freepiano.tiwb.com/en/ | https://freepiano.tiwb.com/en/docs/keymap/
-	* eg.: https://www.musicca.com/piano
-	* eg.: https://virtualpiano.net/ | https://virtualpiano.net/how-to-play/
-	* eg.: https://vmpk.sourceforge.io/
-	* eg.: https://pianoletternotes.blogspot.com/
-	* eg.: https://musiclab.chromeexperiments.com/ - shared piano, song maker, ...
-	* 
 	* 
 	* eg. From pianoletternotes:
 	* The numbers in front of each line are the octave, each octave has an unique color so you can easily follow them.
@@ -185,6 +178,7 @@ namespace lmms::gui::editor::pianoroll::parsing
             }
             else
             {
+                // replace keyboard mappings
                 for(int i=0; i<this->vkr.size(); ++i)
                 {
                     if(this->vkr.at(i)->find == column)

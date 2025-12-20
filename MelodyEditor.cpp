@@ -4,6 +4,9 @@
  * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
+#include <QWidget>
+
+#include "MelodyEditorView.h"
 #include "MelodyEditor.h"
 
 #include "AudioEngine.h"
@@ -12,7 +15,8 @@
 #include "embed.h"
 #include "plugin_export.h"
 
-using lmms::gui::PluginView;
+//using lmms::gui::PluginView;
+using lmms::gui::MelodyEditorView;
 
 namespace lmms
 {
@@ -28,13 +32,13 @@ extern "C"
 		0x0100,
 		Plugin::Type::Tool,
 		new PluginPixmapLoader("logo"),
-		nullptr,
+		"txt", // nullptr,
 		nullptr,
 	};
 
 	PLUGIN_EXPORT Plugin* lmms_plugin_main(Model*, void*)
 	{
-		return new MelodyEditor;
+		return new MelodyEditor();
 	}
 
 } // extern "C"

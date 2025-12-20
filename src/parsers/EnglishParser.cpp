@@ -52,7 +52,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         if(text.length()<=0) return {};
 
-        QString un = this->replace(text).toUpper();
+        QString un = this->replace(text).toUpper(); // English notes should be capitalized
         un.replace("-1", "....."); // @todo: Possibly does not support | requires testing
         un.replace("0", "....");
         un.replace("1", "...");
@@ -65,8 +65,8 @@ namespace lmms::gui::editor::pianoroll::parsing
         un.replace("8", "****");
         un.replace("9", "*****");
 
-        int position = 0;
         int errors = 0;
+        int position = 0;
         QList<NotationCell *> cells = {};
         QStringList blocks = un.split("#//");
         for (const QString& block : blocks)

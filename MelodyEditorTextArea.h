@@ -7,8 +7,6 @@
 #ifndef LMMS_GUI_MELODY_EDITOR_TEXTAREA_H
 #define LMMS_GUI_MELODY_EDITOR_TEXTAREA_H
 
-#include "src/includes/Utilities.h"
-
 #include <QPlainTextEdit>
 #include <QMessageBox>
 #include <QMouseEvent>
@@ -18,6 +16,8 @@
 #include <QDropEvent>
 #include <QObject>
 #include <QFileSystemWatcher>
+
+#include "src/includes/Utilities.h"
 
 using lmms::gui::editor::pianoroll::parsing::Utilities;
 

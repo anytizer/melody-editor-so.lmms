@@ -21,9 +21,6 @@ namespace lmms::gui::editor::pianoroll::parsing
         this->_identifier = "nashville";
     };
 
-    // https://www.grossepointemusicacademy.com/nashville-number-system/
-    // eg. 1-4-5-4 progression in the key of C => chords C, F, G, and F.
-    // Same progression in the key of A => A, D, E, and D.
     QList<NotationCell *> NashvilleParser::parse(QString text)
     {
         if(text.length()<=0) return {};

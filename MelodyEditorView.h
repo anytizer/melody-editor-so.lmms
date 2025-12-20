@@ -9,15 +9,18 @@
 
 #include "ToolPluginView.h"
 
+#include "MelodyEditor.h"
 #include "MelodyEditorTextArea.h"
 #include "src/parsers/ParsersFactory.h"
-
-using lmms::gui::editor::pianoroll::parsing::ParsersFactory;
+#include "src/includes/Utilities.h"
 
 namespace lmms
 {
 class MelodyEditor;
 }
+
+using lmms::gui::editor::pianoroll::parsing::Utilities;
+using lmms::gui::editor::pianoroll::parsing::ParsersFactory;
 
 namespace lmms::gui
 {
@@ -54,3 +57,4 @@ class MelodyEditorView : public ToolPluginView
 } // namespace lmms::gui
 
 #endif // LMMS_GUI_MELODY_EDITOR_VIEW_H
+

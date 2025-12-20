@@ -10,23 +10,23 @@
 #include "MelodyEditorView.h"
 #include "ToolPlugin.h"
 
+using lmms::ToolPlugin;
 using lmms::gui::PluginView;
-using lmms::gui::MelodyEditorView;
 
 namespace lmms
 {
 
-class MelodyEditor : public ToolPlugin
-{
-public:
-	MelodyEditor();
+	class MelodyEditor : public ToolPlugin
+	{
+		public:
+			MelodyEditor();
 
-	QString nodeName() const override;
-	void saveSettings(QDomDocument&, QDomElement&) override {}
-	void loadSettings(const QDomElement&) override {}
+			QString nodeName() const override;
+			void saveSettings(QDomDocument&, QDomElement&) override {}
+			void loadSettings(const QDomElement&) override {}
 
-	PluginView* instantiateView(QWidget*) override;
-};
+			PluginView* instantiateView(QWidget*) override;
+	};
 
 } // namespace lmms
 
