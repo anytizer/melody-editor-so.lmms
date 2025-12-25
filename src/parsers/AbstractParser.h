@@ -4,8 +4,8 @@
  * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
-#ifndef LMMS_PLUGIN_MELODYEDITOR_ABSTRACTPARSER_H
-#define LMMS_PLUGIN_MELODYEDITOR_ABSTRACTPARSER_H
+#ifndef LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
+#define LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
 
 #include "../includes/DataStructures.h"
 
@@ -17,8 +17,7 @@ namespace lmms::gui::editor::pianoroll::parsing
 
 /**
  * Info: This is NOT an abstract class!
- * 
- * The parser is abstract. However, the objects should not be created directly.
+ * However, the objects should not be created directly.
  */
 class AbstractParser
 {
@@ -72,4 +71,4 @@ class AbstractParser
 
 }
 
-#endif // LMMS_PLUGIN_MELODYEDITOR_ABSTRACTPARSER_H
+#endif // LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H

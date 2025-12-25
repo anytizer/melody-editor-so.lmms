@@ -25,33 +25,33 @@ using lmms::gui::editor::pianoroll::parsing::ParsersFactory;
 namespace lmms::gui
 {
 
-class MelodyEditorView : public ToolPluginView
-{
-	private:
-		Q_OBJECT
+	class MelodyEditorView : public ToolPluginView
+	{
+		private:
+			Q_OBJECT
 
-		MelodyEditor* m_plugin;
+			MelodyEditor* m_plugin;
 
-		/**
-		 * Defaults to first registered parser into the factory.
-		 * Despite of -1 as placeholder.
-		 * Often, might register to MissingParser
-		 */
-		int parser_id = 0;
-		
-		Utilities* u = new Utilities();
+			/**
+			 * Defaults to first registered parser into the factory.
+			 * Despite of -1 as placeholder.
+			 * Often, might register to MissingParser
+			 */
+			int parser_id = 0;
+			
+			Utilities* u = new Utilities();
 
-	public:
-		MelodyEditorView(MelodyEditor* plugin);
-		void updateMidiClip();
-		
-		MelodyEditorTextArea *pte = new MelodyEditorTextArea();
-		const ParsersFactory *pf = new ParsersFactory();
-	
-		void openNotationsFileSelector();
+		public:
+			MelodyEditorView(MelodyEditor* plugin);
+			void updateMidiClip();
+			
+			MelodyEditorTextArea *pte = new MelodyEditorTextArea();
+			const ParsersFactory *pf = new ParsersFactory();
 
-	protected:
-		void closeEvent(QCloseEvent*) override;
+			void openNotationsFileSelector();
+
+		protected:
+			void closeEvent(QCloseEvent*) override;
 	};
 
 } // namespace lmms::gui

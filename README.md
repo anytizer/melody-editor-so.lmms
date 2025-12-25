@@ -1,4 +1,4 @@
-# melody-editor.lmms
+# melody-editor.lmms | melody-editor-so.lmms
 
 ```
 Creates a plugin: libmelodyeditor.so - under LMMS/Qt6.
@@ -33,7 +33,8 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 
  Thats it!
 
-# Next Step
+## Next Steps
+
  - Learn about how to write notations [here](https://github.com/anytizer/melody-editor.lmms) for this plugin.
  - Also in LMMS Discussion page [here](https://github.com/LMMS/lmms/discussions/7950).
 
@@ -73,65 +74,16 @@ Or, copy the plugin's source code (aka MelodyEditor) into __lmms/plugins__ folde
 It will create `libmelodyeditor.so` file into the plugin repository. There may be .dll in case of Windows.
 This plugin is now accessible from the Tools Menu; ready to process your melody notations.
 
-# Change History / Monthly
-
-## 2025-12
- - Replacements dataset centralized in AbstractParser.
- - Progress log on monthly basis.
- - Better variable names.
- - Enhance documentation, and links.
- - Screenhot added [here](src/assets/screenshot.png).
- - Icons for identification of the notation system.
- - Clearly point which files to modify to compile it as an LMMS Plugin.
- - A notification is added to open a Piano-Roll first; when __Update MIDI Clip__ applied to an empty target.
- - Changed binary name to more specific name libmelodyeditor.so from libmelody.so
- - Setting stay-on-top window flag by default.
- - Smoother text zoom; factor realculations
- - Applied scroll bar with text zoom.
- - Removed unnecessary UI elements that were originally intended to write to external files.
- - A lot of source code commented, in order to remove them in future.
-
-## 2025-09
-
- - Using custom text editor for zooming text with mouse wheel and ctrl key
- - Open a notation file with double click on the editor
- - comment a line ctrl+slash
- - ctrl+enter to update the midi clip instantly
- - Plugin compiled back in Qt 5 as well. However, Qt6 preferred.
- - Updated the documentations.
-
-## 2025-07
-
- - Disabled incomplete parsers. Rework and Help required.
- - Decopupling MelodyEditor and MelodyEditorView. Remove friend functions.
- - Implemented QFileSystemWatcher when an external file was dropped in.
- - Support drag/drop of external notation file in .txt format
- - Added the list of keys allowed in specific system.
- - Some sample notations added for testing purpose.
- - Example for testing English notes added.
-
-## 2025-06
-
- - Early version of Carnatic parser added.
- - Individualized parsers on their own files.
- - Project started as a decopupled code from previous efforts.
- - `class` to `struct` for Cell, and FindAndReplace
- - Improve and fix typos in comments.
- - Bring .h file contents together on top of the code.
- - Bit length controller in pixels - comments changed for Cell.
- - fr changed to replaces.
- - Removed some completed todos.
-
 # Documentation
 
 You need to format your notations into human readable form with the following considerations.
 
 Features              | Western notes Parser           | SARGAM notes Parser          | Virtual Keyboard Parser
 ----------------------|--------------------------------|------------------------------|-------------------------
-Natural notes allowed | `C D E F G A B C# D# F# G# A#` | `S R G m P D N r g M d n`    | Alpha-Numerals (QWERTY) keyboard
+Natural notes         | `C D E F G A B C# D# F# G# A#` | `S R G m P D N r g M d n`    | Alpha-Numerals (QWERTY) keyboard
 Higher octaves marker | Append octave number eg. `C5 D6` | Append an asterisk `*` eg. `S*, R**` | ??
 Lower octaves marker  | Append octave number eg. `C3 D2` | Append a dot `.` eg. `S., R..` | ??
-Chord Making          | Brace notes within `[` and `]` | Brace notes within `[` and `]` | Brace notes within `[` and `]`
+Chord Making `*`      | Brace notes within `[` and `]` | Brace notes within `[` and `]` | Brace notes within `[` and `]`
 Longer chord lengths  | Add a dash `-` BEFORE `]`.     | Add a dash `-` before `]`.     | Add a dash `-` before `]`.
 Time shared / split notes | Comma eg. `C#,D#`          | Comma eg. `r,g`                | ??
 Silence / Pause marker| Use `x` wherever needed.       | Use `x` wherever needed.       | `SPACE` character
@@ -144,7 +96,9 @@ Example 2 - long note | `G3 A3 E4 D4 - G4,A4 B4 D5 C5 - - -` | `P. D. G R - P,D 
 Example 3 - silence / pause | `C x D x E x G -`  | `S x R x G x P -` | ??
 Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | [here](https://github.com/LMMS/lmms/discussions/7950) | [here](https://github.com/LMMS/lmms/discussions/7950)
 
-# Other notes and Trouble-Shooting
+`*`: Feature is in test mode
+
+# Trouble-Shooting
 
 * Chords must have been terminated with corresponding `]`.
 * __Error Count__: Number of notes that were NOT converted for use in LMMS is returned. __Remedies__:
@@ -210,7 +164,7 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 For this notation set, pick "ENGLISH".
 
 
-## Example 4: English, with Octave Numbers
+## Example 5: Numbered
 
 ```
 # Happy Birthday to You
@@ -271,7 +225,7 @@ Note: This table (Additional Notes) is a horizontal expansion of the table from 
 - `*`: Higher octave marker. eg. `A#**` - the asterisk
 - `,`: Beat's time sharing separated with a comma eg. `A#,B`
 - `NUMERALS`: 0 - 9, for the Octave Number representation
-- `|`: Optional meassures separator (bhibhag or divisions)
+- `|`: Optional meassures separator (bibhag or divisions)
 
 Some special keys are also allowed, in order to be maximum user friendly typed notaions.
 Example: `/` for `|`. `~` for `-`. Please study the source code variables for find and replace.

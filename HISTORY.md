@@ -1,0 +1,48 @@
+# Significant Changes (Monthly)
+
+## 2025-12
+ - Replacements dataset centralized in AbstractParser.
+ - Progress log on monthly basis.
+ - Better variable names.
+ - Enhance documentation, and links.
+ - Screenhot added [here](src/assets/screenshot.png).
+ - Icons for identification of the notation system.
+ - Clearly point which files to modify to compile it as an LMMS Plugin.
+ - A notification is added to open a Piano-Roll first; when __Update MIDI Clip__ applied to an empty target.
+ - Changed binary name to more specific name libmelodyeditor.so from libmelody.so
+ - Setting stay-on-top window flag by default.
+ - Smoother text zoom; factor realculations
+ - Applied scroll bar with text zoom.
+ - Removed unnecessary UI elements that were originally intended to write to external files.
+ - A lot of source code commented, in order to remove them in future.
+
+## 2025-09
+
+ - Using custom text editor for zooming text with mouse wheel and ctrl key
+ - Open a notation file with double click on the editor
+ - comment a line ctrl+slash
+ - ctrl+enter to update the midi clip instantly
+ - Plugin compiled back in Qt 5 as well. However, Qt6 preferred.
+ - Updated the documentations.
+
+## 2025-07
+
+ - Disabled incomplete parsers. Rework and Help required.
+ - Decopupling MelodyEditor and MelodyEditorView. Remove friend functions.
+ - Implemented QFileSystemWatcher when an external file was dropped in.
+ - Support drag/drop of external notation file in .txt format
+ - Added the list of keys allowed in specific system.
+ - Some sample notations added for testing purpose.
+ - Example for testing English notes added.
+
+## 2025-06
+
+ - Early version of Carnatic parser added.
+ - Individualized parsers on their own files.
+ - Project started as a decopupled code from previous efforts.
+ - `class` to `struct` for Cell, and FindAndReplace
+ - Improve and fix typos in comments.
+ - Bring .h file contents together on top of the code.
+ - Bit length controller in pixels - comments changed for Cell.
+ - fr changed to replaces.
+ - Removed some completed todos.

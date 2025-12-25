@@ -4,8 +4,8 @@
  * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
-#ifndef LMMS_PLUGIN_MELODYEDITOR_PARSERFACTORY_H
-#define LMMS_PLUGIN_MELODYEDITOR_PARSERFACTORY_H
+#ifndef LMMS_PLUGINS_MELODYEDITOR_PARSERFACTORY_H
+#define LMMS_PLUGINS_MELODYEDITOR_PARSERFACTORY_H
 
 #include "./AbstractParser.h"
 
@@ -28,4 +28,4 @@ namespace lmms::gui::editor::pianoroll::parsing
 
 }
 
-#endif // LMMS_PLUGIN_MELODYEDITOR_PARSERFACTORY_H
+#endif // LMMS_PLUGINS_MELODYEDITOR_PARSERFACTORY_H
