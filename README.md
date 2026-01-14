@@ -9,7 +9,7 @@ feeding SARGAM and English Notations. It is asscessible from `Tools > Melody Edi
 
 This plguin allows a user to type in or drop in song notations file into an editor area.
 These notations are then parsed to create a MIDI Clip Data within the Piano-Roll window.
-An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if working with .xpt file.
+An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.
 
 # Features
 

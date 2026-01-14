@@ -23,7 +23,6 @@ namespace lmms
 
 extern "C"
 {
-
 	Plugin::Descriptor PLUGIN_EXPORT melodyeditor_plugin_descriptor = {
 		LMMS_STRINGIFY(PLUGIN_NAME),
 		"Melody Editor",

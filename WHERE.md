@@ -3,6 +3,32 @@
 The materials may be copyrighted.
 Linked for references only.
 
+## ALDA Notation System
+- [alda.io](https://alda.io/)
+
+## ABC Notation System
+- [abc notation](https://abcnotation.com/)
+- https://abcnotation.com/wiki/abc:standard:v2.2
+- [Spend a lifetime browsing and following the links](https://abcmusicnotation.weebly.com/tunes.html).
+- https://trillian.mit.edu/~jc/cgi/abc/tunefind
+- [How to interpret abc music notation](http://www.lesession.co.uk/abc/abc_notation.htm)
+- https://www.folktunefinder.com/
+  * https://www.folktunefinder.com/tunes/85302
+- [An ABC Library of Morris Tunes](https://www.ucolick.org/~sla/morris/music/abclib.html)
+- https://themorrisring.org/tradition/bledington
+- [ABC Player and Editor 3.0](https://abc.rectanglered.com/)
+- [ABC notation converter](https://notabc.app/abc-converter/)
+- [What is ABC?](https://notabc.app/abc/what/)
+- [ABC Tools / Transcription Tools](https://michaeleskin.com/abctools/abctools.html)
+- [ABC js quick editor](https://editor.drawthedots.com/)
+- [Javascript library for inserting music in the browser](https://docs.abcjs.net)
+- https://www.youtube.com/playlist?list=PLfRXRZpfgshJU-1rDD91AP1SF13VHYqbh
+  * How to get started with abc notation
+  * How to understand abc notation
+  * How to become an EasyABC virtuoso ... tips & tricks
+  * How to host your tune collections in github
+  * ...
+
 ## English
 
 * eg.: https://www.letternoteplayer.com/

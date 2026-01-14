@@ -1,7 +1,14 @@
 # Significant Changes (Monthly)
 
+## 206-01
+
+ - Started to study ALDA and ABC notation systems
+
+
 ## 2025-12
+
  - (c) Year bump up.
+ - White logos.
  - Replacements dataset centralized in AbstractParser.
  - Progress log now on monthly basis.
  - Better variable names.

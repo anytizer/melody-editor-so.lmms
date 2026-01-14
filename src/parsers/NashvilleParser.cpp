@@ -25,6 +25,8 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         if(text.length()<=0) return {};
 
+        // @todo HELP WANTED to complete this parser.
+
         QList<NotationCell *> cells = {};
         // NotationCell *cell = new NotationCell();
         // cells.append(cell);

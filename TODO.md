@@ -1,22 +1,39 @@
 # ToDos for MelodyEditor
 
-- Obtain while icons for MeldoyEditor.
+- Try with `#pragma once` and remove current guard names.
+- Add ALDA Notation parser.
+- Add ABC Notation parser. Try to reuse codebase from abcjs.
+- Provide an example of copyrights free notation for all parsers registered.
+- Apply input/output filters for .abc, .txt, .lrc, .alda (while lrc is out of scope) in LMMS way.
+- Update drop zone accept these file types immediately. Replace openNotationsFileSelector().
+- Apply note lengths differences within chords and strums.
+- Utilities could be reused from LMMS (open a file, read its contents).
+- Continuous / live writing mode - Update MIDI as soon as a **valid** keypress is found.
+- Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.
 - Placeholder text effect is not experienced.
 - Notify the need of Qt6 requirements to the developers.
 - Once notations file is loaded, the scrollbar does not behave better, even when set to appear always.
 - Make parsers[0] icon as application icon. Remove other files.
 - Change namespace from: lmms::gui::editor::pianoroll::parsing to: lmms::plugins::melodyeditor
 - Normal wheel to control scrolling behaviour.
+- Apply F11 as widget's fullscreen to enter and exit.
+- Text mark as "incomplete" parsers like German and Numered to inform other developers.
+- Use tr() translate texts.
 
-Difficult/Overlapping notes:
+## Discuss
+
+- Reserve a namespace for this plugin, with the community polls.
+
+## Difficult/Overlapping notes:
 - Arpeggio
 - Chords
 - Strum
-- Arbitrarily overlapping notes
+- Arbitrarily overlapping notes based on individual timings: 1, 2, 4, 8, 16, 32, ...
 
 - ~~Support for multiple instruments with same set of notations~~
   - ~~Change notations in different scales or octaves~~ no need.
   - Response to base note change. (managed!)
+  - Remember octave change
 
 - ~~Use standard mono-spaced, larger font across all OS'es | Consolas?~~
 - ~~File system watcher for a dropped in file, if it is edited externally: it updates here, silently.~~
@@ -50,6 +67,7 @@ Difficult/Overlapping notes:
 
 ## Done
 
+- Obtain white icons for MeldoyEditor.
 - Apply `#define` guards to all .cpp and .h files.
 - Warn when a too big notation file is dropped, typed in or pasted.
 	- prevent LMMS to crash due to this.
@@ -62,4 +80,3 @@ Difficult/Overlapping notes:
 - ~~Warn the user if notation contains invalid notes.~~
 
 - Open source the repository when the tests are satisfactory.
-- Reserve the namespaces with the community polls.

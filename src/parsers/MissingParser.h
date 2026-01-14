@@ -13,7 +13,7 @@ namespace lmms::gui::editor::pianoroll::parsing
 {
 
     /**
-     * Purpose: To serve when parser not found.
+     * Purpose: To serve as a dummy parser where none of the real ones were registered.
      */
     class MissingParser: public AbstractParser
     {

@@ -122,7 +122,7 @@ namespace lmms::gui::editor::pianoroll::parsing
      * <lmms-project creator="LMMS" creatorplatform="linux" creatorplatformtype="ubuntu" creatorversion="1.3.0-alpha.1.916+f0cb32f" type="midiclip" version="31">
      * <head/>
      * <midiclip>
-     *   <note />
+     *   <note key='' len='' pan='' pos='' type='' vol='' name='' />
      * </midiclip>
      * </lmms-project>
      */
@@ -133,6 +133,7 @@ namespace lmms::gui::editor::pianoroll::parsing
 
         /**
          * Fake information to simulate to the latest LMMS version data
+         * aka, file format specs.
          */
         
         // must be: integer, @see DataFile.cpp#2175
@@ -147,10 +148,10 @@ namespace lmms::gui::editor::pianoroll::parsing
         // @todo Use block number as well
         // "Melody Clip: %1";
         QString block_name = "Melody Clip";// " #%1").arg();
-        block_name.replace("'", ""); // To not to break xml with quotes
+        block_name.replace("'", ""); // To not to break xml with quotes | if in case user defined.
         
-        // @todo Use color rotator for each block
-        QString color = "#7d039f"; // always prepend a # sign
+        // @todo Use a vibrant color rotator for each block id
+        QString color = "#b20ae0"; // always prepend a # sign
 
         QString xmlbody = "";
         int globallength = 0;
@@ -182,10 +183,10 @@ namespace lmms::gui::editor::pianoroll::parsing
 
         xml = xmlhead + xmlbody + xmlfoot;
         
-        // double quoted values; as the xml is built with single quotes for ease | above
+        // double quoted values; as the xml is/was built with single quotes for ease | above
         xml.replace("'", "\"");
 
-        // @todo save .xpt file optionally.
+        // @todo Optionally save / export an external .xpt file.
     }
 
 
@@ -323,7 +324,8 @@ namespace lmms::gui::editor::pianoroll::parsing
 			this->chords = {}; // for next round
 			position += length;
 		}
-		else if(this->getPianoKey(tone)!=-1)// @todo if tone_exists(tone)?
+		else if(this->getPianoKey(tone)!=-1)
+        // @todo if tone_exists(tone)?
 		// @todo eg. Filter E#, W#, ... kind of wrong notes.
 		// @todo Currently they simply occupy place but do not appear in C4.
 		// @todo Steps still counted.
