@@ -162,9 +162,9 @@ namespace lmms::gui::editor::pianoroll::parsing
     QList<NotationCell *> HindustaniParser::parse(QString text)
     {
         // version: SA RE GA MA
-        // version: Sa Re Ga Ma
+        // version: Sa Re Ga(k) Ma
         // version: स र ग म
-        // version: सा रे ग म
+        // version: सा रे ग म॑
         // version: s r g m
         // version: S r G m' ... (selected)
         if(text.length()<=0) return {};

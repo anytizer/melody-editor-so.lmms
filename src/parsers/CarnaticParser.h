@@ -18,6 +18,25 @@ using lmms::gui::editor::pianoroll::parsing::NotationCell;
 namespace lmms::gui::editor::pianoroll::parsing
 {
 
+    /**
+     * Important difference with SARGAM:
+     * Shadja/Sa 	S 	C
+     * Shuddha Rishabha/Ri 	R1 	C#/Db
+     * Chatusruthi Rishabha/Ri 	R2 	D
+     * Shatsruthi Rishabha/Ri 	R3 	D#/Eb
+     * Suddha Gaandhaara/Ga 	G1 	D
+     * Saadharana Gaandhaara/Ga 	G2 	D#/Eb
+     * Anthara Gaandhaara/Ga 	G3 	E
+     * Shuddha Madhyama/Ma 	M1 	F
+     * Prati Madhyama/Ma 	M2 	F#/Gb
+     * Panchama/Pa 	P 	G
+     * Suddha Dhaivata/Dha 	D1 	G#/Ab
+     * Chatsruthi Dhaivata/Dha 	D2 	A
+     * Shatsruthi Dhaivata/Dha 	D3 	A#/Bb
+     * Shuddha Nishadha/Ni 	N1 	A
+     * Kaisiki Nishadha/Ni 	N2 	A#/Bb
+     * Kaakali Nishadha/Ni 	N3 	B
+     */
     class CarnaticParser: public AbstractParser
     {
         private:

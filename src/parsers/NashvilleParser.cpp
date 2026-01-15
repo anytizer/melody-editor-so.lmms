@@ -17,7 +17,7 @@ namespace lmms::gui::editor::pianoroll::parsing
 {
     void NashvilleParser::setup()
     {
-        this->_name = "Numeric System";
+        this->_name = "Nashville Number System";
         this->_identifier = "nashville";
     };
 

@@ -21,14 +21,16 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
   - Fast, light weight, and small footprint.
   - 20kb limits applied on input size.
   - Does not obstruct live playing in the Piano Roll.
-- Multiple parsers (SARGAM, Carnatic, English, and some more in progress.)
+  - stable
+- Multiple parsers in progress (Carnatic, English, ABC, ALDA and some more).
 
 # Quick Manual
 
  - Open song editor.
  - Double click on it to open a piano roll window.
  - Go to: Tools > Melody Editor.
- - Fill in the notations (based on your notation systems).
+ - Fill in the notations
+ - Choose your proper parser.
  - Click on Update MIDI Clip.
 
  Thats it!
@@ -39,6 +41,8 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
  - Also in LMMS Discussion page [here](https://github.com/LMMS/lmms/discussions/7950).
 
 # Compile as a native plugin for LMMS
+
+<!--
 
 1. Prepare to patch your LMMS source codebase.
 
@@ -55,7 +59,11 @@ to:
 MidiClip* currentMidiClip() ()
 ```
 
-2. Then, import this plugin into LMMS's plugin repository.
+Method Step #1 is obsolete, if you use __const_cast__.
+
+-->
+
+1. Then, import this plugin into LMMS's plugin repository.
 
 ```
 cd lmms/plugins
@@ -68,9 +76,9 @@ ln -s <THIS-PROJECT's-ROOT-PATH> MelodyEditor
 
 Or, copy the plugin's source code (aka MelodyEditor) into __lmms/plugins__ folder.
 
-3. Enable `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
+2. Enable `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
 
-4. Then `make` or compile the copy of your LMMS.
+3. Then `make` or compile the copy of your LMMS.
 It will create `libmelodyeditor.so` file into the plugin repository. There may be .dll in case of Windows.
 This plugin is now accessible from the Tools Menu; ready to process your melody notations.
 
@@ -80,7 +88,8 @@ You need to format your notations into human readable form with the following co
 
 Features              | Western notes Parser           | SARGAM notes Parser          | Virtual Keyboard Parser
 ----------------------|--------------------------------|------------------------------|-------------------------
-Natural notes         | `C D E F G A B C# D# F# G# A#` | `S R G m P D N r g M d n`    | Alpha-Numerals (QWERTY) keyboard
+Natural notes         | `C D E F G A B` | `S R G P D N`, `m` | Alpha-Numerals (QWERTY) keyboard
+Shaprs/Flat notes     | `C# D# F# G# A#` | `r g d n`, `M`    | Alpha-Numerals (QWERTY) keyboard
 Higher octaves marker | Append octave number eg. `C5 D6` | Append an asterisk `*` eg. `S*, R**` | ??
 Lower octaves marker  | Append octave number eg. `C3 D2` | Append a dot `.` eg. `S., R..` | ??
 Chord Making `*`      | Brace notes within `[` and `]` | Brace notes within `[` and `]` | Brace notes within `[` and `]`
@@ -164,7 +173,7 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 For this notation set, pick "ENGLISH".
 
 
-## Example 5: Numbered
+## Example 5: Numbered (unfinished, listing only)
 
 ```
 # Happy Birthday to You
@@ -200,6 +209,8 @@ English        | C4 | C#4 | D4 | D#4 | E4 | F4 | F#4 | G4 | G#4| A4 | A#4 | B4
 German         | C  | C#  | D  | D#  | E  | F  | F#  | G  | G# | A  | A#  | H
 Numeric        |    |     |    |     |    |    |     |    |    |    |     |  
 Virtual Piano  |    |     |    |     |    |    |     |    |    |    |     |  
+ALDA           |    |     |    |     |    |    |     |    |    |    |     |  
+ABC Notation   |    |     |    |     |    |    |     |    |    |    |     |  
 
 `*`: Partial performance
 

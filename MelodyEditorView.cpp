@@ -24,13 +24,13 @@
 #include "src/includes/DataStructures.h"
 #include "src/includes/Utilities.h"
 #include "src/parsers/ParsersFactory.h"
-#include "src/parsers/MissingParser.h"
-#include "src/parsers/HindustaniParser.h"
-#include "src/parsers/CarnaticParser.h"
-#include "src/parsers/EnglishParser.h"
-#include "src/parsers/GermanParser.h"
-#include "src/parsers/NashvilleParser.h"
-#include "src/parsers/VirtualpianoParser.h"
+// #include "src/parsers/MissingParser.h"
+// #include "src/parsers/HindustaniParser.h"
+// #include "src/parsers/CarnaticParser.h"
+// #include "src/parsers/EnglishParser.h"
+// #include "src/parsers/GermanParser.h"
+// #include "src/parsers/NashvilleParser.h"
+// #include "src/parsers/VirtualpianoParser.h"
 
 #include "Engine.h"
 #include "Song.h"
@@ -41,8 +41,9 @@
 #include "Editor.h"
 
 //using lmms::MelodyEditor;
-using lmms::gui::editor::pianoroll::parsing::Utilities;
 using lmms::gui::editor::pianoroll::parsing::AbstractParser;
+using lmms::gui::editor::pianoroll::parsing::NotationCell;
+using lmms::gui::editor::pianoroll::parsing::Utilities;
 using lmms::gui::PianoRollWindow;
 using lmms::MidiClip;
 
@@ -70,8 +71,8 @@ namespace lmms::gui
 		QComboBox *parsers_combobox = new QComboBox(this); // text | data
 		parsers_combobox->setEditable(false);
 		parsers_combobox->setMinimumHeight(ui_height);
-		parsers_combobox->setPlaceholderText("Select Notation System");
 		parsers_combobox->setCurrentIndex(-1);
+		parsers_combobox->setPlaceholderText("Select a Notation System Parser");
 		for(int i=0; i<pf->parsers.count(); ++i)
 		{
 			parsers_combobox->setIconSize(QSize(24, 24));
@@ -98,6 +99,12 @@ namespace lmms::gui
 		QObject::connect(parsers_combobox, QOverload<int>::of(&QComboBox::currentIndexChanged),
 		[this, parsers_combobox](int index) {
 			this->parser_id = index;
+			
+			if (index == 0) // "none" parser|icon
+			{
+				// Revert to no selection
+				parsers_combobox->setCurrentIndex(-1);
+			}			
 		});
 
 		QPushButton *button = new QPushButton("Update MIDI Clip");
@@ -173,7 +180,7 @@ namespace lmms::gui
 					// This casues a minimal change to patch original LMMS Codes.
 					GuiApplication *application = getGUI();
 					PianoRollWindow *m_pianoRoll = application->pianoRoll();
-					MidiClip *m_midiClip = m_pianoRoll->currentMidiClip();
+					MidiClip *m_midiClip = const_cast<MidiClip*>(m_pianoRoll->currentMidiClip());
 					if(m_midiClip!=nullptr)
 					{
 						TimePos pos = m_midiClip->startPosition();

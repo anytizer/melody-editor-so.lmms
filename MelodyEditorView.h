@@ -16,7 +16,7 @@
 
 namespace lmms
 {
-class MelodyEditor;
+	class MelodyEditor;
 }
 
 using lmms::gui::editor::pianoroll::parsing::Utilities;

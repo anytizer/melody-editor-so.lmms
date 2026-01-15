@@ -9,12 +9,15 @@
 
 #include "ParsersFactory.h"
 
+#include "ABCParser.h"
+#include "ALDAParser.h"
 #include "CarnaticParser.h"
 #include "EnglishParser.h"
 #include "GermanParser.h"
 #include "HindustaniParser.h"
 #include "MissingParser.h"
 #include "NashvilleParser.h"
+#include "NoneParser.h"
 #include "VirtualpianoParser.h"
 
 namespace lmms::gui::editor::pianoroll::parsing
@@ -24,7 +27,28 @@ namespace lmms::gui::editor::pianoroll::parsing
         // If parser is not completed: Do not expose it.
         // Parsers will appear in the same order as registered.
         this->parsers = {};
-        
+
+        /**
+         * DO NOT change the order for this parser.
+         * NONE-Parser should be on TOP, the 0-th position.
+         */
+        this->parsers.append(new NoneParser());
+
+        /**
+         * ABC Notation parser
+         * 
+         * @see https://abcnotation.com/
+         */
+        this->parsers.append(new ABCParser());
+
+        /**
+         * ALDA parser
+         * 
+         * @see https://alda.io/
+         * @see https://alda.io/cheat-sheet/
+         */
+        this->parsers.append(new ALDAParser());
+
         /**
          * SARGAM Parser in Romanized letters.
          * SARGAM Parser in Devangari scripts.
@@ -32,10 +56,12 @@ namespace lmms::gui::editor::pianoroll::parsing
         this->parsers.append(new HindustaniParser());
         
         /**
-         * Partially similar to regular SARGAMs
+         * Mostly similar to regular SARGAMs
          * @todo incomplete | partially functioning
+         * @see https://www.melakarta.com/education.html
+         * @see https://www.shivkumar.org/music/
          */
-        //this->parsers.append(new CarnaticParser());
+        this->parsers.append(new CarnaticParser());
         
         /**
          * English keyboard based
@@ -44,18 +70,23 @@ namespace lmms::gui::editor::pianoroll::parsing
 
         /**
          * German notes
+         * Also see:
+         * @see https://en.wikipedia.org/wiki/Helmholtz_pitch_notation
          */
-        //this->parsers.append(new GermanParser());
+        this->parsers.append(new GermanParser());
 
         /**
-         * Numbered system
+         * Nashville Number system
+         * 
+         * @see https://www.grossepointemusicacademy.com/nashville-number-system/
+         * @see https://loopcommunity.com/blog/2021/09/the-nashville-number-system/
          */
-        //this->parsers.append(new NashvilleParser());
+        this->parsers.append(new NashvilleParser());
 
         /**
          * Various virtual piano - using QWERTY keyboard data entry
          */
-        //this->parsers.append(new VirtualpianoParser());
+        this->parsers.append(new VirtualpianoParser());
         
         // @todo Keyboard settings differences!!
         // LMMS Mac Build keyboard layout

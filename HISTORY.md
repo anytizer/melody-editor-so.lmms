@@ -1,9 +1,11 @@
 # Significant Changes (Monthly)
 
-## 206-01
+## 2026-01
 
- - Started to study ALDA and ABC notation systems
-
+ - Placeholder icons added
+ - Activated a most of the parsers with empty functionalities.
+ - Started to study [ALDA](https://alda.io/) and [ABC notation](https://abcnotation.com/) systems
+ - Reviewing [ABC](https://abc.sourceforge.net/)
 
 ## 2025-12
 

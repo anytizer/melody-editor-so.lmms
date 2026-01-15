@@ -1,24 +1,25 @@
 # ToDos for MelodyEditor
 
-- Try with `#pragma once` and remove current guard names.
 - Add ALDA Notation parser.
-- Add ABC Notation parser. Try to reuse codebase from abcjs.
+- Add ABC Notation parser. Try to reuse codebase from abcjs parser.
 - Provide an example of copyrights free notation for all parsers registered.
-- Apply input/output filters for .abc, .txt, .lrc, .alda (while lrc is out of scope) in LMMS way.
+- Apply input/output filters for .abc, .txt, .lrc, .alda (while .lrc is out of scope) in LMMS way.
 - Update drop zone accept these file types immediately. Replace openNotationsFileSelector().
 - Apply note lengths differences within chords and strums.
+- Try with `#pragma once` and remove current long guard names.
 - Utilities could be reused from LMMS (open a file, read its contents).
 - Continuous / live writing mode - Update MIDI as soon as a **valid** keypress is found.
-- Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.
-- Placeholder text effect is not experienced.
+- ~~Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.~~ using __const_cast__.
+- ~~Placeholder text effect is not experienced.~~
 - Notify the need of Qt6 requirements to the developers.
 - Once notations file is loaded, the scrollbar does not behave better, even when set to appear always.
-- Make parsers[0] icon as application icon. Remove other files.
 - Change namespace from: lmms::gui::editor::pianoroll::parsing to: lmms::plugins::melodyeditor
-- Normal wheel to control scrolling behaviour.
+- Wheel movement to control scrolling plus text zoom behaviour.
 - Apply F11 as widget's fullscreen to enter and exit.
 - Text mark as "incomplete" parsers like German and Numered to inform other developers.
 - Use tr() translate texts.
+- Replace all icons with proper identificatons, eg. ns-abc.
+- Control completed status and appearance of parser with is_completed flag. This allows registering all available parsers.
 
 ## Discuss
 
@@ -78,5 +79,5 @@
 - ~~MIDI full length is lesser than needed, shadowing some notes at the end.~~
 - ~~When midi clip window is closed, it does not connect to a new window opened again.~~
 - ~~Warn the user if notation contains invalid notes.~~
-
+- ~~Make parsers[0] icon as application icon. Remove other files.~~
 - Open source the repository when the tests are satisfactory.
