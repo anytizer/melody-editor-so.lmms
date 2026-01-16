@@ -21,6 +21,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "SARGAM / Carnatic";
         this->_identifier = "carnatic";
+        this->_completed = false;
 
         this->replacements.append(new FindAndReplace());
 

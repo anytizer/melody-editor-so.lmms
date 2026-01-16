@@ -19,10 +19,9 @@ namespace lmms::gui::editor::pianoroll::parsing
              * The plguin name when compiled.
              * @see CMakeLists.txt | MUST match, as internal identifier.
              */
-            const QString identifier = "melodyeditor";
+            const QString identifier = "melodyeditor"; // DO NOT CHANGE!
             const QString DEFAULT_ICON = "english"; // failsafe default icon: hindustani | english
             
-
             Utilities();
             ~Utilities();
 
@@ -42,6 +41,9 @@ namespace lmms::gui::editor::pianoroll::parsing
 
             /**
              * File name extension for dropping one.
+             * 
+             * Proposals:
+             * .lrc, .txt, .melody
              */
             const QString MELODY_EXTENSION = "txt";
 
@@ -50,7 +52,7 @@ namespace lmms::gui::editor::pianoroll::parsing
              */
             const int MIN_FONTSIZE = 10; // min: readable font size: 10
             const int MAX_FONTSIZE = 28; // max 36
-            const int ZOOM_FACTOR = 90; // 80 to 120 | 120 default
+            const int ZOOM_FACTOR = 90; // 80 to 120 | 120 default | font size zoom factor
     };
 }
 

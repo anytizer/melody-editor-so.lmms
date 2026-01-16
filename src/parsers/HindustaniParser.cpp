@@ -20,6 +20,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "SARGAM / Hindustani";
         this->_identifier = "hindustani";
+        this->_completed = true;
 
         // Replace characters not used in SARGAM
         this->replacements.append(new FindAndReplace("a", ""));

@@ -18,16 +18,19 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Missing Parser";
         this->_identifier = "missing";
+        this->_completed = false;
     };
 
     QList<NotationCell *> MissingParser::parse(QString text)
     {
-        if(text.length()<=0) return {};
+        return {};
 
-        QList<NotationCell *> cells = {};
-        NotationCell *cell = new NotationCell();
-        cells.append(cell);
-        return cells;
+        // if(text.length()<=0) return {};
+
+        // QList<NotationCell *> cells = {};
+        // NotationCell *cell = new NotationCell();
+        // cells.append(cell);
+        // return cells;
     }
 }
 

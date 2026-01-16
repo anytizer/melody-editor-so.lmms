@@ -9,7 +9,7 @@
 - Try with `#pragma once` and remove current long guard names.
 - Utilities could be reused from LMMS (open a file, read its contents).
 - Continuous / live writing mode - Update MIDI as soon as a **valid** keypress is found.
-- ~~Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.~~ using __const_cast__.
+- ~~Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.~~
 - ~~Placeholder text effect is not experienced.~~
 - Notify the need of Qt6 requirements to the developers.
 - Once notations file is loaded, the scrollbar does not behave better, even when set to appear always.

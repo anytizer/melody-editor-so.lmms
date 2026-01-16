@@ -62,11 +62,11 @@ namespace lmms::gui
 		// @todo: Make it of height as initial Piano Roll
 		// INITIAL_PIANO_ROLL_HEIGHT
 
-		int ui_height = 32; // height for combo box and button
+		const int ui_height = 32; // height for combo box and button
 
 		// %1 = melodyeditor, %2 = sargam|etc.
 		// @see icons.qrc, CMakeLists.txt
-		QString icon_at = ":/artwork/%1/ns-%2.svg";
+		const QString icon_at = ":/artwork/%1/ns-%2.svg";
 
 		QComboBox *parsers_combobox = new QComboBox(this); // text | data
 		parsers_combobox->setEditable(false);
@@ -75,6 +75,8 @@ namespace lmms::gui
 		parsers_combobox->setPlaceholderText("Select a Notation System Parser");
 		for(int i=0; i<pf->parsers.count(); ++i)
 		{
+			if(!pf->parsers[i]->completed()) continue;
+
 			parsers_combobox->setIconSize(QSize(24, 24));
 			
 			// @todo %2.svg => IDE understands as format specifier for "%2.s"
@@ -87,6 +89,7 @@ namespace lmms::gui
 			if (!fileInfo.exists() || !fileInfo.isFile())
 			{
 				// copy icon from first parser, hindustani?
+				// 0-th icon
 				icon = QString(icon_at).arg(u->identifier).arg(pf->parsers[0]->identifier());
 				
 				// even here, if file not found, debug!

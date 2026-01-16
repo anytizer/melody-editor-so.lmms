@@ -21,6 +21,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Western / English";
         this->_identifier = "english";
+        this->_completed = true;
     };
 
     /**

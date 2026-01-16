@@ -1,4 +1,4 @@
-# melody-editor.lmms | melody-editor-so.lmms
+# melody-editor-so.lmms
 
 ```
 Creates a plugin: libmelodyeditor.so - under LMMS/Qt6.
@@ -16,7 +16,8 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 - Ctrl+Wheel to zoom in/out notations font size.
 - Double click on text area to choose a notation file.
 - Drag and Drop of a notation file into the melody editor area.
-- Extremely powerful parser for SARGAM notations in Romanized forms; and Devangari scripts.
+- Extremely powerful parsers
+  - English and SARGAM notations
   - A little memory usage while operating.
   - Fast, light weight, and small footprint.
   - 20kb limits applied on input size.
@@ -42,45 +43,22 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 
 # Compile as a native plugin for LMMS
 
-<!--
-
-1. Prepare to patch your LMMS source codebase.
-
-(PianoRoll.cpp, PianoRoll.h)'s currentMidiClip() is a 'const'.
-- Remove the class's `const` marker(s). Change from:
-
-```
-const MidiClip* currentMidiClip() const
-```
-
-to:
-
-```
-MidiClip* currentMidiClip() ()
-```
-
-Method Step #1 is obsolete, if you use __const_cast__.
-
--->
-
-1. Then, import this plugin into LMMS's plugin repository.
+1. Import this plugin into LMMS's plugin repository.
 
 ```
 cd lmms/plugins
-ln -s <THIS-PROJECT's-ROOT-PATH> MelodyEditor
-
-# eg.
-# cd lmms/plugins
-# ln -s /media/USER/DISK/path/to/[MelodyEditor] MelodyEditor
+ln -s /media/USER/DISK/path/to/[melody-editor-so.lmms] MelodyEditor
 ```
 
 Or, copy the plugin's source code (aka MelodyEditor) into __lmms/plugins__ folder.
 
-2. Enable `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
+2. Enable/Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
 
 3. Then `make` or compile the copy of your LMMS.
 It will create `libmelodyeditor.so` file into the plugin repository. There may be .dll in case of Windows.
 This plugin is now accessible from the Tools Menu; ready to process your melody notations.
+
+4. A boolean flag `_completed` or `completed()` controls the display of specific parser.
 
 # Documentation
 
@@ -124,11 +102,11 @@ Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | 
 * Hit "Update MIDI Clip".
 * Now, play the song ;-)
 
-## Courtesy / Resemblance:
+## Example: Happy Birthday song
 
-- __Happy Birthday__ song / AI search results and human edits.
+- Courtesy: AI search results and human edits.
 
-## Example 1: SARGAM in Romanized Letters
+### Example 1: SARGAM in Romanized Letters
 
 ```
 x r,r g  - r M - m -
@@ -139,7 +117,7 @@ x N,N n  - M d - M -
 
 For this notation set, pick "SARGAM".
 
-## Example 2: SARGAM in Devaganari Scripts
+### Example 2: SARGAM in Devaganari Scripts
 
 ```
 x रे॒,रे॒   ग॒   -  रे॒  मे  -  म -
@@ -150,7 +128,7 @@ x नि,नि  नि॒  -  मे  नि॒  -  मे -
 
 For this notation set, pick "SARGAM".
 
-## Example 3: English, with Symbols
+### Example 3: English, with Symbols
 
 ```
 x C#,C# D#  - C# F# - F  -
@@ -161,7 +139,7 @@ x B,B   A#  - F# G# - F# -
 
 For this notation set, pick "ENGLISH".
 
-## Example 4: English, with Octave Numbers
+### Example 4: English, with Octave Numbers
 
 ```
 x C#4,C#4 D#4 - C#4 F#4 - F4  - 
@@ -172,8 +150,7 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 
 For this notation set, pick "ENGLISH".
 
-
-## Example 5: Numbered (unfinished, listing only)
+### Example 5: Numbered (unfinished, listing only)
 
 ```
 # Happy Birthday to You
@@ -243,5 +220,6 @@ Example: `/` for `|`. `~` for `-`. Please study the source code variables for fi
 
 # ToDOs and History
 
-Please see [ToDOs](TODO.md) file. Also, a help is needed.
-Please see [History](HISTORY.md) file for change logs.
+- Need to support multiple instruments at once?
+- Please see [ToDOs](TODO.md) file. Also, a help is needed.
+- Please see [History](HISTORY.md) file for change logs.

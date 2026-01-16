@@ -18,6 +18,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "ABC Notation Parser";
         this->_identifier = "abc";
+        this->_completed = true;
     };
 
     QList<NotationCell *> ABCParser::parse(QString text)
@@ -25,6 +26,7 @@ namespace lmms::gui::editor::pianoroll::parsing
         if(text.length()<=0) return {};
 
         // @todo HELP WANTED to complete this parser.
+        // @see https://abcnotation.com/wiki/abc:standard:v2.2
 
         QList<NotationCell *> cells = {};
         NotationCell *cell = new NotationCell();

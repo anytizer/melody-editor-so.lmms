@@ -6,6 +6,7 @@
  - Activated a most of the parsers with empty functionalities.
  - Started to study [ALDA](https://alda.io/) and [ABC notation](https://abcnotation.com/) systems
  - Reviewing [ABC](https://abc.sourceforge.net/)
+ - Using __const_cast__ instead of modifying LMMS's code, to pull piano roll in editor mode.
 
 ## 2025-12
 
@@ -15,7 +16,7 @@
  - Progress log now on monthly basis.
  - Better variable names.
  - Enhance documentation, and links.
- - Screenhot added [here](src/assets/screenshot.png).
+ - Screenshot added [here](src/assets/screenshot.png).
  - Icons for identification of the notation system.
  - Clearly point which files to modify to compile it as an LMMS Plugin.
  - A notification is added to open a Piano-Roll first; when __Update MIDI Clip__ applied to an empty target.

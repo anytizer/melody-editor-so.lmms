@@ -21,6 +21,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Western / German";
         this->_identifier = "german";
+        this->_completed = false;
     };
     
     QList<NotationCell *> GermanParser::parse(QString text)

@@ -18,6 +18,7 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "ALDA Parser";
         this->_identifier = "alda";
+        this->_completed = true;
     };
 
     QList<NotationCell *> ALDAParser::parse(QString text)
@@ -25,6 +26,8 @@ namespace lmms::gui::editor::pianoroll::parsing
         if(text.length()<=0) return {};
 
         // @todo HELP WANTED to complete this parser.
+        // @see https://alda.io/tutorial/
+        // @see https://github.com/alda-lang/alda/tree/master/doc/
 
         QList<NotationCell *> cells = {};
         NotationCell *cell = new NotationCell();
