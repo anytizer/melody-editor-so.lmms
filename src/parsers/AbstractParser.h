@@ -1,7 +1,7 @@
 /**
  * AbstractParser.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
@@ -24,7 +24,6 @@ class AbstractParser
     protected:
         QString _name = "";
         QString _identifier = ""; // lower cased, one-word
-        bool _completed = false; // Is the parser complete?
 
         QList<FindAndReplace *> replacements = QList<FindAndReplace *>();
         //QString replace_symbols(QString text);
@@ -65,8 +64,6 @@ class AbstractParser
         {
             return _identifier;
         }
-
-        const bool completed() const { return this->_completed; }
 
         int getPianoKey(QString note);
         void cells_to_xml(QList<NotationCell *> cells, QString &xml);

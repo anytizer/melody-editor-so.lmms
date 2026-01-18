@@ -23,7 +23,6 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Virtual Piano";
         this->_identifier = "virtual";
-        this->_completed = false;
 
         this->vkr = {};
         this->vkr.append(new FindAndReplace("1", "C2"));

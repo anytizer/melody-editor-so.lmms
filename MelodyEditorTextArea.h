@@ -1,7 +1,7 @@
 /**
  * MelodyEditorTextArea.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_GUI_MELODY_EDITOR_TEXTAREA_H
@@ -28,9 +28,11 @@ namespace lmms::gui
 		private:
 
 			Q_OBJECT
-
+			
+			bool liveWritingEnabled = false;
 			bool loadNotationsFile(QString filename);
-			QFileSystemWatcher watcher;
+			
+			QFileSystemWatcher* watcher;
 			
 			Utilities* u = new Utilities();
 			
@@ -38,11 +40,14 @@ namespace lmms::gui
 			void mouseDoubleClickEvent(QMouseEvent *event) override;
 			void dragEnterEvent(QDragEnterEvent *event) override;
     		void dropEvent(QDropEvent *event) override;
-			void wheelEvent(QWheelEvent *event) override;			
-			
+			void wheelEvent(QWheelEvent *event) override;
+
 		public:
 			MelodyEditorTextArea();
 			~MelodyEditorTextArea();
+
+			inline void flagWriteNow() { this->liveWritingEnabled = !this->liveWritingEnabled; }
+			inline bool isWriting() { return this->liveWritingEnabled; }
 
 		public slots:
 			void openNotationsFileSelector();

@@ -15,9 +15,7 @@
 #include "EnglishParser.h"
 #include "GermanParser.h"
 #include "HindustaniParser.h"
-#include "MissingParser.h"
 #include "NashvilleParser.h"
-#include "NoneParser.h"
 #include "VirtualpianoParser.h"
 
 namespace lmms::gui::editor::pianoroll::parsing
@@ -30,9 +28,11 @@ namespace lmms::gui::editor::pianoroll::parsing
 
         /**
          * DO NOT change the order for this parser.
-         * NONE-Parser should be on TOP, the 0-th position.
+         * NONE-Parser should be on TOP, at the 0-th position.
+         * 
+         * It is a placeholder.
          */
-        this->parsers.append(new NoneParser());
+        //this->parsers.append(new NoneParser());
 
         /**
          * ABC Notation parser
@@ -61,7 +61,7 @@ namespace lmms::gui::editor::pianoroll::parsing
          * @see https://www.melakarta.com/education.html
          * @see https://www.shivkumar.org/music/
          */
-        this->parsers.append(new CarnaticParser());
+        // this->parsers.append(new CarnaticParser());
         
         /**
          * English keyboard based
@@ -73,7 +73,7 @@ namespace lmms::gui::editor::pianoroll::parsing
          * Also see:
          * @see https://en.wikipedia.org/wiki/Helmholtz_pitch_notation
          */
-        this->parsers.append(new GermanParser());
+        // this->parsers.append(new GermanParser());
 
         /**
          * Nashville Number system
@@ -81,12 +81,12 @@ namespace lmms::gui::editor::pianoroll::parsing
          * @see https://www.grossepointemusicacademy.com/nashville-number-system/
          * @see https://loopcommunity.com/blog/2021/09/the-nashville-number-system/
          */
-        this->parsers.append(new NashvilleParser());
+        // this->parsers.append(new NashvilleParser());
 
         /**
          * Various virtual piano - using QWERTY keyboard data entry
          */
-        this->parsers.append(new VirtualpianoParser());
+        // this->parsers.append(new VirtualpianoParser());
         
         // @todo Keyboard settings differences!!
         // LMMS Mac Build keyboard layout
@@ -97,10 +97,10 @@ namespace lmms::gui::editor::pianoroll::parsing
          * If we missed a parser above...
          * DO NOT queue it as a general purpose parser in abovez code.
          */
-        if(!this->parsers.count())
-        {
-            this->parsers.append(new MissingParser());
-        }
+        // if(!this->parsers.count())
+        // {
+        //     this->parsers.append(new MissingParser());
+        // }
 
         /**
          * Each parser has a setup() method.

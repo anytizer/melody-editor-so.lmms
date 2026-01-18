@@ -39,11 +39,9 @@ namespace lmms::gui
 		this->setStyleSheet("font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;");
 
 		this->setCursor(Qt::IBeamCursor);
-
 		this->setPlainText("# Double-Click to load a file.");
-
-		// @todo Placeholder Text is not experienced.
 		this->setPlaceholderText("# Type or paste melody notations...");
+		this->setObjectName("MelodyEditorTextArea");
 		
 		// Disable right click menus.
 		// But still, keep the shortcuts enabled eg. ctrl+C, ctrl+v

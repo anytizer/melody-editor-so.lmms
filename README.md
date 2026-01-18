@@ -38,7 +38,7 @@ An intermediary XML string is created on the fly that simulates Import MIDI Clip
 
 ## Next Steps
 
- - Learn about how to write notations [here](https://github.com/anytizer/melody-editor.lmms) for this plugin.
+ - Learn about how to write notations [here](https://github.com/anytizer/melody-editor.so.lmms) for this plugin.
  - Also in LMMS Discussion page [here](https://github.com/LMMS/lmms/discussions/7950).
 
 # Compile as a native plugin for LMMS
@@ -50,7 +50,7 @@ cd lmms/plugins
 ln -s /media/USER/DISK/path/to/[melody-editor-so.lmms] MelodyEditor
 ```
 
-Or, copy the plugin's source code (aka MelodyEditor) into __lmms/plugins__ folder.
+Or, copy the plugin's source code (aka melody-editor-so.lmms) into __lmms/plugins__ folder.
 
 2. Enable/Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
 
@@ -186,22 +186,24 @@ English        | C4 | C#4 | D4 | D#4 | E4 | F4 | F#4 | G4 | G#4| A4 | A#4 | B4
 German         | C  | C#  | D  | D#  | E  | F  | F#  | G  | G# | A  | A#  | H
 Numeric        |    |     |    |     |    |    |     |    |    |    |     |  
 Virtual Piano  |    |     |    |     |    |    |     |    |    |    |     |  
-ALDA           |    |     |    |     |    |    |     |    |    |    |     |  
-ABC Notation   |    |     |    |     |    |    |     |    |    |    |     |  
+[ALDA](https://alda.io/)           |    |     |    |     |    |    |     |    |    |    |     |  
+[ABC Notation](https://abcnotation.com/)   |    |     |    |     |    |    |     |    |    |    |     |  
 
 `*`: Partial performance
 
 ## Additional Notes (Table Expansion for Notes Allowed)
-Completed?   | MIDI           | Notes
--------------|----------------|--------------------------
-[ Yes ]      | SARGAM         | Romanized Letters
-[ Yes ]      | स र ग म        | komal or flats are underlined. Devangari Scripts
-[ No ]       | Carnatic       | `Partial Performance`; NOT tested
-[ Yes ]      | English        | Without octave number
-[ Yes ]      | English        | With octave number
-[ No ]       | German         | Without octave number
-[ No ]       | Numeric        |
-[ No ]       | Virtual Piano  |
+Completed?   | MIDI           | Notes                                            | Help Wanted?
+-------------|----------------|--------------------------------------------------|--------------
+[ Yes ]      | SARGAM         | Romanized Letters                                | Yes
+[ Yes ]      | स र ग म        | komal or flats are underlined. Devangari Scripts | Yes
+[ No ]       | Carnatic       | `Partial Performance`; NOT tested | Yes
+[ Yes ]      | English        | Without octave number | Yes
+[ Yes ]      | English        | With octave number | Yes
+[ No ]       | German         | Without octave number | Yes
+[ No ]       | Numeric        | - | Yes
+[ No ]       | Virtual Piano  | - | Yes
+[ No ]       | ALDA           | - | Yes
+[ No ]       | ABC Notation   | - | Yes
 
 Note: This table (Additional Notes) is a horizontal expansion of the table from above (Notes Allowed).
 

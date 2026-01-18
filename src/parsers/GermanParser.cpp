@@ -21,19 +21,20 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Western / German";
         this->_identifier = "german";
-        this->_completed = false;
     };
     
     QList<NotationCell *> GermanParser::parse(QString text)
     {
-        if(text.length()<=0) return {};
+        return {};
+        
+        // if(text.length()<=0) return {};
 
-        // @todo HELP WANTED to complete this parser.
+        // // @todo HELP WANTED to complete this parser.
 
-        QList<NotationCell *> cells = {};
-        NotationCell *cell = new NotationCell();
-        cells.append(cell);
-        return cells;
+        // QList<NotationCell *> cells = {};
+        // NotationCell *cell = new NotationCell();
+        // cells.append(cell);
+        // return cells;
     }
 }
 

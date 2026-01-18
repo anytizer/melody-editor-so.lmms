@@ -1,7 +1,7 @@
 /**
  * Utilties.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H
@@ -52,7 +52,7 @@ namespace lmms::gui::editor::pianoroll::parsing
              */
             const int MIN_FONTSIZE = 10; // min: readable font size: 10
             const int MAX_FONTSIZE = 28; // max 36
-            const int ZOOM_FACTOR = 90; // 80 to 120 | 120 default | font size zoom factor
+            const int ZOOM_FACTOR = 90; // 80 - 120 | 120 default | font size zoom factor
     };
 }
 

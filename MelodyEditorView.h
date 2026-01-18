@@ -1,11 +1,13 @@
 /**
  * MelodyEditorView.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_GUI_MELODY_EDITOR_VIEW_H
 #define LMMS_GUI_MELODY_EDITOR_VIEW_H
+
+#include <QLineEdit>
 
 #include "ToolPluginView.h"
 
@@ -31,11 +33,12 @@ namespace lmms::gui
 			Q_OBJECT
 
 			MelodyEditor* m_plugin;
+			bool m_liveWritingEnabled = false;
 
 			/**
+			 * Used inspite of -1 as placeholder.
 			 * Defaults to first registered parser into the factory.
-			 * Despite of -1 as placeholder.
-			 * Often, might register to MissingParser
+			 * Often, might register to MissingParser or NoneParser.
 			 */
 			int parser_id = 0;
 			
@@ -44,13 +47,16 @@ namespace lmms::gui
 		public:
 			MelodyEditorView(MelodyEditor* plugin);
 			void updateMidiClip();
+			void flagWriteNow();
 			
-			MelodyEditorTextArea *pte = new MelodyEditorTextArea();
+			MelodyEditorTextArea* pte = new MelodyEditorTextArea();
+			QLineEdit* error = new QLineEdit();
 			const ParsersFactory *pf = new ParsersFactory();
 
 			void openNotationsFileSelector();
 
 		protected:
+			void onComboBoxIndexChanged(int index);
 			void closeEvent(QCloseEvent*) override;
 	};
 

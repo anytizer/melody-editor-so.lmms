@@ -15,7 +15,6 @@
 #include "embed.h"
 #include "plugin_export.h"
 
-//using lmms::gui::PluginView;
 using lmms::gui::MelodyEditorView;
 
 namespace lmms

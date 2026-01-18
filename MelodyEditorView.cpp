@@ -20,17 +20,11 @@
 
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
+#include "MelodyEditorEventFilter.h"
 
 #include "src/includes/DataStructures.h"
 #include "src/includes/Utilities.h"
 #include "src/parsers/ParsersFactory.h"
-// #include "src/parsers/MissingParser.h"
-// #include "src/parsers/HindustaniParser.h"
-// #include "src/parsers/CarnaticParser.h"
-// #include "src/parsers/EnglishParser.h"
-// #include "src/parsers/GermanParser.h"
-// #include "src/parsers/NashvilleParser.h"
-// #include "src/parsers/VirtualpianoParser.h"
 
 #include "Engine.h"
 #include "Song.h"
@@ -40,7 +34,6 @@
 #include "MidiClipView.h"
 #include "Editor.h"
 
-//using lmms::MelodyEditor;
 using lmms::gui::editor::pianoroll::parsing::AbstractParser;
 using lmms::gui::editor::pianoroll::parsing::NotationCell;
 using lmms::gui::editor::pianoroll::parsing::Utilities;
@@ -56,13 +49,11 @@ namespace lmms::gui
 	{
 		this->setAcceptDrops(true);
 
-		this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-		this->setFixedSize(520, 400); // Original default: 500 x 400;
-		// later calculated to be in the center screen.
-		// @todo: Make it of height as initial Piano Roll
-		// INITIAL_PIANO_ROLL_HEIGHT
+		this->setMinimumSize(300, 300);
+		this->setMaximumSize(800, 600);
+		this->resize(550, 300);
 
-		const int ui_height = 32; // height for combo box and button
+		const int ui_height = 28; // height for combo box and button
 
 		// %1 = melodyeditor, %2 = sargam|etc.
 		// @see icons.qrc, CMakeLists.txt
@@ -75,8 +66,6 @@ namespace lmms::gui
 		parsers_combobox->setPlaceholderText("Select a Notation System Parser");
 		for(int i=0; i<pf->parsers.count(); ++i)
 		{
-			if(!pf->parsers[i]->completed()) continue;
-
 			parsers_combobox->setIconSize(QSize(24, 24));
 			
 			// @todo %2.svg => IDE understands as format specifier for "%2.s"
@@ -86,64 +75,81 @@ namespace lmms::gui
 
 			QString icon = QString(icon_at).arg(u->identifier).arg(identifier);
 			QFileInfo fileInfo(icon);
-			if (!fileInfo.exists() || !fileInfo.isFile())
-			{
-				// copy icon from first parser, hindustani?
-				// 0-th icon
-				icon = QString(icon_at).arg(u->identifier).arg(pf->parsers[0]->identifier());
+			// if (!fileInfo.exists() || !fileInfo.isFile())
+			// {
+			// 	// copy icon from first parser, hindustani?
+			// 	// 0-th icon
+			// 	icon = QString(icon_at).arg(u->identifier).arg(pf->parsers[0]->identifier());
 				
-				// even here, if file not found, debug!
-				// qDebug() << "Event the alternative icon was not found."
-			}
+			// 	// even here, if file not found, debug!
+			// 	// qDebug() << "Event the alternative icon was not found."
+			// }
 
 			parsers_combobox->addItem(QIcon(icon), parser, identifier);
 		}
 
-		QObject::connect(parsers_combobox, QOverload<int>::of(&QComboBox::currentIndexChanged),
-		[this, parsers_combobox](int index) {
-			this->parser_id = index;
-			
-			if (index == 0) // "none" parser|icon
-			{
-				// Revert to no selection
-				parsers_combobox->setCurrentIndex(-1);
-			}			
-		});
+		connect(parsers_combobox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MelodyEditorView::onComboBoxIndexChanged);
 
 		QPushButton *button = new QPushButton("Update MIDI Clip");
 		button->setMinimumHeight(ui_height);
 		connect(button, &QPushButton::clicked, this, &MelodyEditorView::updateMidiClip);
 
-		QHBoxLayout *layout0 = new QHBoxLayout(nullptr);
-		layout0->addWidget(pte);
+		QPushButton *writeNow = new QPushButton("Write Now");
+		writeNow->setMinimumHeight(ui_height);
+		writeNow->setObjectName("writeNow");
+		connect(writeNow, &QPushButton::clicked, this, &MelodyEditorView::flagWriteNow);
+
+		MelodyEditorEventFilter* filter = new MelodyEditorEventFilter(this);
+		this->pte->installEventFilter(filter); // key press at PTE will live update
+		writeNow->installEventFilter(filter); // button press will flag live writing
+
+		this->error->setMinimumHeight(ui_height);
+		this->error->setMaximumHeight(ui_height);
+		this->error->setReadOnly(true);
+
+		QVBoxLayout *layout0 = new QVBoxLayout(nullptr);
+		layout0->addWidget(this->pte);
+		layout0->addWidget(this->error);
 
 		QHBoxLayout *layout1 = new QHBoxLayout(nullptr);
 		layout1->addWidget(parsers_combobox);
 		layout1->addWidget(button);
+		layout1->addWidget(writeNow);
 
 		QVBoxLayout *layout2 = new QVBoxLayout(nullptr);
 		layout2->addLayout(layout0);
 		layout2->addLayout(layout1);
-		this->setLayout(layout2);
+		setLayout(layout2);
 
 		this->hide();
 		QWidget* pw = parentWidget();
 		if (pw!=nullptr)
 		{
 			pw->hide(); // default hidden
-			pw->layout()->setSizeConstraint(QLayout::SetFixedSize);
+			pw->layout()->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
 			Qt::WindowFlags flags = pw->windowFlags();
-			flags |= Qt::MSWindowsFixedSizeDialogHint;
+			//flags |= Qt::MSWindowsFixedSizeDialogHint; // let user to change it
 			flags &= ~Qt::WindowMaximizeButtonHint;
 			flags |= Qt::WindowStaysOnTopHint;
 			pw->setWindowFlags(flags);
-			
-			// pw->move(0, 0); // calculate center
-			// QPoint parentCenter = pw->rect().center();
-			// QPoint childOffset = this->rect().center();
-			// pw->move(parentCenter - childOffset);
+			pw->resize(550, 300);
+			//pw->setFixedSize(this->sizeHint());
+			//pw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 		}
+	}
+
+	void MelodyEditorView::onComboBoxIndexChanged(int index)
+	{
+		this->parser_id = index;
+	}
+
+	void MelodyEditorView::flagWriteNow()
+	{
+		// if live mode was disabled, enable it.
+		// if keyboiard typing on write area,
+		// update midi clip
+		this->pte->flagWriteNow();
 	}
 
 	void MelodyEditorView::updateMidiClip()
@@ -166,7 +172,7 @@ namespace lmms::gui
 		 */
 		try
 		{
-			if(this->parser_id != -1)
+			if(this->parser_id>=0)
 			{
 				AbstractParser *parser = this->pf->parsers[this->parser_id];
 				QList<NotationCell *> cells = parser->parse(userNotations);
@@ -213,7 +219,7 @@ namespace lmms::gui
 
 		if(messages.count()>0)
 		{
-			QMessageBox::information(this, "Error / Output", messages.join("\n"));
+			this->error->setText(messages.join("; "));
 		}
 	}
 

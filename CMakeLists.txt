@@ -7,6 +7,7 @@ BUILD_PLUGIN(
   # @see Utilities.cpp => internal identifiers | They MUST match
   melodyeditor
     MelodyEditor.cpp
+    MelodyEditorEventFilter.cpp
     MelodyEditorTextArea.cpp
     MelodyEditorView.cpp
     src/includes/Utilities.cpp
@@ -17,15 +18,16 @@ BUILD_PLUGIN(
     src/parsers/EnglishParser.cpp
     src/parsers/GermanParser.cpp
     src/parsers/HindustaniParser.cpp
-    src/parsers/MissingParser.cpp
+    #src/parsers/MissingParser.cpp
     src/parsers/NashvilleParser.cpp
-    src/parsers/NoneParser.cpp
+    #src/parsers/NoneParser.cpp
     src/parsers/ParsersFactory.cpp
     src/parsers/VirtualpianoParser.cpp
  
   MOCFILES
     MelodyEditor.h
     MelodyEditorTextArea.h
+    MelodyEditorEventFilter.h
     MelodyEditorView.h
     src/includes/Utilities.h
  
@@ -40,8 +42,8 @@ BUILD_PLUGIN(
     src/assets/ns-english.svg
     src/assets/ns-german.svg
     src/assets/ns-hindustani.svg
-    src/assets/ns-missing.svg
+    #src/assets/ns-missing.svg
     src/assets/ns-nashville.svg
-    src/assets/ns-none.svg
+    #src/assets/ns-none.svg
     src/assets/ns-virtual.svg
 )

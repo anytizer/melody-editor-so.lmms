@@ -19,7 +19,6 @@ namespace lmms::gui::editor::pianoroll::parsing
     {
         this->_name = "Nashville Number System";
         this->_identifier = "nashville";
-        this->_completed = false;
     };
 
     QList<NotationCell *> NashvilleParser::parse(QString text)
