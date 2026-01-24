@@ -19,9 +19,10 @@ namespace lmms::gui::melodyeditor
 			Q_OBJECT
 
 		protected:
+			void mouseDoubleClickEvent(QMouseEvent *event) override;
 			void dragEnterEvent(QDragEnterEvent *event) override;
     		void dropEvent(QDropEvent *event) override;
-			void wheelEvent(QWheelEvent *event) override;			
+			void wheelEvent(QWheelEvent *event) override;
 			
 		public:
 			MelodyEditorTextArea();
@@ -29,6 +30,7 @@ namespace lmms::gui::melodyeditor
 
 		signals:
 			void fileDropped(QString);
+			void doubleClicked();
 	};
 }
 

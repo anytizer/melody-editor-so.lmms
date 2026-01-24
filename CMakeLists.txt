@@ -1,8 +1,6 @@
 
 INCLUDE(BuildPlugin)
 
-# SET(RESOURCES icons.qrc)
-
 BUILD_PLUGIN(
   melodyeditor
     MelodyEditor.cpp
@@ -24,7 +22,7 @@ BUILD_PLUGIN(
     src/assets/logo.ico
 
     # Notation System Icons
+    src/assets/ns-alda.svg
     src/assets/ns-hindustani.svg
-    #src/assets/ns-carnatic.svg
     src/assets/ns-english.svg
 )
