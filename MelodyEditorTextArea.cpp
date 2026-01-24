@@ -78,7 +78,6 @@ namespace lmms::gui::melodyeditor
 			QFont font = this->font();
 			int pointsize = font.pointSize() + (event->angleDelta().y() / ZOOM_FACTOR);
 			font.setPointSize(std::clamp(pointsize, MIN_FONTSIZE, MAX_FONTSIZE));
-			font.setPointSize(pointsize);
 			this->setFont(font);
 		}
 
