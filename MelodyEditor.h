@@ -1,7 +1,8 @@
 /**
  * MelodyEditor.h
  *
- * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
 #ifndef LMMS_MELODY_EDITOR_H

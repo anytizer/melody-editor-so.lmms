@@ -2,6 +2,7 @@
 
 ## Implement ALDA Parser
 
+<!--
 ```
 cd alda-lang
 chmod +x alda
@@ -12,11 +13,12 @@ alda play --file examples/something.alda
 alda play --code "piano: f e d c"
 alda stop
 ```
+-->
 
 ## UI
 
 - Ctrl+UP/DOWN to control LMMS Host Playing.
-- Latchable push button for enabling live-write mode.
+- ~~Latchable push button for enabling live-write mode.~~
 
 ## Others
 
