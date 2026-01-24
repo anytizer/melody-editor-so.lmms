@@ -1,72 +1,87 @@
 /**
  * AbstractParser.h
  *
- * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
 #define LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
 
-#include "../includes/DataStructures.h"
-
-#include <QList>
+#include <vector>
 #include <QString>
 
-namespace lmms::gui::editor::pianoroll::parsing
+namespace lmms
+{
+class MidiClip;
+class Model;
+}
+
+
+namespace lmms::melodyeditor
 {
 
-/**
- * Info: This is NOT an abstract class!
- * However, the objects should not be created directly.
- */
+
 class AbstractParser
 {
-    protected:
-        QString _name = "";
-        QString _identifier = ""; // lower cased, one-word
-
-        QList<FindAndReplace *> replacements = QList<FindAndReplace *>();
-        //QString replace_symbols(QString text);
-
-        bool chord_processing = false;
-        int chord_start_position = 0;
-        //QList<FindAndReplace *> *replaces = new QList<FindAndReplace *>();
-        QList<QString> notes = {}; // pure Western/English names; only with sharps | no flats.
-        QList<NotationCell *> chords = {};
-
-        /**
-         * Processing return number of errors.
-         */
-        int process_block(const QString block, QList<NotationCell *> &cells, int &position);
-        int process_line(const QString line, QList<NotationCell *> &cells, int &position);
-        int process_beatnotes(const QString column, QList<NotationCell *> &cells, int &position);
-        int process_tone(const QString tone, QList<NotationCell *> &cells, float length, int &position);
-
-        QString replace(QString text);
-    
     public:
-        AbstractParser();
-        ~AbstractParser();
-        virtual void setup() = 0;
-        virtual QList<NotationCell *> parse(QString text) = 0;
+        AbstractParser() = default;
+        virtual ~AbstractParser() = default;
 
-        const QString name() const
-        {
-            return this->_name;
-        }
+        //! Display name
+        virtual QString name() const = 0;
 
-        const QString identifier() const
-        {
-            return this->_identifier;
-        }
+		//! Icon name
+        virtual std::string icon() const = 0;
 
-        const QString toString() const
-        {
-            return _identifier;
-        }
+		//! Documentation for the Help button
+		virtual QString help() const = 0;
 
-        int getPianoKey(QString note);
-        void cells_to_xml(QList<NotationCell *> cells, QString &xml);
+		//! Log messages from parsing and import
+		virtual QString logMessages() const = 0;
+
+        /*! \brief Parse a string
+         *
+         *  This will be called any time the user changes the text.
+         *  It should evaluate the string and write warnings and messages to the log.
+         *  It should not touch anything in the current project.
+         *
+         *  NOTE: may throw ParserError
+         */
+        virtual void parse(const QString& string) = 0;
+
+		/*! \brief Returns true if write() will only change what's been previously changed
+		 *
+		 *  This will be called after parse() and before write() during live coding.
+		 *  Since write() may change anything in the project, the caller must
+		 *  keep track of which Models were previously changed, and turn off
+		 *  live coding if more Models are about to be changed.
+		 *
+		 *  NOTE: clipInPianoRoll is nullptr if no clip is open
+		 */
+		virtual bool isSafeToWrite(const MidiClip* clipInPianoRoll,
+			const std::vector<const Model*>& previouslyChanged) = 0;
+
+		/*! \brief Write to the project
+		 *
+		 *  This is called as the last step during live coding. It may write to
+		 *  the clip in PianoRoll or to any other clip in the project. It may create tracks,
+		 *  change tempo, etc. It all depends on the parser and what the user entered.
+		 *
+		 *  It returns a list of Models (clips, tracks, knobs) that were changed. It may be
+		 *  used to check isSafeToWrite() on subsequent updates.
+		 *
+		 *  NOTE: may throw ParserError
+		 *  NOTE: clipInPianoRoll is nullptr if no clip is open
+		 */
+		virtual std::vector<const Model*> write(MidiClip* clipInPianoRoll) = 0;
+
+        //! Generate a string representation of the given MidiClip
+        virtual QString importFromClip(const MidiClip*) { return {}; }
+		virtual bool supportsClipImport() { return false; }
+
+        //! Generate a string representation of the whole Song
+        virtual QString importFromSong() { return {}; }
+		virtual bool supportsSongImport() { return false; }
     };
 
 }

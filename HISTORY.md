@@ -2,12 +2,16 @@
 
 ## 2026-01
 
- - Placeholder icons added
+ - Namespace simplified.
+ - User selected text preferred first, instead of parsing whole text.
+ - Placeholder icons added.
  - Activated a most of the parsers with empty functionalities.
+ - ALDA parser added from @allejok96's efforts.
  - Started to study [ALDA](https://alda.io/) and [ABC notation](https://abcnotation.com/) systems
  - Reviewing [ABC](https://abc.sourceforge.net/)
  - Using __const_cast__ instead of modifying LMMS's code, to pull piano roll in editor mode.
- - Removed missing and none parsers.
+ - Temorarily removed incomplete parsers.
+ - Completely removed missing and none parsers.
 
 ## 2025-12
 

@@ -3,6 +3,23 @@
 The materials may be copyrighted.
 Linked for references only.
 
+## Others
+
+ - Study/add more parsers and examples:
+  * https://github.com/schollz/miti
+  * https://github.com/flipcoder/textbeat
+  - https://github.com/Qirky/FoxDot
+  - https://sonic-pi.net/
+  - https://chuck.cs.princeton.edu/
+  - https://github.com/emicklei/melrose
+  - https://github.com/frescobaldi/frescobaldi
+  - https://csound.com/download.html
+  * Add ABC Notation parser. Try to reuse codebase from abcjs parser.
+  * Add ALDA Notation parser.
+  	- [Info](https://youtu.be/7nbBSwopG-E)
+    - https://kidscodecs.com/alda/
+	  - https://youtu.be/c5pCFtwO4j8
+
 ## ALDA Notation System
 - [alda.io](https://alda.io/)
 

@@ -9,19 +9,28 @@
 #include "MelodyEditorView.h"
 #include "MelodyEditor.h"
 
-#include "AudioEngine.h"
-#include "Engine.h"
-#include "Song.h"
+#include <QPlainTextDocumentLayout>
+#include <QTextDocument>
+
+#include "ComboBoxModel.h"
 #include "embed.h"
 #include "plugin_export.h"
 
+#include "src/includes/Utilities.h"
+#include "src/parsers/AbstractParser.h"
+#include "src/parsers/AldaParser.h"
+#include "src/parsers/SimpleParser.h"
+
+//using lmms::gui::PluginView;
 using lmms::gui::MelodyEditorView;
+using namespace lmms::melodyeditor;
 
 namespace lmms
 {
 
 extern "C"
 {
+
 	Plugin::Descriptor PLUGIN_EXPORT melodyeditor_plugin_descriptor = {
 		LMMS_STRINGIFY(PLUGIN_NAME),
 		"Melody Editor",
@@ -42,8 +51,30 @@ extern "C"
 } // extern "C"
 
 
-MelodyEditor::MelodyEditor(): ToolPlugin(&melodyeditor_plugin_descriptor, nullptr)
+MelodyEditor::MelodyEditor()
+	: ToolPlugin(&melodyeditor_plugin_descriptor, nullptr)
+	, m_parsers{
+		new AldaParser(),
+		new SimpleParser(ENGLISH_DIALECT),
+		new SimpleParser(HINDUSTANI_DIALECT),
+		//new SimpleParser(CARNATIC_DIALECT)
+	}
+	, m_parserModel(new ComboBoxModel(this, "Parser"))
+	, m_liveCodingModel(new BoolModel(true, this, "Auto export"))
+	, m_document(new QTextDocument(this))
+	, m_log(new QTextDocument(this))
 {
+	m_document->setDocumentLayout(new QPlainTextDocumentLayout(m_document));
+	m_log->setDocumentLayout(new QPlainTextDocumentLayout(m_log));
+
+	for(auto parser : m_parsers)
+	{
+		auto icon = std::make_unique<PluginPixmapLoader>(parser->icon());
+		m_parserModel->addItem(parser->name(), std::move(icon));
+	}
+
+	connect(m_parserModel, &Model::dataChanged, this, &MelodyEditor::parse);
+    connect(m_document, &QTextDocument::contentsChanged, this, &MelodyEditor::parse);
 }
 
 QString MelodyEditor::nodeName() const
@@ -54,6 +85,73 @@ QString MelodyEditor::nodeName() const
 PluginView* MelodyEditor::instantiateView(QWidget*)
 {
 	return new MelodyEditorView(this);
+}
+
+
+
+
+void MelodyEditor::loadFile(const QString& filename)
+{
+	m_document->setPlainText(fileContents(filename));
+	m_file = filename;
+}
+
+
+
+
+void MelodyEditor::importFromClip()
+{
+	if (!m_midiClip) { return m_log->setPlainText("You need to open a clip in Piano Roll first"); }
+	parser()->importFromClip(m_midiClip);
+	return m_log->setPlainText(parser()->logMessages());
+}
+
+
+
+
+void MelodyEditor::parse()
+{
+	try
+	{
+		if (!m_liveCodingModel->value()) return;
+
+		QString notations = "";
+		// QTextCursor cursor = ui->textEdit->textCursor();
+		// if (cursor.hasSelection())
+		// {
+		// 	// if a small portion was select, use it first.
+		// 	notations = cursor.selectedText();
+		// }
+		// else
+		{
+			notations = m_document->toPlainText();
+		}
+
+		parser()->parse(notations);
+		
+		//if (parser()->isSafeToWrite(nullptr, {}))
+		{
+			parser()->write(m_midiClip);
+		}
+		m_log->setPlainText(parser()->logMessages());
+	}
+	catch (const ParserError& e)
+	{
+		m_log->setPlainText(e.what());
+	}
+}
+
+
+
+
+
+
+
+
+
+AbstractParser* MelodyEditor::parser()
+{
+	return m_parsers.at(m_parserModel->value());
 }
 
 } // namespace lmms
