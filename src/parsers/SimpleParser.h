@@ -32,9 +32,13 @@ public:
 	void parse(const QString& string) override;
 
 	// Since we only write to piano roll, it's safe to write if piano roll was previously changed
-	bool isSafeToWrite(const MidiClip* clipInPianoRoll, const std::vector<const Model*>& previous)
+	bool isSafeToWrite(const MidiClip* clipInPianoRoll, const std::vector<const Model*>& previous) override
 	{
-		return std::find(previous.begin(), previous.end(), clipInPianoRoll) != previous.end();
+		//@todo
+		return true;
+
+		// This caused the button not to send data to currently open MIDI clip
+		// return std::find(previous.begin(), previous.end(), clipInPianoRoll) != previous.end();
 	}
 
 	std::vector<const Model*> write(MidiClip* clipInPianoRoll) override;

@@ -89,7 +89,8 @@ namespace lmms::gui
 		loadButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		loadButton->setToolTip("Import notes into Piano-Roll");
 		//connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
-		connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
+		//connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
+		connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::parse);
 
 		auto mainLayout = new QVBoxLayout(this);
 		auto splitter = new QSplitter(Qt::Vertical, this);

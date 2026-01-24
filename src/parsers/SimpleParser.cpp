@@ -212,12 +212,4 @@ std::vector<const Model*> SimpleParser::write(MidiClip* clipInPianoRoll)
 }
 
 
-
-
-bool SimpleParser::isSafeToWrite(const MidiClip* clipInPianoRoll, const std::vector<const Model*>& previouslyChanged)
-{
-	// TODO
-	return true;
-}
-
 } // namespace lmms::melodyeditor
