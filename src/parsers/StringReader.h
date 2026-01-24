@@ -5,8 +5,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef LMMS_MELODY_EDITOR_STRING_READER_H
-#define LMMS_MELODY_EDITOR_STRING_READER_H
+#pragma once
 
 #include <QRegularExpression>
 
@@ -98,6 +97,3 @@ private:
 
 
 } // namespace lmms::melodyeditor
-
-
-#endif // LMMS_MELODY_EDITOR_STRING_READER_H

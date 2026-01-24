@@ -16,8 +16,6 @@ const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
 }
 
 
-
-
 namespace lmms::melodyeditor
 {
 

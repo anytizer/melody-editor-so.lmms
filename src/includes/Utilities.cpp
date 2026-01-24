@@ -5,9 +5,6 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef LMMS_GUI_PIANOROLL_PARSING_UTILITIES_CPP
-#define LMMS_GUI_PIANOROLL_PARSING_UTILITIES_CPP
-
 #include "Utilities.h"
 
 #include <QString>
@@ -84,5 +81,3 @@ namespace lmms::PLUGIN_NAME
 		clip->setJournalling(true);
 	}
 }
-
-#endif // LMMS_GUI_PIANOROLL_PARSING_UTILITIES_CPP

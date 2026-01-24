@@ -5,8 +5,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef MELODY_EDITOR_SIMPLE_PARSER_DIALECTS_H
-#define MELODY_EDITOR_SIMPLE_PARSER_DIALECTS_H
+#pragma once
 
 #include <vector>
 #include <QString>
@@ -251,5 +250,3 @@ const Dialect HINDUSTANI_DIALECT = {
 };
 
 }
-
-#endif // MELODY_EDITOR_SIMPLE_PARSER_DIALECTS_H

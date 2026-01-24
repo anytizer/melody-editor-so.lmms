@@ -4,9 +4,6 @@
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
-#ifndef LMMS_GUI_MELODY_EDITOR_TEXTAREA_CPP
-#define LMMS_GUI_MELODY_EDITOR_TEXTAREA_CPP
-
 #include <QMimeData>
 #include <QTextStream>
 #include <QString>
@@ -106,5 +103,3 @@ namespace lmms::gui::melodyeditor
 	}
 
 } // lmms::gui
-
-#endif // LMMS_GUI_MELODY_EDITOR_TEXTAREA_CPP

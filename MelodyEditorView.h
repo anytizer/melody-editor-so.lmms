@@ -4,8 +4,7 @@
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
-#ifndef LMMS_GUI_MELODY_EDITOR_VIEW_H
-#define LMMS_GUI_MELODY_EDITOR_VIEW_H
+#pragma once
 
 #include "ToolPluginView.h"
 
@@ -36,6 +35,3 @@ namespace lmms::gui
 	};
 
 } // namespace lmms::gui
-
-#endif // LMMS_GUI_MELODY_EDITOR_VIEW_H
-

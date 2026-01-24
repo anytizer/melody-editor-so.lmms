@@ -4,8 +4,8 @@
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
-#ifndef LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
-#define LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H
+
+#pragma once
 
 #include <vector>
 #include <QString>
@@ -85,5 +85,3 @@ class AbstractParser
     };
 
 }
-
-#endif // LMMS_PLUGINS_MELODYEDITOR_ABSTRACTPARSER_H

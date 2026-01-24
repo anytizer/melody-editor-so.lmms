@@ -5,8 +5,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef MELODY_EDITOR_SIMPLE_PARSER_H
-#define MELODY_EDITOR_SIMPLE_PARSER_H
+#pragma once
 
 #include "Note.h"
 
@@ -58,5 +57,3 @@ private:
 
 
 }
-
-#endif // MELODY_EDITOR_SIMPLE_PARSER_H

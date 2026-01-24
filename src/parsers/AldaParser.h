@@ -4,8 +4,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef LMMS_MELODY_EDITOR_PARSER_H
-#define LMMS_MELODY_EDITOR_PARSER_H
+#pragma once
 
 #include "AbstractParser.h"
 
@@ -227,5 +226,3 @@ private:
 };
 
 }
-
-#endif // PARSER_H

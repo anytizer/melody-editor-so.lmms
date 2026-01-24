@@ -5,8 +5,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#ifndef LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H
-#define LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H
+#pragma once
 
 #include <QString>
 
@@ -53,5 +52,3 @@ namespace lmms::PLUGIN_NAME
     //! A semi-fast way to write notes to a MidiClip
     void writeNotesToMidiClip(const std::vector<Note>& notes, MidiClip* clip);
 }
-
-#endif // LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H
