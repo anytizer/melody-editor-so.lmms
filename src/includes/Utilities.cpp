@@ -11,25 +11,21 @@
 
 #include <QString>
 #include <QIODevice>
+#include <QUrl>
 #include <QFile>
 #include <QTextStream>
+#include <QMimeData>
+#include <QFileInfo>
 
-namespace lmms::gui::editor::pianoroll::parsing
+#include "MidiClip.h"
+
+
+namespace lmms::PLUGIN_NAME
 {
-    Utilities::Utilities()
-    {
-
-    }
-
-    Utilities::~Utilities()
-    {
-
-    }
-
     /**
      * Return the melody notations text from external file.
      */
-    QString Utilities::fileContents(QString filePath)
+    QString fileContents(QString filePath)
     {
         QString notations = "";
 
@@ -53,12 +49,39 @@ namespace lmms::gui::editor::pianoroll::parsing
     /**
      * Do NOT process too large files.
      */
-    bool Utilities::sizeCheck(QString filePath)
+    bool sizeCheck(QString filePath)
     {
         QFile file(filePath);
-        return file.size() <= this->MAX_INPUT_LIMIT;
+        return file.size() <= MAX_INPUT_LIMIT;
+	}
+
+
+    QString pathFromMimeData(const QMimeData* mimeData)
+    {
+        for (const QUrl& url : mimeData->urls())
+        {
+            if (!url.isLocalFile()) { continue; }
+            QString path = url.toLocalFile();
+            if (QFileInfo(path).suffix().toLower() == MELODY_EXTENSION)
+            {
+                return path;
+            }
+        }
+        return "";
     }
 
+	void writeNotesToMidiClip(const std::vector<Note>& notes, MidiClip* clip)
+	{
+		if (!clip) { return; }
+
+		clip->setJournalling(false);
+		clip->clear();
+		for (const auto& note: notes)
+		{
+			clip->addNote(note, /*quantize*/ false);
+		}
+		clip->setJournalling(true);
+	}
 }
 
 #endif // LMMS_GUI_PIANOROLL_PARSING_UTILITIES_CPP

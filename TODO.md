@@ -1,19 +1,6 @@
 # ToDos for MelodyEditor
 
- - Study/add more parsers and examples:
-  * https://github.com/schollz/miti
-  * https://github.com/flipcoder/textbeat
-  - https://github.com/Qirky/FoxDot
-  - https://sonic-pi.net/
-  - https://chuck.cs.princeton.edu/
-  - https://github.com/emicklei/melrose
-  - https://github.com/frescobaldi/frescobaldi
-  - https://csound.com/download.html
-  * Add ABC Notation parser. Try to reuse codebase from abcjs parser.
-  * Add ALDA Notation parser.
-  	- [Info](https://youtu.be/7nbBSwopG-E)
-    - https://kidscodecs.com/alda/
-	  - https://youtu.be/c5pCFtwO4j8
+## Implement ALDA Parser
 
 ```
 cd alda-lang
@@ -21,10 +8,17 @@ chmod +x alda
 cd alda
 scripts/install-fluidr3
 alda start
-alda play --file examples/bach_cello_suite_no_1.alda
+alda play --file examples/something.alda
 alda play --code "piano: f e d c"
 alda stop
 ```
+
+## UI
+
+- Ctrl+UP/DOWN to control LMMS Host Playing.
+- Latchable push button for enabling live-write mode.
+
+## Others
 
 - Provide an example of copyrights free notation for all parsers registered.
 - Apply input/output filters for .abc, .txt, .lrc, .alda (while .lrc is out of scope) in LMMS way.
@@ -37,7 +31,7 @@ alda stop
 - ~~Placeholder text effect is not experienced.~~
 - ~~Notify the need of Qt6 requirements to the developers.~~ compiles in Qt5 too.
 - Once notations file is loaded, the scrollbar does not behave better, even when set to appear always.
-- Change namespace from: lmms::gui::editor::pianoroll::parsing to: lmms::plugins::melodyeditor
+- Change namespace from: lmms::melodyeditor to: lmms::plugins::melodyeditor
 - Wheel movement to control scrolling plus text zoom behaviour.
 - Apply F11 as widget's fullscreen to enter and exit.
 - Text mark as "incomplete" parsers like German and Numered to inform other developers.

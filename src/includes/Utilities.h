@@ -1,7 +1,7 @@
 /**
  * Utilties.h
  *
- * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H
@@ -9,22 +9,18 @@
 
 #include <QString>
 
-namespace lmms::gui::editor::pianoroll::parsing
-{
-    class Utilities
-    {
-        public:
-            /**
-             * Used to access the embedded resources.
-             * The plguin name when compiled.
-             * @see CMakeLists.txt | MUST match, as internal identifier.
-             */
-            const QString identifier = "melodyeditor"; // DO NOT CHANGE!
-            const QString DEFAULT_ICON = "english"; // failsafe default icon: hindustani | english
-            
-            Utilities();
-            ~Utilities();
+#include "Note.h"
 
+class QMimeData;
+
+namespace lmms
+{
+	class MidiClip;
+}
+
+
+namespace lmms::PLUGIN_NAME
+{
             QString fileContents(QString filePath);
             
             /**
@@ -41,9 +37,6 @@ namespace lmms::gui::editor::pianoroll::parsing
 
             /**
              * File name extension for dropping one.
-             * 
-             * Proposals:
-             * .lrc, .txt, .melody
              */
             const QString MELODY_EXTENSION = "txt";
 
@@ -52,8 +45,12 @@ namespace lmms::gui::editor::pianoroll::parsing
              */
             const int MIN_FONTSIZE = 10; // min: readable font size: 10
             const int MAX_FONTSIZE = 28; // max 36
-            const int ZOOM_FACTOR = 90; // 80 - 120 | 120 default | font size zoom factor
-    };
+            const int ZOOM_FACTOR = 90; // 80 to 120 | 120 default
+
+            QString pathFromMimeData(const QMimeData* mimeData);
+
+			//! A semi-fast way to write notes to a MidiClip
+			void writeNotesToMidiClip(const std::vector<Note>& notes, MidiClip* clip);
 }
 
 #endif // LMMS_PLUGINS_MELODYEDITOR_UTILITIES_H

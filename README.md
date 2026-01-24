@@ -55,7 +55,9 @@ Or, copy the plugin's source code (aka melody-editor-so.lmms) into __lmms/plugin
 2. Enable/Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
 
 3. Then `make` or compile the copy of your LMMS.
-It will create `libmelodyeditor.so` file into the plugin repository. There may be .dll in case of Windows.
+
+It will create `libmelodyeditor.so` file into the plugin repository.
+There may be a .dll in case of Windows.
 This plugin is now accessible from the Tools Menu; ready to process your melody notations.
 
 4. A boolean flag `_completed` or `completed()` controls the display of specific parser.

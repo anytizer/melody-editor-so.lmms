@@ -6,39 +6,37 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QComboBox>
 #include <QMessageBox>
 #include <QDomDocument>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QMimeData>
 #include <QFileInfo>
+#include <QDir>
 #include <QFileSystemWatcher>
+#include <QLabel>
 #include <QTextStream>
 #include <QEvent>
+#include <QPlainTextEdit>
+#include <QSplitter>
 #include <QDebug>
 
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
-#include "MelodyEditorEventFilter.h"
-
-#include "src/includes/DataStructures.h"
+#include "MelodyEditorTextArea.h"
 #include "src/includes/Utilities.h"
-#include "src/parsers/ParsersFactory.h"
 
-#include "Engine.h"
+#include "ComboBox.h"
+#include "FileDialog.h"
 #include "Song.h"
 #include "GuiApplication.h"
 #include "PianoRoll.h"
-#include "MidiClip.h"
-#include "MidiClipView.h"
-#include "Editor.h"
+#include "PatternStore.h"
 
-using lmms::gui::editor::pianoroll::parsing::AbstractParser;
-using lmms::gui::editor::pianoroll::parsing::NotationCell;
-using lmms::gui::editor::pianoroll::parsing::Utilities;
-using lmms::gui::PianoRollWindow;
-using lmms::MidiClip;
+
+using namespace lmms::melodyeditor;
+using lmms::gui::melodyeditor::MelodyEditorTextArea;
+
 
 namespace lmms::gui
 {
@@ -48,184 +46,131 @@ namespace lmms::gui
 		m_plugin(plugin)
 	{
 		this->setAcceptDrops(true);
+		this->setMinimumSize(450, 450);
 
-		this->setMinimumSize(300, 300);
-		this->setMaximumSize(800, 600);
-		this->resize(550, 300);
+		connect(getGUI()->pianoRoll(), &PianoRollWindow::currentMidiClipChanged, this, &MelodyEditorView::setClipFromPianoRoll);
+		this->setClipFromPianoRoll();
 
-		const int ui_height = 28; // height for combo box and button
+		auto textArea(new MelodyEditorTextArea());
+		textArea->setDocument(m_plugin->m_document);
+		connect(textArea, &MelodyEditorTextArea::fileDropped, m_plugin, &MelodyEditor::loadFile);
 
-		// %1 = melodyeditor, %2 = sargam|etc.
-		// @see icons.qrc, CMakeLists.txt
-		const QString icon_at = ":/artwork/%1/ns-%2.svg";
+		auto languageLabel = new QLabel("Notation system:", this);
 
-		QComboBox *parsers_combobox = new QComboBox(this); // text | data
-		parsers_combobox->setEditable(false);
-		parsers_combobox->setMinimumHeight(ui_height);
-		parsers_combobox->setCurrentIndex(-1);
-		parsers_combobox->setPlaceholderText("Select a Notation System Parser");
-		for(int i=0; i<pf->parsers.count(); ++i)
-		{
-			parsers_combobox->setIconSize(QSize(24, 24));
-			
-			// @todo %2.svg => IDE understands as format specifier for "%2.s"
-			// When icon is not found, it will throw message in console.
-			QString parser = pf->parsers[i]->name();
-			QString identifier = pf->parsers[i]->identifier();
+		auto languageBox = new ComboBox(this, "Select Notation System");
+		languageBox->setModel(m_plugin->m_parserModel);
 
-			QString icon = QString(icon_at).arg(u->identifier).arg(identifier);
-			QFileInfo fileInfo(icon);
-			// if (!fileInfo.exists() || !fileInfo.isFile())
-			// {
-			// 	// copy icon from first parser, hindustani?
-			// 	// 0-th icon
-			// 	icon = QString(icon_at).arg(u->identifier).arg(pf->parsers[0]->identifier());
-				
-			// 	// even here, if file not found, debug!
-			// 	// qDebug() << "Event the alternative icon was not found."
-			// }
+		auto errorBox(new QPlainTextEdit(this));
+		errorBox->setDocument(m_plugin->m_log);
+		//m_errorBox->setDisabled(true);
 
-			parsers_combobox->addItem(QIcon(icon), parser, identifier);
-		}
+		QPushButton* writeButton = new QPushButton("Live coding", this);
+		writeButton->setToolTip("Write notes to Piano Roll");
+		writeButton->setCheckable(true);
+		writeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		writeButton->setStyleSheet("QPushButton:checked { background-color: #276a90; border-style: inset; }");
+		connect(writeButton, &QPushButton::clicked, m_plugin, [this, plugin, writeButton]{
+			bool now = writeButton->isChecked();
+			m_plugin->flag(now);
+			if(now) m_plugin->parse(); // also parse immediately
+			qDebug() << "Live coding: " << writeButton->isChecked();
+		});
 
-		connect(parsers_combobox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MelodyEditorView::onComboBoxIndexChanged);
+		auto openButton = new QPushButton("Open", this);
+		openButton->setToolTip("Open melody text file");
+		openButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		connect(openButton, &QPushButton::clicked, this, &MelodyEditorView::openNotationsFileSelector);
 
-		QPushButton *button = new QPushButton("Update MIDI Clip");
-		button->setMinimumHeight(ui_height);
-		connect(button, &QPushButton::clicked, this, &MelodyEditorView::updateMidiClip);
+		auto loadButton = new QPushButton("Import", this);
+		loadButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		loadButton->setToolTip("Import notes into Piano-Roll");
+		//connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
+		connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
 
-		QPushButton *writeNow = new QPushButton("Write Now");
-		writeNow->setMinimumHeight(ui_height);
-		writeNow->setObjectName("writeNow");
-		connect(writeNow, &QPushButton::clicked, this, &MelodyEditorView::flagWriteNow);
-
-		MelodyEditorEventFilter* filter = new MelodyEditorEventFilter(this);
-		this->pte->installEventFilter(filter); // key press at PTE will live update
-		writeNow->installEventFilter(filter); // button press will flag live writing
-
-		this->error->setMinimumHeight(ui_height);
-		this->error->setMaximumHeight(ui_height);
-		this->error->setReadOnly(true);
-
-		QVBoxLayout *layout0 = new QVBoxLayout(nullptr);
-		layout0->addWidget(this->pte);
-		layout0->addWidget(this->error);
-
-		QHBoxLayout *layout1 = new QHBoxLayout(nullptr);
-		layout1->addWidget(parsers_combobox);
-		layout1->addWidget(button);
-		layout1->addWidget(writeNow);
-
-		QVBoxLayout *layout2 = new QVBoxLayout(nullptr);
-		layout2->addLayout(layout0);
-		layout2->addLayout(layout1);
-		setLayout(layout2);
-
-		this->hide();
+		auto mainLayout = new QVBoxLayout(this);
+		auto splitter = new QSplitter(Qt::Vertical, this);
+		auto languageLayout = new QHBoxLayout(this);
+		auto buttonLayout = new QHBoxLayout(this);
+		splitter->addWidget(textArea);
+		splitter->addWidget(errorBox);
+		splitter->setStretchFactor(0,10);
+		splitter->setStretchFactor(1,1);
+		languageLayout->addWidget(languageLabel);
+		languageLayout->addWidget(languageBox);
+		buttonLayout->addWidget(writeButton);
+		buttonLayout->addWidget(openButton);
+		buttonLayout->addWidget(loadButton);
+		mainLayout->addWidget(splitter);
+		mainLayout->addLayout(languageLayout);
+		mainLayout->addLayout(buttonLayout);
+		this->setLayout(mainLayout);
+		
+		//this->hide();
 		QWidget* pw = parentWidget();
 		if (pw!=nullptr)
 		{
 			pw->hide(); // default hidden
-			pw->layout()->setSizeConstraint(QLayout::SetMinAndMaxSize);
+			//pw->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
 			Qt::WindowFlags flags = pw->windowFlags();
-			//flags |= Qt::MSWindowsFixedSizeDialogHint; // let user to change it
-			flags &= ~Qt::WindowMaximizeButtonHint;
+			//flags |= Qt::MSWindowsFixedSizeDialogHint;
+			flags |= Qt::WindowMaximizeButtonHint;
 			flags |= Qt::WindowStaysOnTopHint;
 			pw->setWindowFlags(flags);
-			pw->resize(550, 300);
-			//pw->setFixedSize(this->sizeHint());
-			//pw->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+			pw->adjustSize();
 		}
 	}
 
-	void MelodyEditorView::onComboBoxIndexChanged(int index)
-	{
-		this->parser_id = index;
-	}
 
-	void MelodyEditorView::flagWriteNow()
+	//! Hacky way to get a writable MidiClip pointer from PianoRollWindow
+	void MelodyEditorView::setClipFromPianoRoll()
 	{
-		// if live mode was disabled, enable it.
-		// if keyboiard typing on write area,
-		// update midi clip
-		this->pte->flagWriteNow();
-	}
+		const MidiClip* currentMidiClip = getGUI()->pianoRoll()->currentMidiClip();
 
-	void MelodyEditorView::updateMidiClip()
-	{
-		QList<QString> messages = {};
+		const auto trackContainers = std::initializer_list<TrackContainer*>{
+			Engine::getSong(),
+			Engine::patternStore(),
+		};
 
-		// Do not process too long melodies. Save CPU.
-		// Prevent accidental freezing, or data loss.
-		QString userNotations = this->pte->toPlainText();
-		if(userNotations.length() > u->MAX_INPUT_LIMIT)
+		for (auto* trackContainer: trackContainers)
 		{
-			// may cause the last note to be weird, though, still safe.
-			userNotations = userNotations.left(u->MAX_INPUT_LIMIT);
-			messages.append("Too long text to process. Trimmed.");
-		}
-
-		/**
-		 * try/catch now allows the multiple calls even when there was an error,
-		 * without crashing the host.
-		 */
-		try
-		{
-			if(this->parser_id>=0)
+			for (auto* track: trackContainer->tracks())
 			{
-				AbstractParser *parser = this->pf->parsers[this->parser_id];
-				QList<NotationCell *> cells = parser->parse(userNotations);
-
-				QString xpt_xml = "";
-				parser->cells_to_xml(cells, xpt_xml);
-
-				QDomDocument *root = new QDomDocument();
-				root->setContent(xpt_xml);
-				const QDomElement midiclipnodes = root->documentElement(); // <midiclip/>
-				if(midiclipnodes.hasChildNodes()) // <note/>[]
+				if (track->type() != Track::Type::Instrument) { continue; }
+				for (auto* clip: track->getClips())
 				{
-					// Similar to MIDI Import Clip, using xpt
-					// This casues a minimal change to patch original LMMS Codes.
-					GuiApplication *application = getGUI();
-					PianoRollWindow *m_pianoRoll = application->pianoRoll();
-					MidiClip *m_midiClip = const_cast<MidiClip*>(m_pianoRoll->currentMidiClip());
-					if(m_midiClip!=nullptr)
+					if (static_cast<const MidiClip*>(clip) == currentMidiClip)
 					{
-						TimePos pos = m_midiClip->startPosition();
-						m_midiClip->loadSettings(midiclipnodes);
-						m_midiClip->updateLength();
-						m_midiClip->movePosition(pos);
-					}
-					else
-					{
-						messages.append("Open a Piano-Roll Window first.");
+						m_plugin->setMidiClip(static_cast<MidiClip*>(clip));
+						return;
 					}
 				}
-				else
-				{
-					messages.append("Invalid or Empty Notations!");
-				}
-			}
-			else
-			{
-				messages.append("Parser was NOT selected.");
 			}
 		}
-		catch(const std::exception& e)
-		{
-			messages.append(e.what());
-		}
-
-		if(messages.count()>0)
-		{
-			this->error->setText(messages.join("; "));
-		}
+		m_plugin->setMidiClip(nullptr);
+		m_plugin->m_log->clear();
 	}
 
-	void MelodyEditorView::closeEvent(QCloseEvent*)
+
+	void MelodyEditorView::openNotationsFileSelector()
 	{
-		qDebug() << "MelodyEditor Closed!";
+		QString dir = m_plugin->m_file.isEmpty() ? "" : QFileInfo(m_plugin->m_file).dir().path();
+		FileDialog ofd( this, "Open melody notations", "", "Melodies (*.txt)");
+		ofd.setFileMode(FileDialog::ExistingFiles);
+		if( ofd.exec () == QDialog::Accepted && !ofd.selectedFiles().isEmpty() )
+		{
+			auto filename = ofd.selectedFiles()[0];
+
+			if (!sizeCheck(filename))
+			{
+				QMessageBox::critical(this, "Error", "The file you are trying to load is too large");
+				return;
+			}
+
+			m_plugin->loadFile(filename);
+		}
 	}
+
 
 } // namespace lmms::gui
