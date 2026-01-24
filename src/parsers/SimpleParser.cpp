@@ -108,14 +108,16 @@ void SimpleParser::process()
 	}
 	case ',':
 	{
-		// time shared
-		// 1 comma = 2 pieces = 50% each note time
-		// 2 comma = 3 pieces = 33% each note time
-		// 3 comma = 4 pieces = 25% each note time
+		// @todo time shared | Currently captures "invalid character"
+		// 1 comma = 2 pieces = 50% each note time eg: C,D
+		// 2 comma = 3 pieces = 33% each note time eg: C,D,E
+		// 3 comma = 4 pieces = 25% each note time eg: C,D,E,F
 		break;
 	}
 	case '-':
 		//@todo continuation of last note in this time slot
+		// just increase the note length.
+		// depends, if comma is there.
 		break;
 	case 'r':
 	case 'x':

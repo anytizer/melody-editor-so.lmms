@@ -1,0 +1,42 @@
+# Time Signature: 4/4
+# Tempo: 280 bpm
+# Key: C Major
+# Parser: English
+# Title: Baa Baa Black Sheep
+# AI Search results, with human edits
+
+# baa, baa, black sheep!
+C - C - G - G -
+
+# have you any wool?
+A A A A G - - x 
+
+# yes sir, yes sir.
+F - F - E - E - 
+
+# three bags full.
+D D - D C - - x
+
+# one for the master.
+G - G F F - F -
+
+# one for the dame.
+E - E E D - - x
+
+# one for the little boy,
+G - G F F F F -
+
+# who lives down the lane.
+E - E E D - - x
+
+# baa, baa, black sheep!
+C - C - G - G -
+
+# have you any wool?
+A A A A G - - x 
+
+# yes sir, yes sir.
+F - F - E - E - 
+
+# three bags full.
+D D - D C - - x

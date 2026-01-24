@@ -1,0 +1,9 @@
+# Happy Birthday
+# Time Signature: 3/4
+# Tempo 180 BPM
+
+x C#,C# D#  - C# F# - F  -
+x C#,C# D#  - C# F# - F# -
+x C#,C# C#* - A# F# - D# -
+x B,B   A#  - F# G# - F# -
+

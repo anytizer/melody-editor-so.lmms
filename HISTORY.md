@@ -3,8 +3,8 @@
 ## 2026-01
  
  - Live coding enable/disable with a button.
- - Dropped temprary repositories.
- - Namespace simplified.
+ - Dropped off temprary repositories.
+ - Namespace simplified | needs to reserve.
  - User selected text preferred first, instead of parsing whole text.
  - Placeholder icons added.
  - Activated a most of the parsers with empty functionalities.

@@ -1,0 +1,11 @@
+piano:
+c e g a f a g e
+a > e f g c <a > a g
+
+timpani:
+[a8 a8 r8*4 a r1]*2
+
+vibraphone:
+a e g {a e g}
+a e g e <<{a> e g}2*4
+

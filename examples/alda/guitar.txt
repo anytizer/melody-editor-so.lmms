@@ -1,0 +1,2 @@
+acoustic-guitar:
+  o3 c8 d e f g a b > c
