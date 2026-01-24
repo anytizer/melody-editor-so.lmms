@@ -7,4 +7,3 @@ x r,r g  - r M - m -
 x r,r g  - r M - M -
 x r,r r* - n M - g -
 x N,N n  - M d - M -
-

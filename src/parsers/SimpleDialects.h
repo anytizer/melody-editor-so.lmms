@@ -66,6 +66,8 @@ const Dialect ENGLISH_DIALECT = {
 		}
 };
 
+// temporarily disabled, though.
+// testing required.
 const Dialect CARNATIC_DIALECT = {
 	"SARGAM / Carnatic",
 	"ns-carnatic",
@@ -212,7 +214,7 @@ const Dialect HINDUSTANI_DIALECT = {
 		{"ध़", "D."}, // lower octave? or komal?
 		{"ध", "D"}, // colliding D?
 		{"d(k)", "d"},
-		{"d(k)", "d"},
+		{"D(k)", "d"},
 		////////////////////////
 		{"d", "d+"},
 		{"D", "D+"},
@@ -230,7 +232,8 @@ const Dialect HINDUSTANI_DIALECT = {
 		{"N", "N+"},
 
 		// convert to western notes
-		// + sign is appended to lock replacing other notes containing same letters. eg. RE => D4 => DHA? => A
+		// + sign is appended to lock replacing other notes containing same letters.
+		// eg. protecting: RE => D4 => DHA? => A
 		{"S+", "C"},
 		{"r+", "C#"},
 		{"R+", "D"},

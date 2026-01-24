@@ -37,10 +37,9 @@ namespace lmms::gui::melodyeditor
 		this->setFont(font);
 		this->setStyleSheet("font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;");
 
-		this->setCursor(Qt::IBeamCursor);
-
+		
 		//this->setPlainText("# Double-Click to load a file.");
-
+		
 		// @todo Placeholder Text is not experienced.
 		this->setPlaceholderText("# Type or paste melody notations...");
 		
@@ -48,9 +47,10 @@ namespace lmms::gui::melodyeditor
 		// But still, keep the shortcuts enabled eg. ctrl+C, ctrl+v
 		//this->setContextMenuPolicy(Qt::NoContextMenu);
 		
-		// Prepare to enforce scrollbars on zooming
+		// Enforce
 		this->setLineWrapMode(QPlainTextEdit::NoWrap);
 		this->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+		this->setCursor(Qt::IBeamCursor);
 		this->ensureCursorVisible();
 	}
 

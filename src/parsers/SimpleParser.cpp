@@ -53,7 +53,7 @@ int pianoKey(const char c)
 	}
 }
 
-}
+} // namespace
 
 
 namespace lmms::melodyeditor
@@ -78,7 +78,7 @@ void SimpleParser::parse(const QString& string)
 	translated
 		.replace(ALTERNATIVE_OCTAVE_UP, OCTAVE_UP)
 		.replace(ALTERNATIVE_STEP, STEP)
-		.replace("™", "#")
+		.replace("™", "#") // TradeMark => tivra ma => F#
 		.replace("।", "|");
 
 	m_reader = StringReader(translated);
@@ -115,9 +115,13 @@ void SimpleParser::process()
 		break;
 	}
 	case '-':
-		//@todo continuation of last note in this time slot
+		// @todo continuation of last note in this time slot
 		// just increase the note length.
-		// depends, if comma is there.
+		// depends, if comma ( , ) is there or not.
+		// eg. C - - -     | Long pressed "C" for 4 beats
+		// eg. S -,R S -   | see how "S" extends to half time of another beat.
+		//                 | "R" plays haf time
+		//                 | S plays for double the time
 		break;
 	case 'r':
 	case 'x':
@@ -205,6 +209,15 @@ std::vector<const Model*> SimpleParser::write(MidiClip* clipInPianoRoll)
 {
 	writeNotesToMidiClip(m_notes, clipInPianoRoll);
 	return {clipInPianoRoll};
+}
+
+
+
+
+bool SimpleParser::isSafeToWrite(const MidiClip* clipInPianoRoll, const std::vector<const Model*>& previouslyChanged)
+{
+	// TODO
+	return true;
 }
 
 } // namespace lmms::melodyeditor

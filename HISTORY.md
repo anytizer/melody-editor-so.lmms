@@ -1,7 +1,9 @@
 # Significant Changes (Monthly)
 
 ## 2026-01
- 
+
+ - Using Note.h for directly putting notes into MIDI Clip, without xml/xpt. 
+ - Parsers mentioned in example notations.
  - Live coding enable/disable with a button.
  - Dropped off temprary repositories.
  - Namespace simplified | needs to reserve.
@@ -9,7 +11,8 @@
  - Placeholder icons added.
  - Activated a most of the parsers with empty functionalities.
  - ALDA parser added from @allejok96's efforts.
- - Started to study [ALDA](https://alda.io/) and [ABC notation](https://abcnotation.com/) systems
+ - Started to study [ALDA](https://alda.io/).
+ - Started to study [ABC notation](https://abcnotation.com/) system.
  - Reviewing [ABC](https://abc.sourceforge.net/)
  - Using __const_cast__ instead of modifying LMMS's code, to pull piano roll in editor mode.
  - Temorarily removed incomplete parsers.

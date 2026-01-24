@@ -111,10 +111,10 @@ void MelodyEditor::importFromClip()
 
 void MelodyEditor::parse()
 {
+	if (!m_liveCodingModel->value()) return;
+
 	try
 	{
-		if (!m_liveCodingModel->value()) return;
-
 		// @todo Apply for a selection first, if available.
 		// @see issue #2
 		QString notations = "";
@@ -132,7 +132,7 @@ void MelodyEditor::parse()
 		parser()->parse(notations);
 		
 		// @todo Complete safety
-		//if (parser()->isSafeToWrite(nullptr, {}))
+		if (parser()->isSafeToWrite(nullptr, {}))
 		{
 			parser()->write(m_midiClip);
 		}
@@ -143,11 +143,6 @@ void MelodyEditor::parse()
 		m_log->setPlainText(e.what());
 	}
 }
-
-
-
-
-
 
 
 

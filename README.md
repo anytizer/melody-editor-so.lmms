@@ -45,7 +45,8 @@ These notations are then parsed to create a MIDI Clip Data within the Piano-Roll
 
 # Compile as a native plugin for LMMS
 
-1. Import this plugin into LMMS's plugin repository.
+1. Clone the source code somewhere.
+2. Import this plugin into LMMS's plugin repository.
 
 ```
 cd lmms/plugins
@@ -54,15 +55,12 @@ ln -s /media/USER/DISK/path/to/[melody-editor-so.lmms] MelodyEditor
 
 Or, copy the plugin's source code (aka melody-editor-so.lmms) into __lmms/plugins__ folder.
 
-2. Enable/Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
-
-3. Then `make` or compile the copy of your LMMS.
+3. Enable/Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
+4. Then `make` or compile the copy of your LMMS.
 
 It will create `libmelodyeditor.so` file into the plugin repository.
 There may be a corresponding .dll file in case of Windows.
-This plugin is now accessible from the Tools Menu; ready to process your melody notations.
-
-4. ~~A boolean flag `_completed` or `completed()` controls the display of specific parser.~~
+This plugin is now accessible from the Tools Menu;
 
 # Documentation
 
@@ -155,32 +153,6 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 
 For this notation set, pick "ENGLISH".
 
-<!--
-
-### Example 5: Numbered (unfinished, listing only)
-
-```
-# Happy Birthday to You
-# (C - C - F - C)
-1 - 1 - 4 - 1
-
-# Happy Birthday to You
-# (F - F - G - F)
-4 - 4 - 5 - 4
-
-# Happy Birthday dear [Name]
-# (C - C - Am - F)
-1 - 1 - 6m - 4
-
-# Happy Birthday to You
-# (C - G - C - G)
-1 - 5 - 1 - 5
-```
-
-For this notation set, pick "Nashville".
-
--->
-
 # Notes Allowed
 
 You can pick your notation system and allowed notes. [reference reading...](https://en.wikipedia.org/wiki/Key_signature_names_and_translations)
@@ -237,3 +209,4 @@ Example: `/` for `|`. `~` for `-`. Please study the source code variables for fi
 - Need to support multiple instruments at once?
 - Please see [ToDOs](TODO.md) file. Also, a help is needed.
 - Please see [History](HISTORY.md) file for change logs.
+- Please see [references](WHERE.md) used to learn.
