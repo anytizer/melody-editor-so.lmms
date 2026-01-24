@@ -3,34 +3,19 @@
 The materials may be copyrighted.
 Linked for references only.
 
-## Others
-
- - Study/add more parsers and examples:
-  * https://github.com/schollz/miti
-  * https://github.com/flipcoder/textbeat
-  - https://github.com/Qirky/FoxDot
-  - https://sonic-pi.net/
-  - https://chuck.cs.princeton.edu/
-  - https://github.com/emicklei/melrose
-  - https://github.com/frescobaldi/frescobaldi
-  - https://csound.com/download.html
-  * Add ABC Notation parser. Try to reuse codebase from abcjs parser.
-  * Add ALDA Notation parser.
-  	- [Info](https://youtu.be/7nbBSwopG-E)
-    - https://kidscodecs.com/alda/
-	  - https://youtu.be/c5pCFtwO4j8
-
 ## ALDA Notation System
+
 - [alda.io](https://alda.io/)
 
 ## ABC Notation System
+
 - [abc notation](https://abcnotation.com/)
 - https://abcnotation.com/wiki/abc:standard:v2.2
 - [Spend a lifetime browsing and following the links](https://abcmusicnotation.weebly.com/tunes.html).
 - https://trillian.mit.edu/~jc/cgi/abc/tunefind
 - [How to interpret abc music notation](http://www.lesession.co.uk/abc/abc_notation.htm)
 - https://www.folktunefinder.com/
-  * https://www.folktunefinder.com/tunes/85302
+  - https://www.folktunefinder.com/tunes/85302
 - [An ABC Library of Morris Tunes](https://www.ucolick.org/~sla/morris/music/abclib.html)
 - https://themorrisring.org/tradition/bledington
 - [ABC Player and Editor 3.0](https://abc.rectanglered.com/)
@@ -96,3 +81,20 @@ Linked for references only.
 * https://en.wikipedia.org/wiki/Kriti_(music)
 * https://en.wikipedia.org/wiki/Carnatic_music
 * https://www.melakarta.com/education.html
+
+## Others
+
+- Study/add more parsers and examples:
+- https://github.com/schollz/miti
+- https://github.com/flipcoder/textbeat
+- https://github.com/Qirky/FoxDot
+- https://sonic-pi.net/
+- https://chuck.cs.princeton.edu/
+- https://github.com/emicklei/melrose
+- https://github.com/frescobaldi/frescobaldi
+- https://csound.com/download.html
+- Add ABC Notation parser. Try to reuse codebase from abcjs parser.
+- Add ALDA Notation parser.
+  - [Info](https://youtu.be/7nbBSwopG-E)
+  - https://kidscodecs.com/alda/
+  - https://youtu.be/c5pCFtwO4j8

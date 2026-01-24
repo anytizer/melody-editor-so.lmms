@@ -1,7 +1,7 @@
 /**
  * MelodyEditorTextArea.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 
 #ifndef LMMS_GUI_MELODY_EDITOR_TEXTAREA_H

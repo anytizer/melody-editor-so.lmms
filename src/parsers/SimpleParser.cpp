@@ -1,7 +1,8 @@
 /**
  * SimpleParser.cpp
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
 #include "SimpleParser.h"
@@ -113,6 +114,9 @@ void SimpleParser::process()
 		// 3 comma = 4 pieces = 25% each note time
 		break;
 	}
+	case '-':
+		//@todo continuation of last note in this time slot
+		break;
 	case 'r':
 	case 'x':
 	case 'X':

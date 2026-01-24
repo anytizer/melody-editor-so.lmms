@@ -1,7 +1,8 @@
 /**
  * SimpleParser.h
  *
- * Copyright (c) 2025 - 2025 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
 #ifndef MELODY_EDITOR_SIMPLE_PARSER_H

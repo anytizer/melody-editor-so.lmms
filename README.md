@@ -1,15 +1,17 @@
 # melody-editor-so.lmms
 
 ```
-Creates a plugin: libmelodyeditor.so - under LMMS/Qt6.
+Creates a plugin: libmelodyeditor.so - for LMMS under Qt6.
 ```
 
 A text based melody parser plugin for [LMMS](https://github.com/LMMS/lmms);
-feeding SARGAM and English Notations. It is asscessible from `Tools > Melody Editor`.
+feeding Alda, SARGAM and English Notations.
+It is asscessible from `Tools > Melody Editor`.
 
 This plguin allows a user to type in or drop in song notations file into an editor area.
 These notations are then parsed to create a MIDI Clip Data within the Piano-Roll window.
-An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.
+
+~~An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.~~ Direct pasting into Piano Roll.
 
 # Features
 
@@ -152,6 +154,8 @@ x B4,B4   A#4 - F#4 G#4 - F#4 -
 
 For this notation set, pick "ENGLISH".
 
+<!--
+
 ### Example 5: Numbered (unfinished, listing only)
 
 ```
@@ -174,6 +178,8 @@ For this notation set, pick "ENGLISH".
 
 For this notation set, pick "Nashville".
 
+-->
+
 # Notes Allowed
 
 You can pick your notation system and allowed notes. [reference reading...](https://en.wikipedia.org/wiki/Key_signature_names_and_translations)
@@ -182,14 +188,17 @@ MIDI Key       | 60 | 61  | 62 | 63  | 64 | 65 | 66  | 67 | 68 | 69 | 70  | 71
 ---------------|----|-----|----|-----|----|----|-----|----|----|----|-----|----
 SARGAM         | S  | r   | R  | g   | G  | m  | M   | P  | d  | D  | n   | N  
 स र ग म        | सा  | रे॒   | रे  | ग॒    | ग  | म  | म॑   | प  | ध॒  | ध  | नि॒   | नि 
-Carnatic`*`    | S  | r   | R  | g   | G  | m  | M   | P  | d  | D  | n   | N
 English        | C  | C#  | D  | D#  | E  | F  | F#  | G  | G# | A  | A#  | B
 English        | C4 | C#4 | D4 | D#4 | E4 | F4 | F#4 | G4 | G#4| A4 | A#4 | B4
+
+<!--
 German         | C  | C#  | D  | D#  | E  | F  | F#  | G  | G# | A  | A#  | H
+Carnatic`*`    | S  | r   | R  | g   | G  | m  | M   | P  | d  | D  | n   | N
 Numeric        |    |     |    |     |    |    |     |    |    |    |     |  
 Virtual Piano  |    |     |    |     |    |    |     |    |    |    |     |  
 [ALDA](https://alda.io/)           |    |     |    |     |    |    |     |    |    |    |     |  
 [ABC Notation](https://abcnotation.com/)   |    |     |    |     |    |    |     |    |    |    |     |  
+-->
 
 `*`: Partial performance
 
@@ -204,7 +213,7 @@ Completed?   | MIDI           | Notes                                           
 [ No ]       | German         | Without octave number | Yes
 [ No ]       | Numeric        | - | Yes
 [ No ]       | Virtual Piano  | - | Yes
-[ No ]       | ALDA           | - | Yes
+[ No ]       | Alda           | - | Yes
 [ No ]       | ABC Notation   | - | Yes
 
 Note: This table (Additional Notes) is a horizontal expansion of the table from above (Notes Allowed).

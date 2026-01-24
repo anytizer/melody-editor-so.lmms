@@ -2,6 +2,7 @@
  * MelodyEditor.cpp
  *
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
 #include <QWidget>
@@ -115,6 +116,8 @@ void MelodyEditor::parse()
 	{
 		if (!m_liveCodingModel->value()) return;
 
+		// @todo Apply for a selection first, if available.
+		// @see issue #2
 		QString notations = "";
 		// QTextCursor cursor = ui->textEdit->textCursor();
 		// if (cursor.hasSelection())
@@ -129,6 +132,7 @@ void MelodyEditor::parse()
 
 		parser()->parse(notations);
 		
+		// @todo Complete safety
 		//if (parser()->isSafeToWrite(nullptr, {}))
 		{
 			parser()->write(m_midiClip);
