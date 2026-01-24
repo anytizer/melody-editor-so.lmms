@@ -1,7 +1,7 @@
 /**
  * MelodyEditorView.cpp
  *
- * Copyright (c) 2025 - 2026 Bimal Poudel <anytizer@users.noreply.github.com>
+ * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  */
 #include <QWidget>
 #include <QVBoxLayout>
