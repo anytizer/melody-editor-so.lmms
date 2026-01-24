@@ -59,10 +59,10 @@ Or, copy the plugin's source code (aka melody-editor-so.lmms) into __lmms/plugin
 3. Then `make` or compile the copy of your LMMS.
 
 It will create `libmelodyeditor.so` file into the plugin repository.
-There may be a .dll in case of Windows.
+There may be a corresponding .dll file in case of Windows.
 This plugin is now accessible from the Tools Menu; ready to process your melody notations.
 
-4. A boolean flag `_completed` or `completed()` controls the display of specific parser.
+4. ~~A boolean flag `_completed` or `completed()` controls the display of specific parser.~~
 
 # Documentation
 
@@ -109,6 +109,7 @@ Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | 
 ## Example: Happy Birthday song
 
 - Courtesy: AI search results and human edits.
+- Details [here](examples/).
 
 ### Example 1: SARGAM in Romanized Letters
 

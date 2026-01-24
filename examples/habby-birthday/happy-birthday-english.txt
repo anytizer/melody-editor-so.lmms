@@ -1,6 +1,7 @@
 # Happy Birthday
 # Time Signature: 3/4
-# Tempo 180 BPM
+# Tempo: 180 BPM
+# Parser: English
 
 x C#,C# D#  - C# F# - F  -
 x C#,C# D#  - C# F# - F# -

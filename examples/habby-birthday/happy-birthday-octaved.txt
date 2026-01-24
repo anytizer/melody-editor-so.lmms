@@ -1,6 +1,7 @@
 # Happy Birthday
 # Time Signature: 3/4
-# Tempo 180 BPM
+# Tempo: 180 BPM
+# Parser: English
 
 x C#4,C#4 D#4 - C#4 F#4 - F4  - 
 x C#4,C#4 D#4 - C#4 F#4 - F#4 -

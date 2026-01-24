@@ -1,6 +1,7 @@
 # Happy Birthday
 # Time Signature: 3/4
-# Tempo 180 BPM
+# Tempo: 180 BPM
+# Parser: SARGAM
 
 x रे॒,रे॒   ग॒   -  रे॒  मे  -  म -
 x रे॒,रे॒   ग॒   -  रे॒  मे  -  मे -
