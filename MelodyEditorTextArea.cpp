@@ -16,6 +16,8 @@
 #include <QTextCursor>
 #include <QPlainTextEdit>
 #include <QWheelEvent>
+#include <QMouseEvent>
+#include <QEvent>
 
 #include "MelodyEditorTextArea.h"
 #include "src/includes/Utilities.h"
@@ -30,8 +32,7 @@ namespace lmms::gui::melodyeditor
 	{
 		this->setAcceptDrops(true);
 
-		// Try to be OS neutral ~~and printer friendly~~.
-		// Make a room for zoom out also.
+		// Try to be OS neutral.
 		QFont font("Consolas", MIN_FONTSIZE+4); // Consolas | sans-serif @ 14 points
 		this->setFont(font);
 		this->setStyleSheet("font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;");
@@ -55,6 +56,16 @@ namespace lmms::gui::melodyeditor
 
 	MelodyEditorTextArea::~MelodyEditorTextArea()
 	{
+	}
+
+	void MelodyEditorTextArea::mouseDoubleClickEvent(QMouseEvent *event)
+	{
+		if (event->button() == Qt::LeftButton) {
+			emit doubleClicked();
+			event->accept();
+		} else {
+			QPlainTextEdit::mouseDoubleClickEvent(event);
+		}
 	}
 
 	/**

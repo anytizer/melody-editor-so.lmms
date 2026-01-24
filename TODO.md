@@ -39,7 +39,6 @@ alda stop
 - Text mark as "incomplete" parsers like German and Numered to inform other developers.
 - Use tr() translate texts.
 - Replace all icons with proper identificatons, eg. ns-abc.
-- Control completed status and appearance of parser with is_completed flag. This allows registering all available parsers.
 
 ## Discuss
 
@@ -84,7 +83,7 @@ alda stop
 	- eg. notations.txt
 - Enforce that the dropped file name to be notations.txt or notations-x-y-z.txt
 - Introduce file type extension: .melody, .sargam, .notation, .txt | poll
-- STo save the melody file to an external path.
+- To save the melody file to an external path.
 
 ## Done
 

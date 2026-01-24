@@ -1,4 +1,6 @@
 /**
+ * AldaParser.h
+ * 
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
@@ -207,7 +209,7 @@ class AldaParser : public AbstractParser
 {
 public:
 	QString name() const override { return "Alda"; }
-	std::string icon() const override { return "ns-english"; }
+	std::string icon() const override { return "ns-alda"; }
 	QString help() const override { return "TODO"; }
 	QString logMessages() const override { return m_score.warnings.join("\n"); }
 

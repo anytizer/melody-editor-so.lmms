@@ -21,7 +21,6 @@
 #include <QEvent>
 #include <QPlainTextEdit>
 #include <QSplitter>
-#include <QDebug>
 
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
@@ -56,6 +55,7 @@ namespace lmms::gui
 		auto textArea(new MelodyEditorTextArea());
 		textArea->setDocument(m_plugin->m_document);
 		connect(textArea, &MelodyEditorTextArea::fileDropped, m_plugin, &MelodyEditor::loadFile);
+		connect(textArea, &MelodyEditorTextArea::doubleClicked, this, &MelodyEditorView::openNotationsFileSelector);
 
 		auto languageLabel = new QLabel("Notation system:", this);
 
@@ -74,8 +74,10 @@ namespace lmms::gui
 		connect(writeButton, &QPushButton::clicked, m_plugin, [this, plugin, writeButton]{
 			bool now = writeButton->isChecked();
 			m_plugin->flag(now);
-			if(now) m_plugin->parse(); // also parse immediately
-			qDebug() << "Live coding: " << writeButton->isChecked();
+			if(now)
+			{
+				m_plugin->parse(); // also parse immediately
+			}
 		});
 
 		auto openButton = new QPushButton("Open", this);

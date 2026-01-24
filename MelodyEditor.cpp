@@ -22,7 +22,6 @@
 #include "src/parsers/AldaParser.h"
 #include "src/parsers/SimpleParser.h"
 
-//using lmms::gui::PluginView;
 using lmms::gui::MelodyEditorView;
 using namespace lmms::melodyeditor;
 
@@ -34,7 +33,7 @@ extern "C"
 
 	Plugin::Descriptor PLUGIN_EXPORT melodyeditor_plugin_descriptor = {
 		LMMS_STRINGIFY(PLUGIN_NAME),
-		"Melody Editor",
+		"&Melody Editor",
 		QT_TRANSLATE_NOOP("PluginBrowser", "Melody Editor"),
 		"Bimal Poudel <anytizer@users.noreply.github.com>",
 		0x0100,
