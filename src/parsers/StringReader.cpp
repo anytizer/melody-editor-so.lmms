@@ -10,7 +10,7 @@
 
 namespace
 {
-constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~';
+constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~'; // 0x7E?
 const auto INTEGER_PATTERN = QRegularExpression("\\d+");
 const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
 }
@@ -28,7 +28,13 @@ char StringReader::peek()
 	}
 	else if (m_string.at(m_pos) > LAST_PRINTABLE_ASCII_CHAR)
 	{
-		throw ParserError(pos() + "unsupported character: " + m_string.at(m_pos));
+		if(m_string.startsWith("#"))
+		{
+			//m_line++;
+		}
+
+		// @todo Should support unicode comments too, after a # symbol
+		throw ParserError(pos() + "unsupported character: " + m_string.at(m_pos)+" in: "+m_string);
 	}
 
 	return m_string.at(m_pos).toLatin1();

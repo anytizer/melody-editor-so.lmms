@@ -70,7 +70,7 @@ namespace lmms::PLUGIN_NAME
 
 	void writeNotesToMidiClip(const std::vector<Note>& notes, MidiClip* clip)
 	{
-		if (!clip) { return; }
+		if (!clip) return;
 
 		clip->setJournalling(false);
 		clip->clear();

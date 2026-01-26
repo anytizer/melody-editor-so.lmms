@@ -57,6 +57,7 @@ namespace lmms
 		public slots:
 			void importFromClip();
 			void parse();
+			void parseNotations(QString notations);
 			void writeToClip();
 
 		private:

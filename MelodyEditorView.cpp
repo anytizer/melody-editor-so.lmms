@@ -22,6 +22,8 @@
 #include <QPlainTextEdit>
 #include <QSplitter>
 
+#include <QDebug>
+
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
 #include "MelodyEditorTextArea.h"
@@ -56,6 +58,10 @@ namespace lmms::gui
 		textArea->setDocument(m_plugin->m_document);
 		connect(textArea, &MelodyEditorTextArea::fileDropped, m_plugin, &MelodyEditor::loadFile);
 		connect(textArea, &MelodyEditorTextArea::doubleClicked, this, &MelodyEditorView::openNotationsFileSelector);
+		// connect(textArea, &QPlainTextEdit::selectionChanged, this, [this, textArea]{
+		// 	QString selection = textArea->textCursor().selectedText();
+		// 	this->handleSelectionChanged(selection);
+		// });
 
 		auto languageLabel = new QLabel("Notation system:", this);
 
@@ -68,29 +74,54 @@ namespace lmms::gui
 
 		QPushButton* writeButton = new QPushButton("Live coding", this);
 		writeButton->setToolTip("Write notes to Piano Roll");
+		writeButton->setFixedHeight(32);
 		writeButton->setCheckable(true);
+		writeButton->setChecked(m_plugin->m_liveCodingModel->value());
 		writeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		writeButton->setStyleSheet("QPushButton:checked { background-color: #276a90; border-style: inset; }");
 		connect(writeButton, &QPushButton::clicked, m_plugin, [this, plugin, writeButton]{
-			bool now = writeButton->isChecked();
-			m_plugin->flag(now);
-			if(now)
+			bool writingNow = writeButton->isChecked();
+			m_plugin->flag(writingNow);
+			if(writingNow)
 			{
-				m_plugin->parse(); // also parse immediately
+				// also parse immediately, once; when checked status changed
+				// @todo pass writingNow as parameter to parse().
+				m_plugin->parse();
 			}
 		});
 
 		auto openButton = new QPushButton("Open", this);
 		openButton->setToolTip("Open melody text file");
+		openButton->setFixedHeight(32);
 		openButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		connect(openButton, &QPushButton::clicked, this, &MelodyEditorView::openNotationsFileSelector);
 
-		auto loadButton = new QPushButton("Import", this);
-		loadButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-		loadButton->setToolTip("Import notes into Piano-Roll");
-		//connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
-		//connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
-		connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::parse);
+		// auto loadButton = new QPushButton("Import", this);
+		// loadButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		// loadButton->setToolTip("Import notes into Piano-Roll");
+		// //connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
+		// //connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
+		// connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::parse);
+		
+		auto updateButton = new QPushButton("Update", this);		
+		updateButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		updateButton->setToolTip("Update Piano-Roll");
+		updateButton->setFixedHeight(32);
+		connect(updateButton, &QPushButton::clicked, m_plugin, [this, textArea]{
+			QString notations = "";
+			QTextCursor cursor = textArea->textCursor();
+
+			if(cursor.hasSelection())
+			{
+				notations = cursor.selectedText();
+			}
+			else
+			{
+				notations = textArea->toPlainText();
+			}
+
+			m_plugin->parseNotations(notations);
+		});
 
 		auto mainLayout = new QVBoxLayout(this);
 		auto splitter = new QSplitter(Qt::Vertical, this);
@@ -104,7 +135,8 @@ namespace lmms::gui
 		languageLayout->addWidget(languageBox);
 		buttonLayout->addWidget(writeButton);
 		buttonLayout->addWidget(openButton);
-		buttonLayout->addWidget(loadButton);
+		//buttonLayout->addWidget(loadButton);
+		buttonLayout->addWidget(updateButton);
 		mainLayout->addWidget(splitter);
 		mainLayout->addLayout(languageLayout);
 		mainLayout->addLayout(buttonLayout);
@@ -115,7 +147,6 @@ namespace lmms::gui
 		if (pw!=nullptr)
 		{
 			pw->hide(); // default hidden
-			//pw->layout()->setSizeConstraint(QLayout::SetFixedSize);
 
 			Qt::WindowFlags flags = pw->windowFlags();
 			//flags |= Qt::MSWindowsFixedSizeDialogHint;
@@ -166,16 +197,16 @@ namespace lmms::gui
 		if( ofd.exec () == QDialog::Accepted && !ofd.selectedFiles().isEmpty() )
 		{
 			auto filename = ofd.selectedFiles()[0];
+			QString basename = QFileInfo(filename).fileName();
 
 			if (!sizeCheck(filename))
 			{
-				QMessageBox::critical(this, "Error", "The file you are trying to load is too large");
+				m_plugin->m_log->setPlainText(QString("%1: %2").arg("File is too large to load").arg(basename));
 				return;
 			}
 
 			m_plugin->loadFile(filename);
 		}
 	}
-
 
 } // namespace lmms::gui

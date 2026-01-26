@@ -11,7 +11,7 @@ It is asscessible from `Tools > Melody Editor`.
 This plguin allows a user to type in or drop in song notations file into an editor area.
 These notations are then parsed to create a MIDI Clip Data within the Piano-Roll window.
 
-~~An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.~~ Direct pasting into Piano Roll.
+<!-- ~~An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.~~ Direct pasting into Piano Roll. -->
 
 # Features
 
@@ -171,9 +171,9 @@ Numeric        |    |     |    |     |    |    |     |    |    |    |     |
 Virtual Piano  |    |     |    |     |    |    |     |    |    |    |     |  
 [ALDA](https://alda.io/)           |    |     |    |     |    |    |     |    |    |    |     |  
 [ABC Notation](https://abcnotation.com/)   |    |     |    |     |    |    |     |    |    |    |     |  
--->
 
 `*`: Partial performance
+-->
 
 ## Additional Notes (Table Expansion for Notes Allowed)
 Completed?   | MIDI           | Notes                                            | Help Wanted?

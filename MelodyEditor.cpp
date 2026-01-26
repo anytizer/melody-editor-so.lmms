@@ -13,6 +13,8 @@
 #include <QPlainTextDocumentLayout>
 #include <QTextDocument>
 
+#include <QDebug>
+
 #include "ComboBoxModel.h"
 #include "embed.h"
 #include "plugin_export.h"
@@ -60,7 +62,7 @@ MelodyEditor::MelodyEditor()
 		//new SimpleParser(CARNATIC_DIALECT)
 	}
 	, m_parserModel(new ComboBoxModel(this, "Parser"))
-	, m_liveCodingModel(new BoolModel(true, this, "Auto export"))
+	, m_liveCodingModel(new BoolModel(true, this, "Live coding"))
 	, m_document(new QTextDocument(this))
 	, m_log(new QTextDocument(this))
 {
@@ -101,38 +103,38 @@ void MelodyEditor::loadFile(const QString& filename)
 
 void MelodyEditor::importFromClip()
 {
-	if (!m_midiClip) { return m_log->setPlainText("You need to open a clip in Piano Roll first"); }
+	if (!m_midiClip) return m_log->setPlainText("Open a clip in Piano Roll first");
 	parser()->importFromClip(m_midiClip);
+
 	return m_log->setPlainText(parser()->logMessages());
 }
 
 
-
-
-void MelodyEditor::parse()
+void MelodyEditor::parseNotations(QString notations)
 {
-	if (!m_liveCodingModel->value()) return;
+	notations.replace('\r', '\n');
+	
+	// temporarily strip non-ascii
+	/**
+	// strip out unicodes and keep ascii only
+	QString output;
+    for (const QChar &qc : notations) {
+        // ASCII in the range 0 to 127
+        if (qc.unicode() >= 0 && qc.unicode() <= 127)
+		{
+            output += qc;
+        }
+    }
+	notations = output;
+	*/
+	notations = notations.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
 
 	try
 	{
-		// @todo Apply for a selection first, if available.
-		// @see issue #2
-		QString notations = "";
-		// QTextCursor cursor = ui->textEdit->textCursor();
-		// if (cursor.hasSelection())
-		// {
-		// 	// if a small portion was select, use it first.
-		// 	notations = cursor.selectedText();
-		// }
-		// else
-		{
-			notations = m_document->toPlainText();
-		}
-
 		parser()->parse(notations);
 		
 		// @todo Complete safety
-		if (parser()->isSafeToWrite(nullptr, {}))
+		//if (parser()->isSafeToWrite(nullptr, {}))
 		{
 			parser()->write(m_midiClip);
 		}
@@ -142,6 +144,18 @@ void MelodyEditor::parse()
 	{
 		m_log->setPlainText(e.what());
 	}
+}
+
+
+
+
+void MelodyEditor::parse()
+{
+	if (!m_liveCodingModel->value()) return;
+
+	// QString notations = m_document->toPlainText();
+	// this->parseNotations(notations);
+	this->parseNotations(m_document->toPlainText());
 }
 
 

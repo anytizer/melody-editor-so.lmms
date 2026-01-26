@@ -2,6 +2,9 @@
 
 ## 2026-01
 
+ - Default true for Live code.
+ - Only support the ascii characters, else discarded for processing.
+ - Colored selection for partial clip parsing.
  - Using Note.h for directly putting notes into MIDI Clip, without xml/xpt. 
  - Parsers mentioned in example notations.
  - Live coding enable/disable with a button.

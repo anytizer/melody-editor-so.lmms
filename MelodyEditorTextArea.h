@@ -28,7 +28,7 @@ namespace lmms::gui::melodyeditor
 			~MelodyEditorTextArea();
 
 		signals:
-			void fileDropped(QString);
+			void fileDropped(QString path);
 			void doubleClicked();
 	};
 }

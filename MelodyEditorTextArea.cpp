@@ -16,6 +16,8 @@
 #include <QMouseEvent>
 #include <QEvent>
 
+#include <QDebug>
+
 #include "MelodyEditorTextArea.h"
 #include "src/includes/Utilities.h"
 
@@ -32,17 +34,20 @@ namespace lmms::gui::melodyeditor
 		// Try to be OS neutral.
 		QFont font("Consolas", MIN_FONTSIZE+4); // Consolas | sans-serif @ 14 points
 		this->setFont(font);
-		this->setStyleSheet("font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;");
+		this->setStyleSheet(
+			"font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;"
+			//"selection-background-color: #c02b2b;"
+			"selection-color: #d908f0;"
+		);
 
-		
 		//this->setPlainText("# Double-Click to load a file.");
 		
 		// @todo Placeholder Text is not experienced.
-		this->setPlaceholderText("# Type or paste melody notations...");
+		this->setPlaceholderText("# 1. Type or paste melody notations.\n# 2. Or, Double-Click to load a file.");
 		
 		// Disable right click menus.
 		// But still, keep the shortcuts enabled eg. ctrl+C, ctrl+v
-		//this->setContextMenuPolicy(Qt::NoContextMenu);
+		// this->setContextMenuPolicy(Qt::NoContextMenu);
 		
 		// Enforce
 		this->setLineWrapMode(QPlainTextEdit::NoWrap);

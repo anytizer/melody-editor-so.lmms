@@ -26,7 +26,7 @@ public:
 	QString name() const override { return m_dialect.name; }
 	std::string icon() const override { return m_dialect.icon; }
 	QString help() const override { return "TODO"; }
-	QString logMessages() const override { return "TODO"; }
+	QString logMessages() const override { return ""; }
 
 	void parse(const QString& string) override;
 

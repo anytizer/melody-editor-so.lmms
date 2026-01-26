@@ -33,7 +33,8 @@ static const QRegularExpression ALTERNATIVE_STEP("[_—~ऽ]");
 static const QRegularExpression CHORD_ATTRIBUTES("[- \t]*");
 static const QRegularExpression NOTE_ATTRIBUTES("[#b]*[*.]*[- \t]*");
 static const QRegularExpression REST_ATTRIBUTES("[- \t]*");
-static const QRegularExpression UNTIL_END_OF_LINE("[^\\n]+");
+//static const QRegularExpression UNTIL_END_OF_LINE("[^\\n]+"); // Original
+static const QRegularExpression UNTIL_END_OF_LINE("[^\\r\\n\0]*");
 
 
 //! Convert letter to a relative key
@@ -133,7 +134,15 @@ void SimpleParser::process()
 	}
 	case '#':
 	{
-		s.consume(UNTIL_END_OF_LINE);
+		do
+		{
+			char c = s.advance();
+			if(c=='\0') break;
+			//if(c=='\r') break;
+			if(c=='\n') break;
+		} while(true);
+
+		//s.consume(UNTIL_END_OF_LINE);
 		break;
 	}
 	case '[':
@@ -208,7 +217,7 @@ void SimpleParser::process()
 std::vector<const Model*> SimpleParser::write(MidiClip* clipInPianoRoll)
 {
 	writeNotesToMidiClip(m_notes, clipInPianoRoll);
-	return {clipInPianoRoll};
+	return { clipInPianoRoll };
 }
 
 
