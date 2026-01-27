@@ -114,19 +114,7 @@ void MelodyEditor::parseNotations(QString notations)
 {
 	notations.replace('\r', '\n');
 	
-	// temporarily strip non-ascii
-	/**
-	// strip out unicodes and keep ascii only
-	QString output;
-    for (const QChar &qc : notations) {
-        // ASCII in the range 0 to 127
-        if (qc.unicode() >= 0 && qc.unicode() <= 127)
-		{
-            output += qc;
-        }
-    }
-	notations = output;
-	*/
+	// temporarily strip non-ascii characters
 	notations = notations.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
 
 	try
