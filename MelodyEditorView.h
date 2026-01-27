@@ -31,7 +31,6 @@ namespace lmms::gui
 		public slots:
 			void openNotationsFileSelector();
 			void setClipFromPianoRoll();
-			//void handleSelectionChanged(QString text);
 
 	};
 
