@@ -112,11 +112,6 @@ void MelodyEditor::importFromClip()
 
 void MelodyEditor::parseNotations(QString notations)
 {
-	notations.replace('\r', '\n');
-	
-	// temporarily strip non-ascii characters
-	notations = notations.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
-
 	try
 	{
 		parser()->parse(notations);
@@ -137,12 +132,11 @@ void MelodyEditor::parseNotations(QString notations)
 
 
 
+//! parse whole text
 void MelodyEditor::parse()
 {
 	if (!m_liveCodingModel->value()) return;
-
-	// QString notations = m_document->toPlainText();
-	// this->parseNotations(notations);
+	
 	this->parseNotations(m_document->toPlainText());
 }
 

@@ -39,6 +39,9 @@ public:
 
 	//! Return the current character, but don't consume it
 	char peek();
+	
+	//! Return current word, but don't consume it
+	QString word();
 
 	//! Consume and return the current character
 	char advance();

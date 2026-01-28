@@ -6,6 +6,7 @@ BUILD_PLUGIN(
     MelodyEditor.cpp
     MelodyEditorTextArea.cpp
     MelodyEditorView.cpp
+    src/includes/NotationsFormatter.cpp
     src/includes/Utilities.cpp
     src/parsers/AldaParser.cpp
     src/parsers/SimpleParser.cpp
@@ -15,6 +16,7 @@ BUILD_PLUGIN(
     MelodyEditor.h
     MelodyEditorTextArea.h
     MelodyEditorView.h
+    src/includes/NotationsFormatter.h
     src/includes/Utilities.h
  
   EMBEDDED_RESOURCES
