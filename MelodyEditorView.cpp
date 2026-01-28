@@ -153,10 +153,10 @@ namespace lmms::gui
 		});
 
 		auto mainLayout = new QVBoxLayout(this);
-		auto sliderLayout = new QHBoxLayout(this);
-		auto languageLayout = new QHBoxLayout(this);
+		auto sliderLayout = new QHBoxLayout(nullptr);
+		auto languageLayout = new QHBoxLayout(nullptr);
 		auto splitter = new QSplitter(Qt::Vertical, this);
-		auto buttonLayout = new QHBoxLayout(this);
+		auto buttonLayout = new QHBoxLayout(nullptr);
 		splitter->addWidget(textArea);
 		splitter->addWidget(errorBox);
 		splitter->setStretchFactor(0,20);
