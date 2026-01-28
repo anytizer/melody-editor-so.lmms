@@ -13,6 +13,7 @@ namespace
 constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~'; // 0x7E?
 const auto INTEGER_PATTERN = QRegularExpression("\\d+");
 const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
+static const QRegularExpression WORD_PATTERN("\\w+");
 }
 
 
@@ -28,11 +29,6 @@ char StringReader::peek()
 	}
 	else if (m_string.at(m_pos) > LAST_PRINTABLE_ASCII_CHAR)
 	{
-		if(m_string.startsWith("#"))
-		{
-			//m_line++;
-		}
-
 		// @todo Should support unicode comments too, after a # symbol
 		throw ParserError(pos() + "unsupported character: " + m_string.at(m_pos)+" in: "+m_string);
 	}
@@ -52,6 +48,8 @@ char StringReader::advance()
 	{
 		m_line++;
 		m_column = 0;
+
+		return advance();
 	}
 	else
 	{
@@ -59,6 +57,18 @@ char StringReader::advance()
 	}
 
 	return c;
+}
+
+QString StringReader::word()
+{
+	QString word = "";
+
+	QRegularExpressionMatch match = WORD_PATTERN.match(m_string);
+	if (match.hasMatch()) {
+		word = match.captured(0); 
+	}
+
+	return word;
 }
 
 

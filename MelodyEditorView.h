@@ -27,11 +27,11 @@ namespace lmms::gui
 
 		public:
 			MelodyEditorView(MelodyEditor* plugin);
-
-		public slots:
+			
+			public slots:
 			void openNotationsFileSelector();
 			void setClipFromPianoRoll();
-
+			void formatNotes();
 	};
 
 } // namespace lmms::gui

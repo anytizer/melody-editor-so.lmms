@@ -33,8 +33,7 @@ static const QRegularExpression ALTERNATIVE_STEP("[_—~ऽ]");
 static const QRegularExpression CHORD_ATTRIBUTES("[- \t]*");
 static const QRegularExpression NOTE_ATTRIBUTES("[#b]*[*.]*[- \t]*");
 static const QRegularExpression REST_ATTRIBUTES("[- \t]*");
-//static const QRegularExpression UNTIL_END_OF_LINE("[^\\n]+"); // Original
-static const QRegularExpression UNTIL_END_OF_LINE("[^\\r\\n\0]*");
+static const QRegularExpression UNTIL_END_OF_LINE("[^\\r\\n]+");
 
 
 //! Convert letter to a relative key
@@ -80,7 +79,11 @@ void SimpleParser::parse(const QString& string)
 		.replace(ALTERNATIVE_OCTAVE_UP, OCTAVE_UP)
 		.replace(ALTERNATIVE_STEP, STEP)
 		.replace("™", "#") // TradeMark => tivra ma => F#
-		.replace("।", "|");
+		.replace("।", "|")
+		.replace("\r", "\n");
+	
+	// temporarily strip non-ascii characters
+	translated = translated.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
 
 	m_reader = StringReader(translated);
 
@@ -94,19 +97,23 @@ void SimpleParser::parse(const QString& string)
 void SimpleParser::process()
 {
 	StringReader& s = m_reader;
+	
+	QString word = s.word();
+	int NOTE_LENGTH = word.contains(',')? DEFAULT_LENGTH / (1+word.count(",")): DEFAULT_LENGTH;
+	
 	char c = s.advance();
+
 	switch (c)
 	{	
 	case '\r':
 	case '\n':
 	case '\t':
 	case ' ':
+		break;
 	case '|':
 	case '/':
 	case '\\':
-	{
 		break;
-	}
 	case ',':
 	{
 		// @todo time shared | Currently captures "invalid character"
@@ -124,25 +131,18 @@ void SimpleParser::process()
 		//                 | "R" plays haf time
 		//                 | S plays for double the time
 		break;
-	case 'r':
+	// // case 'r': // removed, due to match with RE Komal
 	case 'x':
 	case 'X':
 	{
-		int steps = 1 + s.readString(REST_ATTRIBUTES).count(STEP);
-		m_timePos += DEFAULT_LENGTH * steps;
+		//int steps = 1 + s.readString(REST_ATTRIBUTES).count(STEP);
+		// float steps = 1 / (1+s.readString(REST_ATTRIBUTES).count(STEP));
+		m_timePos += NOTE_LENGTH; // * steps;
 		break;
 	}
 	case '#':
 	{
-		do
-		{
-			char c = s.advance();
-			if(c=='\0') break;
-			//if(c=='\r') break;
-			if(c=='\n') break;
-		} while(true);
-
-		//s.consume(UNTIL_END_OF_LINE);
+		s.consume(UNTIL_END_OF_LINE);
 		break;
 	}
 	case '[':
@@ -157,7 +157,7 @@ void SimpleParser::process()
 		m_insideChord = false;
 
 		int steps = s.readString(CHORD_ATTRIBUTES).count(STEP);
-		int chordLength = DEFAULT_LENGTH * (1 + steps);
+		int chordLength = NOTE_LENGTH * (1 + steps);
 
 		// If we have set an explicit chord length, apply it to all notes in the chord
 		if (steps)
@@ -202,7 +202,7 @@ void SimpleParser::process()
 		octave -= attribs.count(OCTAVE_DOWN);
 		key += octave * 12;
 
-		int length = DEFAULT_LENGTH * (1 + attribs.count(STEP));
+		int length = NOTE_LENGTH * (1 + attribs.count(STEP));
 
 		auto& destination = m_insideChord ? m_chord : m_notes;
 		destination.emplace_back(length, m_timePos, key);

@@ -21,12 +21,15 @@
 #include <QEvent>
 #include <QPlainTextEdit>
 #include <QSplitter>
+#include <QColor>
+#include <QSlider>
 
 #include <QDebug>
 
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
 #include "MelodyEditorTextArea.h"
+#include "src/includes/NotationsFormatter.h"
 #include "src/includes/Utilities.h"
 
 #include "ComboBox.h"
@@ -37,8 +40,8 @@
 #include "PatternStore.h"
 
 
-using namespace lmms::melodyeditor;
 using lmms::gui::melodyeditor::MelodyEditorTextArea;
+using namespace lmms::melodyeditor;
 
 
 namespace lmms::gui
@@ -48,8 +51,10 @@ namespace lmms::gui
 		: ToolPluginView(plugin),
 		m_plugin(plugin)
 	{
+		int buttonHeight = 32;
+
 		this->setAcceptDrops(true);
-		this->setMinimumSize(450, 450);
+		this->setMinimumSize(600, 400);
 
 		connect(getGUI()->pianoRoll(), &PianoRollWindow::currentMidiClipChanged, this, &MelodyEditorView::setClipFromPianoRoll);
 		this->setClipFromPianoRoll();
@@ -58,23 +63,41 @@ namespace lmms::gui
 		textArea->setDocument(m_plugin->m_document);
 		connect(textArea, &MelodyEditorTextArea::fileDropped, m_plugin, &MelodyEditor::loadFile);
 		connect(textArea, &MelodyEditorTextArea::doubleClicked, this, &MelodyEditorView::openNotationsFileSelector);
-		// connect(textArea, &QPlainTextEdit::selectionChanged, this, [this, textArea]{
-		// 	QString selection = textArea->textCursor().selectedText();
-		// 	this->handleSelectionChanged(selection);
-		// });
+
+		// font size scaling by a slider
+		QSlider* zoomSlider = new QSlider(Qt::Horizontal);
+		zoomSlider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		//zoomSlider->setMinimumWidth(500);
+		//zoomSlider->setMaximumWidth(400);
+		zoomSlider->setFixedHeight(24);
+		zoomSlider->setRange(MIN_FONTSIZE, MAX_FONTSIZE);
+		zoomSlider->setValue(14);
+		zoomSlider->setTickInterval(3);
+		//zoomSlider->setTickPosition(QSlider::TicksBelow);
+		connect(zoomSlider, &QSlider::valueChanged, this, [this, textArea](int value){
+			// zoom is also controlled with Ctrl+Wheel
+			QFont font = textArea->font();
+			font.setPointSize(std::clamp(value, MIN_FONTSIZE, MAX_FONTSIZE));
+			textArea->setFont(font);
+			textArea->update();
+		});
 
 		auto languageLabel = new QLabel("Notation system:", this);
-
 		auto languageBox = new ComboBox(this, "Select Notation System");
 		languageBox->setModel(m_plugin->m_parserModel);
 
 		auto errorBox(new QPlainTextEdit(this));
 		errorBox->setDocument(m_plugin->m_log);
-		//m_errorBox->setDisabled(true);
+		errorBox->setReadOnly(true);
+		// errorBox->setDisabled(true);
+		QPalette p = errorBox->palette();
+		//p.setColor(QPalette::Base, Qt::black);
+		p.setColor(QPalette::Text, QColor("#e895c1"));
+		errorBox->setPalette(p);
 
-		QPushButton* writeButton = new QPushButton("Live coding", this);
+		QPushButton* writeButton = new QPushButton("Live Coding", this);
 		writeButton->setToolTip("Write notes to Piano Roll");
-		writeButton->setFixedHeight(32);
+		writeButton->setFixedHeight(buttonHeight);
 		writeButton->setCheckable(true);
 		writeButton->setChecked(m_plugin->m_liveCodingModel->value());
 		writeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -92,21 +115,27 @@ namespace lmms::gui
 
 		auto openButton = new QPushButton("Open", this);
 		openButton->setToolTip("Open melody text file");
-		openButton->setFixedHeight(32);
+		openButton->setFixedHeight(buttonHeight);
 		openButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		connect(openButton, &QPushButton::clicked, this, &MelodyEditorView::openNotationsFileSelector);
+
+		auto formatButton = new QPushButton("Format", this);
+		formatButton->setToolTip("Refformatting to become printer friendly");
+		formatButton->setFixedHeight(buttonHeight);
+		formatButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		connect(formatButton, &QPushButton::clicked, this, &MelodyEditorView::formatNotes);
 
 		// auto loadButton = new QPushButton("Import", this);
 		// loadButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		// loadButton->setToolTip("Import notes into Piano-Roll");
-		// //connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
+		// // connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::setClipFromPianoRoll);
 		// //connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::importFromClip);
 		// connect(loadButton, &QPushButton::clicked, m_plugin, &MelodyEditor::parse);
 		
 		auto updateButton = new QPushButton("Update", this);		
 		updateButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		updateButton->setToolTip("Update Piano-Roll");
-		updateButton->setFixedHeight(32);
+		updateButton->setFixedHeight(buttonHeight);
 		connect(updateButton, &QPushButton::clicked, m_plugin, [this, textArea]{
 			QString notations = "";
 			QTextCursor cursor = textArea->textCursor();
@@ -124,21 +153,25 @@ namespace lmms::gui
 		});
 
 		auto mainLayout = new QVBoxLayout(this);
-		auto splitter = new QSplitter(Qt::Vertical, this);
+		auto sliderLayout = new QHBoxLayout(this);
 		auto languageLayout = new QHBoxLayout(this);
+		auto splitter = new QSplitter(Qt::Vertical, this);
 		auto buttonLayout = new QHBoxLayout(this);
 		splitter->addWidget(textArea);
 		splitter->addWidget(errorBox);
-		splitter->setStretchFactor(0,10);
+		splitter->setStretchFactor(0,20);
 		splitter->setStretchFactor(1,1);
+		sliderLayout->addWidget(zoomSlider);
 		languageLayout->addWidget(languageLabel);
 		languageLayout->addWidget(languageBox);
 		buttonLayout->addWidget(writeButton);
 		buttonLayout->addWidget(openButton);
+		buttonLayout->addWidget(formatButton);
 		//buttonLayout->addWidget(loadButton);
 		buttonLayout->addWidget(updateButton);
-		mainLayout->addWidget(splitter);
+		mainLayout->addLayout(sliderLayout);
 		mainLayout->addLayout(languageLayout);
+		mainLayout->addWidget(splitter);
 		mainLayout->addLayout(buttonLayout);
 		this->setLayout(mainLayout);
 		
@@ -207,6 +240,16 @@ namespace lmms::gui
 
 			m_plugin->loadFile(filename);
 		}
+	}
+
+
+	void MelodyEditorView::formatNotes()
+	{
+		QString notations = m_plugin->m_document->toPlainText();
+		NotationsFormatter* nf = new NotationsFormatter();
+		notations = nf->format(notations);
+
+		m_plugin->m_document->setPlainText(notations);
 	}
 
 } // namespace lmms::gui
