@@ -35,7 +35,7 @@ extern "C"
 
 	Plugin::Descriptor PLUGIN_EXPORT melodyeditor_plugin_descriptor = {
 		LMMS_STRINGIFY(PLUGIN_NAME),
-		"&Melody Editor",
+		"Melody Editor",
 		QT_TRANSLATE_NOOP("PluginBrowser", "Melody Editor"),
 		"Bimal Poudel <anytizer@users.noreply.github.com>",
 		0x0100,
@@ -62,7 +62,7 @@ MelodyEditor::MelodyEditor()
 		//new SimpleParser(CARNATIC_DIALECT)
 	}
 	, m_parserModel(new ComboBoxModel(this, "Parser"))
-	, m_liveCodingModel(new BoolModel(true, this, "Live coding"))
+	, m_liveCodingModel(new BoolModel(true, this, "Live Coding"))
 	, m_document(new QTextDocument(this))
 	, m_log(new QTextDocument(this))
 {
@@ -132,7 +132,7 @@ void MelodyEditor::parseNotations(QString notations)
 
 
 
-//! parse whole text
+//! Live coding: Parse whole text
 void MelodyEditor::parse()
 {
 	if (!m_liveCodingModel->value()) return;
@@ -142,7 +142,7 @@ void MelodyEditor::parse()
 
 
 
-
+//! Select a parser
 AbstractParser* MelodyEditor::parser()
 {
 	return m_parsers.at(m_parserModel->value());

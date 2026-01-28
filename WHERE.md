@@ -63,10 +63,11 @@ Linked for references only.
 
 ## Carnatic
 
-### notes
+### Notations
 
-* https://carnaticnotations.blogspot.com/
 * https://www.shivkumar.org/music/index.html
+* https://carnaticnotations.blogspot.com/
+* https://www.karnatik.com/lyrics.shtml (Lyrics)
 
 ### Some videos explaining how to write the notes
 
@@ -81,6 +82,8 @@ Linked for references only.
 * https://en.wikipedia.org/wiki/Kriti_(music)
 * https://en.wikipedia.org/wiki/Carnatic_music
 * https://www.melakarta.com/education.html
+* https://22shruti.com/
+* https://youtu.be/ipYLnhC5YDo | The science of music | Vidyadhar Oke | TEDxIITGandhinagar
 
 ## Others
 
