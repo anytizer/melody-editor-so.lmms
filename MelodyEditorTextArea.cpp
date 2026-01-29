@@ -52,7 +52,11 @@ namespace lmms::gui::melodyeditor
 		//this->setPlainText("# Double-Click to load a file.");
 		
 		// @todo Placeholder Text is not experienced.
-		this->setPlaceholderText("# 1. Type or paste melody notations.\n# 2. Or, Double-Click to load a file.");
+		this->setPlaceholderText(
+			"# 1. Type or paste melody notations here.\n"
+			"# 2. Double-Click to load a file.\n"
+			"# 3. Press Ctrl + / to toggle comments.\n"
+		);
 		
 		// Disable right click menus.
 		// But still, keep the shortcuts enabled eg. ctrl+C, ctrl+v
@@ -213,7 +217,7 @@ namespace lmms::gui::melodyeditor
 		if(pressed == "{") completed = "{}";
 		if(pressed == "(") completed = "()";
 		
-		// Single quotes are part of notations itself.
+		// Single quotes are part of notations itself, as in alda
 		// Double quotes are often chords
 		if(pressed == "\"") completed = "\"\"";
 		
@@ -223,9 +227,73 @@ namespace lmms::gui::melodyeditor
 			QTextCursor c = this->textCursor();
 			c.movePosition(QTextCursor::Left);
 			this->setTextCursor(c);
-		} else {
-			QPlainTextEdit::keyPressEvent(e);
+			return;
 		}
+
+		if (e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Slash) {
+            toggleComments();
+            return;
+        }
+		
+		
+		
+		
+		QPlainTextEdit::keyPressEvent(e);
+	}
+
+	
+
+
+	/**
+	 * Press Ctrl+/ to toggle comments
+	 */
+	void MelodyEditorTextArea::toggleComments() {
+		QTextCursor cursor = textCursor();
+		
+		// 1. Capture the selection range
+		int start = cursor.selectionStart();
+		int end = cursor.selectionEnd();
+
+		// 2. Identify the start and end block numbers
+		QTextBlock startBlock = document()->findBlock(start);
+		QTextBlock endBlock = document()->findBlock(end);
+		
+		// If the cursor is at the very beginning of a new line at the end of a selection, 
+		// skip that last empty line (common behavior in IDEs)
+		if (end > start && end == endBlock.position()) {
+			endBlock = endBlock.previous();
+		}
+
+		int startIdx = startBlock.blockNumber();
+		int endIdx = endBlock.blockNumber();
+
+		// 3. Start Undo Group
+		cursor.beginEditBlock();
+
+		for (int i = startIdx; i <= endIdx; ++i) {
+			QTextBlock block = document()->findBlockByNumber(i);
+			if (!block.isValid()) continue;
+
+			QString text = block.text();
+			QTextCursor lineCursor(block);
+
+			// Check if line is already commented (ignoring leading whitespace)
+			int commentPos = text.indexOf("#");
+			bool isCommented = (commentPos != -1 && text.left(commentPos).trimmed().isEmpty());
+
+			if (isCommented) {
+				// Remove "#"
+				lineCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, commentPos);
+				lineCursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 1);
+				lineCursor.removeSelectedText();
+			} else {
+				// Insert "#" at the start of the block
+				lineCursor.movePosition(QTextCursor::StartOfBlock);
+				lineCursor.insertText("#");
+			}
+		}
+
+		cursor.endEditBlock();
 	}
 
 } // lmms::gui

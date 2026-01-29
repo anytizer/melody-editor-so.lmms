@@ -18,6 +18,8 @@ namespace lmms::gui::melodyeditor
 			Q_OBJECT
 			QWidget *lineNumberArea;
 
+			void toggleComments();
+
 		protected:
 			void mouseDoubleClickEvent(QMouseEvent *event) override;
 			void dragEnterEvent(QDragEnterEvent *event) override;
