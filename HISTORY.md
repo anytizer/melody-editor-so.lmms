@@ -1,7 +1,11 @@
 # Significant Changes (Monthly)
 
 ## 2026-01
-
+ 
+ - Auto close a chord boundary.
+ - Format option added, hiding bar lines.
+ - Zoom slider control added.
+ - Line numbers implemented.
  - Default true for Live code.
  - Only support the ascii characters, else discarded for processing.
  - Colored selection for partial clip parsing.
