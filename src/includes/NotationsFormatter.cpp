@@ -63,7 +63,6 @@ namespace lmms::PLUGIN_NAME
         // second part joins the notations in a text block
         // without trailing \n
 
-        int currentLine = 0;
         QStringList outputBuffer;
         for (const QStringList &row : matrix)
         {
