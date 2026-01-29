@@ -195,4 +195,26 @@ namespace lmms::gui::melodyeditor
 		setExtraSelections(extraSelections);
 	}
 
+
+
+
+
+
+
+
+
+
+
+	void MelodyEditorTextArea::keyPressEvent(QKeyEvent *e) {
+		if (e->text() == "[") {
+			// auto closes chord if just opened.
+			this->insertPlainText("[]");
+			QTextCursor c = this->textCursor();
+			c.movePosition(QTextCursor::Left);
+			this->setTextCursor(c);
+		} else {
+			QPlainTextEdit::keyPressEvent(e);
+		}
+	}
+
 } // lmms::gui

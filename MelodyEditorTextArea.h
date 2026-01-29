@@ -24,6 +24,7 @@ namespace lmms::gui::melodyeditor
     		void dropEvent(QDropEvent *event) override;
 			void wheelEvent(QWheelEvent *event) override;
 			void resizeEvent(QResizeEvent *event) override;
+			void keyPressEvent(QKeyEvent *e);
 			
 		public:
 			MelodyEditorTextArea();
@@ -36,6 +37,7 @@ namespace lmms::gui::melodyeditor
 		signals:
 			void fileDropped(QString path);
 			void doubleClicked();
+			void keyPressed();
 		
 		private slots:
 			void updateLineNumberAreaWidth(int newBlockCount);
