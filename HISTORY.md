@@ -2,7 +2,7 @@
 
 ## 2026-01
  
- - Auto close a chord boundary.
+ - Auto close a chord boundary: [] {} () ""
  - Format option added, hiding bar lines.
  - Zoom slider control added.
  - Line numbers implemented.

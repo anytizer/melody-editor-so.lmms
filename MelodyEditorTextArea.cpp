@@ -206,9 +206,20 @@ namespace lmms::gui::melodyeditor
 
 
 	void MelodyEditorTextArea::keyPressEvent(QKeyEvent *e) {
-		if (e->text() == "[") {
-			// auto closes chord if just opened.
-			this->insertPlainText("[]");
+		QString completed = "";
+		QString pressed = e->text();
+		
+		if(pressed == "[") completed = "[]";
+		if(pressed == "{") completed = "{}";
+		if(pressed == "(") completed = "()";
+		
+		// Single quotes are part of notations itself.
+		// Double quotes are often chords
+		if(pressed == "\"") completed = "\"\"";
+		
+		if(completed!="")
+		{
+			this->insertPlainText(completed);
 			QTextCursor c = this->textCursor();
 			c.movePosition(QTextCursor::Left);
 			this->setTextCursor(c);
