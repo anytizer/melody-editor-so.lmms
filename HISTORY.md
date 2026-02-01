@@ -2,6 +2,7 @@
 
 ## 2026-01
  
+ - Ctrl + / to toggle a comment with # sign.
  - Auto close a chord boundary: [] {} () ""
  - Format option added, hiding bar lines.
  - Zoom slider control added.

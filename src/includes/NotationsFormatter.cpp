@@ -24,7 +24,7 @@ namespace lmms::PLUGIN_NAME
 
         QVector<QStringList> matrix;
 
-        // first part splits, prepares matrix and analyses the column's width required
+        // first part of the loop splits, prepares matrix and analyses the column's width required
 
         QStringList lines = notations.split(QRegularExpression("[\\n]"), Qt::SkipEmptyParts);
         for (const QString &line : lines)
@@ -40,9 +40,7 @@ namespace lmms::PLUGIN_NAME
 
                     // do not show bar lines
                     if(column=="|" || column=="/")
-                    continue;
-                    {
-                    }
+                        continue;
 
                     if(column.length()>max_width)
                     {
@@ -60,8 +58,9 @@ namespace lmms::PLUGIN_NAME
         int width = std::clamp(max_width, 3, 8);
         char padWith = 0x20; // [SPACE] character
         
-        // second part joins the notations in a text block
-        // without trailing \n
+        // second part of the similar loop joins the notations in a text block
+        // without trailing \n at the end
+        // and without padwidth in the last column
 
         QStringList outputBuffer;
         for (const QStringList &row : matrix)
@@ -72,11 +71,10 @@ namespace lmms::PLUGIN_NAME
                 formattedColumns.append(col.left(width).leftJustified(width, padWith));
             }
 
-            // @todo do not apply the \n at the end of file
-            // remove the ending spaces in the last column (shrinks)
+            // remove the ending spaces in the last column
             outputBuffer.append(formattedColumns.join("").trimmed());
         }
-
+        
         return outputBuffer.join("\n");
     }
 }

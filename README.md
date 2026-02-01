@@ -15,7 +15,8 @@ These notations are then parsed to create a MIDI Clip Data within the Piano-Roll
 
 # Features
 
-- Ctrl+Wheel to zoom in/out notations font size.
+- Ctrl + / toggles a comment in block of selections.
+- Ctrl + Wheel to zoom in/out notations font size.
 - Double click on text area to choose a notation file.
 - Drag and Drop of a notation file into the melody editor area.
 - Extremely powerful parsers
@@ -24,8 +25,9 @@ These notations are then parsed to create a MIDI Clip Data within the Piano-Roll
   - Fast, light weight, and small footprint.
   - 20kb limits applied on input size.
   - Does not obstruct live playing in the Piano Roll.
-  - stable
-- Multiple parsers in progress (Carnatic, English, ABC, ALDA and some more).
+  - Stable
+
+~~Multiple parsers in progress (Carnatic, English, ABC, ALDA and some more).~~
 
 # Quick Manual
 

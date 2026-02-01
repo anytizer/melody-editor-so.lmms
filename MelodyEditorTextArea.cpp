@@ -210,33 +210,38 @@ namespace lmms::gui::melodyeditor
 
 
 	void MelodyEditorTextArea::keyPressEvent(QKeyEvent *e) {
-		QString completed = "";
 		QString pressed = e->text();
+		int key = e->key();
 		
-		if(pressed == "[") completed = "[]";
-		if(pressed == "{") completed = "{}";
-		if(pressed == "(") completed = "()";
+		QString completion = "";
+		if(pressed == "[") completion = "[]";
+		if(pressed == "{") completion = "{}";
+		if(pressed == "(") completion = "()";
 		
-		// Single quotes are part of notations itself, as in alda
-		// Double quotes are often chords
-		if(pressed == "\"") completed = "\"\"";
+		// Single quotes are part of notations itself, as in ALDA
+		// Double quotes are often chords in ABC
+		if(pressed == "\"") completion = "\"\"";
 		
-		if(completed!="")
+		if(completion!="")
 		{
-			this->insertPlainText(completed);
+			this->insertPlainText(completion);
 			QTextCursor c = this->textCursor();
 			c.movePosition(QTextCursor::Left);
 			this->setTextCursor(c);
 			return;
 		}
 
-		if (e->modifiers() == Qt::ControlModifier && e->key() == Qt::Key_Slash) {
+		if (e->modifiers() == Qt::ControlModifier && key == Qt::Key_Slash) {
             toggleComments();
             return;
         }
-		
-		
-		
+
+		// Others to implement
+		// F9: Play at the cursor line
+		// CTRL+UP: Play
+		// CTRL+DOWN: Pause
+		// CTRL+LEFT: jump backwards
+		// CTRL+RIGHT: Jump forward
 		
 		QPlainTextEdit::keyPressEvent(e);
 	}

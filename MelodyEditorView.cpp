@@ -41,6 +41,8 @@
 
 
 using lmms::gui::melodyeditor::MelodyEditorTextArea;
+using lmms::PLUGIN_NAME::MIN_FONTSIZE;
+using lmms::PLUGIN_NAME::MAX_FONTSIZE;
 using namespace lmms::melodyeditor;
 
 
@@ -66,13 +68,12 @@ namespace lmms::gui
 
 		// font size scaling by a slider
 		QSlider* zoomSlider = new QSlider(Qt::Horizontal);
+		zoomSlider->setTickInterval(1);
+		zoomSlider->setTickPosition(QSlider::TicksBothSides);
 		zoomSlider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-		//zoomSlider->setMinimumWidth(500);
-		//zoomSlider->setMaximumWidth(400);
 		zoomSlider->setFixedHeight(24);
 		zoomSlider->setRange(MIN_FONTSIZE, MAX_FONTSIZE);
 		zoomSlider->setValue(14);
-		zoomSlider->setTickInterval(3);
 		//zoomSlider->setTickPosition(QSlider::TicksBelow);
 		connect(zoomSlider, &QSlider::valueChanged, this, [this, textArea](int value){
 			// zoom is also controlled with Ctrl+Wheel

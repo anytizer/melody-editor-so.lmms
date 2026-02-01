@@ -117,7 +117,7 @@ void MelodyEditor::parseNotations(QString notations)
 		parser()->parse(notations);
 		
 		// @todo Complete safety
-		//if (parser()->isSafeToWrite(nullptr, {}))
+		// if (parser()->isSafeToWrite(nullptr, {}))
 		{
 			parser()->write(m_midiClip);
 		}
