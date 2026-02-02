@@ -86,58 +86,33 @@ void SimpleParser::parse(const QString& string)
 	
 	// temporarily strip non-ascii characters
 	translated = translated.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
-	// qDebug() << translated;
-	// s,r g,r s - -  => C,C# D#,C# C - -
 
-
-
-
-
-	// m_reader = StringReader(translated);
-
-
-	// // space[] splitted notations
-	// // comma splitted columns
-
-	QRegularExpression re("\\s+"); // linearly access
-	QStringList words = translated.split(re, Qt::SkipEmptyParts);
-	for(QString word: words)
+	QStringList lines = translated.split('\n');
+	for(QString line: lines)
 	{
-		qDebug() << word;
-		if(word.contains(","))
+		if(line.startsWith('#'))
+			continue;
+
+		QRegularExpression re("\\s+"); // linearly access
+		QStringList words = line.split(re, Qt::SkipEmptyParts);
+		for(QString word: words)
 		{
-			int NOTE_LENGTH = DEFAULT_LENGTH / (1+word.count(","));
-			QStringList notes = word.split(",");
-			for(QString note: notes)
+			qDebug() << word;
+			if(word.contains(","))
 			{
-				process(note, NOTE_LENGTH);
+				int NOTE_LENGTH = DEFAULT_LENGTH / (1+word.count(","));
+				QStringList notes = word.split(",");
+				for(QString note: notes)
+				{
+					process(note, NOTE_LENGTH);
+				}
+			}
+			else
+			{
+				process(word, DEFAULT_LENGTH);
 			}
 		}
-		else
-		{
-			process(word, DEFAULT_LENGTH);
-		}
 	}
-
-
-
-
-
-
-
-
-	// while (!m_reader.reachedEOF())
-	// {
-	// 	StringReader& s = m_reader;
-	// 	QString word = s.word();
-
-	// 	QDebug() << word;
-	// 	// x s,r g r s - - - => xC,C#
-	// 	// errors += this->process_tone(tone, cells, semilength, position);
-	// 	// errors += this->process_tone(column, cells, width, position);
-
-	// 	//process();
-	// }
 }
 
 
@@ -186,7 +161,7 @@ void SimpleParser::process(QString note, int NOTE_LENGTH)
             }
         }
         break;
-	case 'r': // @toodo fix match with RE Komal
+	case 'r': // @toodo fix match with RE Komal in SARGAM
 	case 'x':
 	case 'X':
 	{
