@@ -13,7 +13,7 @@ namespace
 constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~'; // 0x7E?
 const auto INTEGER_PATTERN = QRegularExpression("\\d+");
 const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
-static const QRegularExpression WORD_PATTERN("\\w+");
+static const QRegularExpression WORD_PATTERN("[^\r\n\t\ ]+");
 }
 
 

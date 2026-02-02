@@ -43,7 +43,7 @@ public:
 	std::vector<const Model*> write(MidiClip* clipInPianoRoll) override;
 
 private:
-	void process();
+	void process(QString note, int NOTE_LENGTH);
 
 	Dialect m_dialect;
 
@@ -53,6 +53,7 @@ private:
 	StringReader m_reader;
 	TimePos m_timePos;
 	bool m_insideChord;
+	int m_lastLength = 0;
 };
 
 

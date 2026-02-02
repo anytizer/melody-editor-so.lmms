@@ -7,10 +7,12 @@
 
 #include "SimpleParser.h"
 
+#include <QDebug>
 #include <QString>
 #include <QList>
 #include <QRegularExpression>
 
+#include "Note.h"
 #include "MidiClip.h"
 
 
@@ -84,64 +86,118 @@ void SimpleParser::parse(const QString& string)
 	
 	// temporarily strip non-ascii characters
 	translated = translated.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
+	// qDebug() << translated;
+	// s,r g,r s - -  => C,C# D#,C# C - -
 
-	m_reader = StringReader(translated);
 
-	while (!m_reader.reachedEOF())
+
+
+
+	// m_reader = StringReader(translated);
+
+
+	// // space[] splitted notations
+	// // comma splitted columns
+
+	QRegularExpression re("\\s+"); // linearly access
+	QStringList words = translated.split(re, Qt::SkipEmptyParts);
+	for(QString word: words)
 	{
-		process();
+		qDebug() << word;
+		if(word.contains(","))
+		{
+			int NOTE_LENGTH = DEFAULT_LENGTH / (1+word.count(","));
+			QStringList notes = word.split(",");
+			for(QString note: notes)
+			{
+				process(note, NOTE_LENGTH);
+			}
+		}
+		else
+		{
+			process(word, DEFAULT_LENGTH);
+		}
 	}
+
+
+
+
+
+
+
+
+	// while (!m_reader.reachedEOF())
+	// {
+	// 	StringReader& s = m_reader;
+	// 	QString word = s.word();
+
+	// 	QDebug() << word;
+	// 	// x s,r g r s - - - => xC,C#
+	// 	// errors += this->process_tone(tone, cells, semilength, position);
+	// 	// errors += this->process_tone(column, cells, width, position);
+
+	// 	//process();
+	// }
 }
 
 
-void SimpleParser::process()
+void SimpleParser::process(QString note, int NOTE_LENGTH)
 {
+	m_reader = StringReader(note);
 	StringReader& s = m_reader;
-	
-	QString word = s.word();
-	int NOTE_LENGTH = word.contains(',')? DEFAULT_LENGTH / (1+word.count(",")): DEFAULT_LENGTH;
 	
 	char c = s.advance();
 
 	switch (c)
 	{	
-	case '\r':
-	case '\n':
-	case '\t':
-	case ' ':
-		break;
 	case '|':
 	case '/':
 	case '\\':
 		break;
-	case ',':
-	{
-		// @todo time shared | Currently captures "invalid character"
-		// 1 comma = 2 pieces = 50% each note time eg: C,D
-		// 2 comma = 3 pieces = 33% each note time eg: C,D,E
-		// 3 comma = 4 pieces = 25% each note time eg: C,D,E,F
-		break;
-	}
 	case '-':
-		// @todo continuation of last note in this time slot
-		// just increase the note length.
-		// depends, if comma ( , ) is there or not.
-		// eg. C - - -     | Long pressed "C" for 4 beats
-		// eg. S -,R S -   | see how "S" extends to half time of another beat.
-		//                 | "R" plays haf time
-		//                 | S plays for double the time
-		break;
-	// // case 'r': // removed, due to match with RE Komal
+		// If we are inside a chord [CEG -], extend every note in the current chord
+        if (m_insideChord)
+        {
+            if (!m_chord.empty())
+            {
+                for (auto& note : m_chord)
+                {
+                    note.setLength(note.length() + NOTE_LENGTH);
+                }
+                // We don't advance m_timePos here; it's handled when the chord ']' closes
+            }
+        }
+        else
+        {
+            // If not in a chord, extend the last note added to the list
+            if (!m_notes.empty())
+            {
+                // back() gives us a reference to the last Note object
+                auto& lastNote = m_notes.back();
+                lastNote.setLength(lastNote.length() + NOTE_LENGTH);
+                
+                // Move the cursor forward so the NEXT note doesn't overlap the extension
+                m_timePos += NOTE_LENGTH;
+            }
+            else
+            {
+                // If '-' is the very first character, treat it as a rest
+                m_timePos += NOTE_LENGTH;
+            }
+        }
+        break;
+	case 'r': // @toodo fix match with RE Komal
 	case 'x':
 	case 'X':
 	{
 		//int steps = 1 + s.readString(REST_ATTRIBUTES).count(STEP);
-		// float steps = 1 / (1+s.readString(REST_ATTRIBUTES).count(STEP));
 		m_timePos += NOTE_LENGTH; // * steps;
+		// float steps = 1 / (1+s.readString(REST_ATTRIBUTES).count(STEP));
 		break;
 	}
 	case '#':
 	{
+		// @todo needs testing
 		s.consume(UNTIL_END_OF_LINE);
 		break;
 	}
@@ -190,7 +246,9 @@ void SimpleParser::process()
 	{
 		int key = pianoKey(c);
 
-		if (key == -1) { throw ParserError(s.pos() + "unexpected character: " + c); }
+		if (key == -1) {
+			throw ParserError(s.pos() + "unexpected character: " + c);
+		}
 
 		auto attribs = s.readString(NOTE_ATTRIBUTES);
 
@@ -202,12 +260,12 @@ void SimpleParser::process()
 		octave -= attribs.count(OCTAVE_DOWN);
 		key += octave * 12;
 
-		int length = NOTE_LENGTH * (1 + attribs.count(STEP));
-
 		auto& destination = m_insideChord ? m_chord : m_notes;
-		destination.emplace_back(length, m_timePos, key);
+		destination.emplace_back(NOTE_LENGTH, m_timePos, key);
 
-		if (!m_insideChord) { m_timePos += length; }
+		if (!m_insideChord) {
+			m_timePos += NOTE_LENGTH;
+		}
 	}
 
 	} // switch
