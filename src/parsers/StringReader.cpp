@@ -13,7 +13,7 @@ namespace
 constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~'; // 0x7E?
 const auto INTEGER_PATTERN = QRegularExpression("\\d+");
 const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
-static const QRegularExpression WORD_PATTERN("[^\r\n\t\ ]+");
+static const QRegularExpression WORD_PATTERN("[^\r\n\t ]+"); // SPACE included
 }
 
 
@@ -37,8 +37,6 @@ char StringReader::peek()
 }
 
 
-
-
 char StringReader::advance()
 {
 	auto c = peek();
@@ -59,6 +57,7 @@ char StringReader::advance()
 	return c;
 }
 
+
 QString StringReader::word()
 {
 	QString word = "";
@@ -70,8 +69,6 @@ QString StringReader::word()
 
 	return word;
 }
-
-
 
 
 QRegularExpressionMatch StringReader::match(const QRegularExpression& regex, bool consume)
@@ -104,22 +101,16 @@ QRegularExpressionMatch StringReader::match(const QRegularExpression& regex, boo
 }
 
 
-
-
 float StringReader::readFloat(const QString& errorMsg)
 {
 	return readString(FLOAT_PATTERN, errorMsg).toFloat();
 }
 
 
-
-
 int StringReader::readInt(const QString& errorMsg)
 {
 	return readString(INTEGER_PATTERN, errorMsg).toInt();
 }
-
-
 
 
 QString StringReader::readString(const QRegularExpression& regex, const QString& errorMsg)

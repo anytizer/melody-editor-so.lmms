@@ -5,9 +5,7 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#include "SimpleParser.h"
 
-#include <QDebug>
 #include <QString>
 #include <QList>
 #include <QRegularExpression>
@@ -15,7 +13,7 @@
 #include "Note.h"
 #include "MidiClip.h"
 
-
+#include "SimpleParser.h"
 #include "../includes/Utilities.h"
 
 
@@ -97,7 +95,6 @@ void SimpleParser::parse(const QString& string)
 		QStringList words = line.split(re, Qt::SkipEmptyParts);
 		for(QString word: words)
 		{
-			qDebug() << word;
 			if(word.contains(","))
 			{
 				int NOTE_LENGTH = DEFAULT_LENGTH / (1+word.count(","));

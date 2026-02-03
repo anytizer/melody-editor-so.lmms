@@ -14,7 +14,6 @@
 namespace lmms::melodyeditor
 {
 
-
 struct Dialect
 {
 	QString name;
