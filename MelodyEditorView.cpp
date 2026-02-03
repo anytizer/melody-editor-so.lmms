@@ -144,6 +144,7 @@ namespace lmms::gui
 			if(cursor.hasSelection())
 			{
 				notations = cursor.selectedText();
+				notations.replace(QChar::ParagraphSeparator, "\n");
 			}
 			else
 			{
