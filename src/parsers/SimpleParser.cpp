@@ -28,7 +28,7 @@ constexpr auto OCTAVE_UP = "*";
 constexpr auto STEP = "-";
 
 static const QRegularExpression ALTERNATIVE_OCTAVE_UP("[º°’]");
-static const QRegularExpression ALTERNATIVE_STEP("[_—~ऽ]");
+static const QRegularExpression ALTERNATIVE_STEP("[_—–~ऽ]");
 
 static const QRegularExpression CHORD_ATTRIBUTES("[- \t]*");
 static const QRegularExpression NOTE_ATTRIBUTES("[#b]*[*.]*[- \t]*");
