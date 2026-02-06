@@ -25,7 +25,7 @@ char StringReader::peek()
 {
 	if (reachedEOF())
 	{
-		throw ParserError("unexpected end of file");
+		throw ParserError(QString("unexpected end of file: (%1, %2)").arg(m_line).arg(m_column));
 	}
 	else if (m_string.at(m_pos) > LAST_PRINTABLE_ASCII_CHAR)
 	{

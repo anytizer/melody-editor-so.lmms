@@ -31,6 +31,8 @@ public:
 		: m_string(string)
 	{}
 
+	inline void setAt(int lineNumber, int columnNumber) { m_line = lineNumber; m_column = columnNumber; }
+
 	//! True if there are no more characters to parse
 	bool reachedEOF()
 	{
@@ -95,7 +97,7 @@ private:
 	QString m_string;
 	int m_pos = 0;
 	int m_line = 1;
-	int m_column = 0;
+	int m_column = 1;
 };
 
 
