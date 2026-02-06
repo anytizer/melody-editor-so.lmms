@@ -41,17 +41,16 @@ namespace lmms::gui::melodyeditor
 		this->setAcceptDrops(true);
 
 		// Try to be OS neutral.
+		// @todo embed a font for uniform experience across all platforms.
 		QFont font("Consolas", 14); // Consolas | sans-serif @ 14 points
 		this->setFont(font);
 		this->setStyleSheet(
-			"font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;"
+			"font-family: Consolas, 'Courier New', Menlo, 'Roboto Mono', 'DejaVu Sans Mono', monospace;"
 			//"selection-background-color: #c02b2b;"
 			"selection-color: #d908f0;"
 		);
 
 		//this->setPlainText("# Double-Click to load a file.");
-		
-		// @todo Placeholder Text is not experienced.
 		this->setPlaceholderText(
 			"# 1. Type or paste melody notations here.\n"
 			"# 2. Double-Click to load a file.\n"
