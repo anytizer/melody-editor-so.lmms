@@ -43,7 +43,7 @@ public:
 	std::vector<const Model*> write(MidiClip* clipInPianoRoll) override;
 
 private:
-	void process(QString note, int NOTE_LENGTH);
+	void process(QString note, int NOTE_LENGTH, int lineNumber, int columnNumber);
 
 	Dialect m_dialect;
 

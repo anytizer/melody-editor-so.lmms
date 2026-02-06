@@ -80,44 +80,51 @@ void SimpleParser::parse(const QString& string)
 		.replace(ALTERNATIVE_STEP, STEP)
 		.replace("™", "#") // TradeMark => tivra ma => F#
 		.replace("।", "|")
+		.replace(QChar::ParagraphSeparator, "\n")
 		.replace("\r", "\n");
 	
 	// temporarily strip non-ascii characters
 	translated = translated.replace(QRegularExpression(QString("[^\\x00-\\x7F]")), "");
 
 	QStringList lines = translated.split('\n');
+	int lineNumber = 0;
 	for(QString line: lines)
 	{
+		++lineNumber;
 		if(line.startsWith('#'))
 			continue;
 
 		QRegularExpression re("\\s+"); // linearly access
 		QStringList words = line.split(re, Qt::SkipEmptyParts);
+		int columnNumber = 0;
 		for(QString word: words)
 		{
+			++columnNumber;
+
+			// @todo handle conditions for 1/4, 1/3, 1/2 of chords
 			if(word.contains(","))
 			{
 				int NOTE_LENGTH = DEFAULT_LENGTH / (1+word.count(","));
 				QStringList notes = word.split(",");
 				for(QString note: notes)
 				{
-					process(note, NOTE_LENGTH);
+					process(note, NOTE_LENGTH, lineNumber, columnNumber);
 				}
 			}
 			else
 			{
-				process(word, DEFAULT_LENGTH);
+				process(word, DEFAULT_LENGTH, lineNumber, columnNumber);
 			}
 		}
 	}
 }
 
 
-void SimpleParser::process(QString note, int NOTE_LENGTH)
+void SimpleParser::process(QString note, int NOTE_LENGTH, int lineNumber, int columnNumber)
 {
-	m_reader = StringReader(note);
-	StringReader& s = m_reader;
-	
+	StringReader s = StringReader(note);
+	s.setAt(lineNumber, columnNumber);
+
 	char c = s.advance();
 
 	switch (c)
@@ -127,7 +134,7 @@ void SimpleParser::process(QString note, int NOTE_LENGTH)
 	case '\\':
 		break;
 	case '-':
-		// If we are inside a chord [CEG -], extend every note in the current chord
+	{
         if (m_insideChord)
         {
             if (!m_chord.empty())
@@ -144,11 +151,8 @@ void SimpleParser::process(QString note, int NOTE_LENGTH)
             // If not in a chord, extend the last note added to the list
             if (!m_notes.empty())
             {
-                // back() gives us a reference to the last Note object
                 auto& lastNote = m_notes.back();
                 lastNote.setLength(lastNote.length() + NOTE_LENGTH);
-                
-                // Move the cursor forward so the NEXT note doesn't overlap the extension
                 m_timePos += NOTE_LENGTH;
             }
             else
@@ -157,14 +161,13 @@ void SimpleParser::process(QString note, int NOTE_LENGTH)
                 m_timePos += NOTE_LENGTH;
             }
         }
-        break;
+	    break;
+	}
 	case 'r': // @toodo fix match with RE Komal in SARGAM
 	case 'x':
 	case 'X':
 	{
-		//int steps = 1 + s.readString(REST_ATTRIBUTES).count(STEP);
-		m_timePos += NOTE_LENGTH; // * steps;
-		// float steps = 1 / (1+s.readString(REST_ATTRIBUTES).count(STEP));
+		m_timePos += NOTE_LENGTH;
 		break;
 	}
 	case '#':
@@ -180,37 +183,28 @@ void SimpleParser::process(QString note, int NOTE_LENGTH)
 		break;
 	}
 	case ']':
-	{
-		if (!m_insideChord) { throw ParserError(s.pos() + "unexpected ]"); }
-		m_insideChord = false;
+    {
+        if (!m_insideChord) { throw ParserError(s.pos() + "unexpected ]"); }
+        m_insideChord = false;
 
-		int steps = s.readString(CHORD_ATTRIBUTES).count(STEP);
-		int chordLength = NOTE_LENGTH * (1 + steps);
-
-		// If we have set an explicit chord length, apply it to all notes in the chord
-		if (steps)
+		if (!m_chord.empty())
 		{
-			for (auto& note: m_chord)
+			int chordLength = 0;
+			for (const auto& note : m_chord)
+			{
+				chordLength = qMax(chordLength, (int)note.length());
+			}
+
+			// 2. Sync all notes in the chord to this length
+			for (auto& note : m_chord)
 			{
 				note.setLength(chordLength);
 			}
+
+			m_timePos += chordLength;
+			std::move(m_chord.begin(), m_chord.end(), std::back_inserter(m_notes));
+			m_chord.clear();
 		}
-
-		// Or find the shortest note in the chord
-		else if (!m_chord.empty())
-		{
-			chordLength = m_chord[0].length();
-			for (const auto& note: m_chord)
-			{
-				chordLength = std::min<int>(chordLength, note.length());
-			}
-		}
-
-		// Move the time cursor
-		m_timePos += chordLength;
-
-		// Move the chord notes into the regular note vector
-		std::move(m_chord.begin(), m_chord.end(), std::back_inserter(m_notes));
 
 		break;
 	}
