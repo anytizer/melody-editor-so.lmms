@@ -1,5 +1,5 @@
 /**
- * BhatkandeParser.h
+ * BhatkhandeParser.h
  *
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
@@ -15,7 +15,7 @@ namespace lmms::melodyeditor
 {
 
 
-class BhatkandeLexer
+class BhatkhandeLexer
 {
 public:
 	struct Token
@@ -115,10 +115,10 @@ private:
 
 
 
-class BhatkandeParserPrivate
+class BhatkhandeParserPrivate
 {
 public:
-    using Token = BhatkandeLexer::Token;
+    using Token = BhatkhandeLexer::Token;
 
     struct Node
     {
@@ -213,10 +213,10 @@ private:
 };
 
 
-class BhatkandeEvaluator
+class BhatkhandeEvaluator
 {
 public:
-    using Node = BhatkandeParserPrivate::Node;
+    using Node = BhatkhandeParserPrivate::Node;
 
     std::vector<Note> evaluate(const Node& node);
 
@@ -241,13 +241,13 @@ private:
 };
 
 
-class BhatkandeParser : public AbstractParser
+class BhatkhandeParser : public AbstractParser
 {
 public:
     // @todo dialects
-    BhatkandeParser();
+    BhatkhandeParser();
 
-    QString name() const override { return "Bhatkande"; }
+    QString name() const override { return "Bhatkhande"; }
     std::string icon() const override { return "ns-hindustani"; }
     QString help() const override { return ""; } // @todo
     QString logMessages() const override { return ""; }  // @todo?
@@ -260,7 +260,7 @@ public:
     std::vector<const Model*> write(MidiClip* clipInPianoRoll) override;
 
 private:
-    BhatkandeParserPrivate m_parser;
+    BhatkhandeParserPrivate m_parser;
     std::vector<Note> m_notes;
 };
 

@@ -1,11 +1,11 @@
 /**
- * BhatkandeParser.cpp
+ * BhatkhandeParser.cpp
  *
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
-#include "BhatkandeParser.h"
+#include "BhatkhandeParser.h"
 
 #include "AutomationClip.h"
 #include "DetuningHelper.h"
@@ -26,7 +26,7 @@ namespace lmms::melodyeditor
 
 
 
-char BhatkandeLexer::read()
+char BhatkhandeLexer::read()
 {
 	char c = peek();
 
@@ -48,7 +48,7 @@ char BhatkandeLexer::read()
 
 
 
-void BhatkandeLexer::flushBuffer()
+void BhatkhandeLexer::flushBuffer()
 {
 	static const std::vector<std::pair<std::string, Token::Type>> keywords = {
 		{"key", Token::Type::_key},
@@ -101,7 +101,7 @@ void BhatkandeLexer::flushBuffer()
 
 
 
-void BhatkandeLexer::addToken(const Token& token)
+void BhatkhandeLexer::addToken(const Token& token)
 {
 	if (!m_buffer.empty()) { flushBuffer(); }
 
@@ -111,7 +111,7 @@ void BhatkandeLexer::addToken(const Token& token)
 
 
 
-void BhatkandeLexer::handleHash()
+void BhatkhandeLexer::handleHash()
 {
 	if (m_buffer.empty())
 	{
@@ -126,7 +126,7 @@ void BhatkandeLexer::handleHash()
 
 
 
-void BhatkandeLexer::handleWhitespace()
+void BhatkhandeLexer::handleWhitespace()
 {
 	flushBuffer();
 	if (!m_tokens.empty() && m_tokens.back().type != Token::Type::Whitespace)
@@ -139,7 +139,7 @@ void BhatkandeLexer::handleWhitespace()
 
 
 
-std::vector<BhatkandeLexer::Token> BhatkandeLexer::scan(const std::string& string)
+std::vector<BhatkhandeLexer::Token> BhatkhandeLexer::scan(const std::string& string)
 {
 	m_string = string;
 
@@ -186,7 +186,7 @@ std::vector<BhatkandeLexer::Token> BhatkandeLexer::scan(const std::string& strin
 
 
 
-bool BhatkandeParserPrivate::isFollowedByEqualSign()
+bool BhatkhandeParserPrivate::isFollowedByEqualSign()
 {
 	for (size_t i = 0; m_index + i < m_tokens.size(); i++)
 	{
@@ -202,7 +202,7 @@ bool BhatkandeParserPrivate::isFollowedByEqualSign()
 
 
 
-int BhatkandeParserPrivate::readNumber()
+int BhatkhandeParserPrivate::readNumber()
 {
 	skipWhitespace();
 
@@ -215,7 +215,7 @@ int BhatkandeParserPrivate::readNumber()
 }
 
 
-void BhatkandeParserPrivate::skipWhitespace()
+void BhatkhandeParserPrivate::skipWhitespace()
 {
 	while (!eof() && peek().type == Token::Type::Whitespace)
 	{
@@ -224,7 +224,7 @@ void BhatkandeParserPrivate::skipWhitespace()
 }
 
 
-BhatkandeParserPrivate::Macro& BhatkandeParserPrivate::getMacro(const std::string& name)
+BhatkhandeParserPrivate::Macro& BhatkhandeParserPrivate::getMacro(const std::string& name)
 {
 	// Find an existing macro with the same name
 	auto it = std::find_if(m_macros.begin(), m_macros.end(), [&](Macro& m){
@@ -262,7 +262,7 @@ BhatkandeParserPrivate::Macro& BhatkandeParserPrivate::getMacro(const std::strin
 
 
 
-void BhatkandeParserPrivate::parseContainer(Node& container, Token::Type endType)
+void BhatkhandeParserPrivate::parseContainer(Node& container, Token::Type endType)
 {
     // By default child nodes are added directly into the container,
     // but if they are written without whitespace inbetween we "concatenate" them
@@ -405,7 +405,7 @@ void BhatkandeParserPrivate::parseContainer(Node& container, Token::Type endType
 
 
 
-void BhatkandeParserPrivate::parseDefinition(const Token& nameToken)
+void BhatkhandeParserPrivate::parseDefinition(const Token& nameToken)
 {
 	skipWhitespace();
 
@@ -426,7 +426,7 @@ void BhatkandeParserPrivate::parseDefinition(const Token& nameToken)
 
 
 
-std::vector<const BhatkandeParserPrivate::Node*> BhatkandeParserPrivate::parseName(const Token& token)
+std::vector<const BhatkhandeParserPrivate::Node*> BhatkhandeParserPrivate::parseName(const Token& token)
 {
     std::string name = token.stringValue;
     std::vector<const Node*> result;
@@ -468,7 +468,7 @@ std::vector<const BhatkandeParserPrivate::Node*> BhatkandeParserPrivate::parseNa
 }
 
 
-BhatkandeParserPrivate::Node BhatkandeParserPrivate::parse(const std::vector<Token>& tokens)
+BhatkhandeParserPrivate::Node BhatkhandeParserPrivate::parse(const std::vector<Token>& tokens)
 {
     m_tokens = tokens;
     m_index = 0;
@@ -485,7 +485,7 @@ BhatkandeParserPrivate::Node BhatkandeParserPrivate::parse(const std::vector<Tok
 // --------------- EVALUATION ---------------
 
 
-std::vector<Note> BhatkandeEvaluator::evaluate(const Node& node)
+std::vector<Note> BhatkhandeEvaluator::evaluate(const Node& node)
 {
     std::vector<Note> result;
     evalNode(node, 0, DEFAULT_STEP, result);
@@ -493,7 +493,7 @@ std::vector<Note> BhatkandeEvaluator::evaluate(const Node& node)
 }
 
 
-int BhatkandeEvaluator::countSteps(const Node& node)
+int BhatkhandeEvaluator::countSteps(const Node& node)
 {
     switch (node.type)
     {
@@ -521,7 +521,7 @@ int BhatkandeEvaluator::countSteps(const Node& node)
 
 
 
-double BhatkandeEvaluator::evalGlide(const Node& glide, double pos, double step, std::vector<Note>& result)
+double BhatkhandeEvaluator::evalGlide(const Node& glide, double pos, double step, std::vector<Note>& result)
 {
     std::vector<Note> tmpNotes;
     double glideDuration = evalGroup(glide, pos, step, tmpNotes);
@@ -550,7 +550,7 @@ double BhatkandeEvaluator::evalGlide(const Node& glide, double pos, double step,
     return glideDuration;
 }
 
-double BhatkandeEvaluator::evalGroup(const Node& group, double pos, double step, std::vector<Note>& result)
+double BhatkhandeEvaluator::evalGroup(const Node& group, double pos, double step, std::vector<Note>& result)
 {
     double startPos = pos;
     for (const Node& child: group.children)
@@ -562,7 +562,7 @@ double BhatkandeEvaluator::evalGroup(const Node& group, double pos, double step,
     return pos - startPos;
 }
 
-double BhatkandeEvaluator::evalNode(const Node& node, double pos, double step, std::vector<Note>& result)
+double BhatkhandeEvaluator::evalNode(const Node& node, double pos, double step, std::vector<Note>& result)
 {
     if (node.repeat < 1) { return 0; }
 
@@ -575,7 +575,7 @@ double BhatkandeEvaluator::evalNode(const Node& node, double pos, double step, s
 }
 
 
-double BhatkandeEvaluator::evalNodeOnce(const Node& node, double pos, double step, std::vector<Note>& result)
+double BhatkhandeEvaluator::evalNodeOnce(const Node& node, double pos, double step, std::vector<Note>& result)
 {
     double startPos = pos;
 
@@ -618,7 +618,7 @@ double BhatkandeEvaluator::evalNodeOnce(const Node& node, double pos, double ste
 
 
 
-double BhatkandeEvaluator::evalTuple(const Node& tuple, double pos, double step, std::vector<Note>& result)
+double BhatkhandeEvaluator::evalTuple(const Node& tuple, double pos, double step, std::vector<Note>& result)
 {
     int childCount = 0;
     double childDuration = step;
@@ -644,19 +644,19 @@ double BhatkandeEvaluator::evalTuple(const Node& tuple, double pos, double step,
 
 // --------------- PARSER PUBLIC API ---------------
 
-BhatkandeParser::BhatkandeParser()
+BhatkhandeParser::BhatkhandeParser()
     : m_parser()
 {
 }
 
-void BhatkandeParser::parse(const QString& string)
+void BhatkhandeParser::parse(const QString& string)
 {
-    auto tokens = BhatkandeLexer().scan(string.toStdString());
+    auto tokens = BhatkhandeLexer().scan(string.toStdString());
     auto tree = m_parser.parse(tokens);
-    m_notes = BhatkandeEvaluator().evaluate(tree);
+    m_notes = BhatkhandeEvaluator().evaluate(tree);
 };
 
-bool BhatkandeParser::isSafeToWrite(const MidiClip* clipInPianoRoll,
+bool BhatkhandeParser::isSafeToWrite(const MidiClip* clipInPianoRoll,
 	const std::vector<const Model*>& previouslyChanged)
 {
     return true; // @todo
@@ -667,7 +667,7 @@ bool BhatkandeParser::isSafeToWrite(const MidiClip* clipInPianoRoll,
 
 
 
-std::vector<const Model*> BhatkandeParser::write(MidiClip* clipInPianoRoll)
+std::vector<const Model*> BhatkhandeParser::write(MidiClip* clipInPianoRoll)
 {
     if (!clipInPianoRoll) { return {}; }
 
