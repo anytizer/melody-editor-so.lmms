@@ -14,16 +14,6 @@ namespace lmms::melodyeditor
 {
 
 
-class ParserError : public std::runtime_error
-{
-public:
-	ParserError(const QString& msg)
-		: std::runtime_error(msg.toStdString())
-	{}
-};
-
-
-
 class StringReader
 {
 public:

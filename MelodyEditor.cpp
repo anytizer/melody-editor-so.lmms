@@ -23,6 +23,7 @@
 #include "src/parsers/AbstractParser.h"
 #include "src/parsers/ABCParser.h"
 #include "src/parsers/AldaParser.h"
+#include "src/parsers/BhatkandeParser.h"
 #include "src/parsers/SimpleParser.h"
 
 using lmms::gui::MelodyEditorView;
@@ -59,6 +60,7 @@ MelodyEditor::MelodyEditor()
 	, m_parsers{
 		new ABCParser(),
 		new AldaParser(),
+		new BhatkandeParser(),
 		new SimpleParser(ENGLISH_DIALECT),
 		new SimpleParser(HINDUSTANI_DIALECT),
 		//new SimpleParser(CARNATIC_DIALECT)

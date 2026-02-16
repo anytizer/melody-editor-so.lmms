@@ -103,10 +103,9 @@ namespace lmms::gui
 		writeButton->setChecked(m_plugin->m_liveCodingModel->value());
 		writeButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		writeButton->setStyleSheet("QPushButton:checked { background-color: #276a90; border-style: inset; }");
-		connect(writeButton, &QPushButton::clicked, m_plugin, [this, plugin, writeButton]{
-			bool writingNow = writeButton->isChecked();
-			m_plugin->flag(writingNow);
-			if(writingNow)
+		connect(writeButton, &QPushButton::toggled, m_plugin, [this](bool checked){
+			m_plugin->m_liveCodingModel->setValue(checked);
+			if (checked)
 			{
 				// also parse immediately, once; when checked status changed
 				// @todo pass writingNow as parameter to parse().

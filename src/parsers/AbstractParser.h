@@ -21,6 +21,38 @@ namespace lmms::melodyeditor
 {
 
 
+struct SourcePos
+{
+	int line;
+	int column;
+	size_t index;
+	size_t length = 1;
+};
+
+
+
+
+class ParserError : public std::runtime_error
+{
+public:
+	ParserError(const QString& msg)
+		: std::runtime_error(msg.toStdString())
+	{}
+
+	ParserError(const std::string& msg, const SourcePos& pos)
+		: std::runtime_error(msg)
+		, m_sourcePos(pos)
+	{}
+
+	SourcePos sourcePos() { return m_sourcePos; }
+
+private:
+	SourcePos m_sourcePos;
+};
+
+
+
+
 class AbstractParser
 {
     public:

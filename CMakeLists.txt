@@ -12,6 +12,7 @@ BUILD_PLUGIN(
     src/includes/Utilities.cpp
     src/parsers/ABCParser.cpp
     src/parsers/AldaParser.cpp
+    src/parsers/BhatkandeParser.cpp
     src/parsers/SimpleParser.cpp
     src/parsers/StringReader.cpp
 

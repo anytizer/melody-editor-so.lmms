@@ -568,6 +568,8 @@ NoteOrRestEvent::NoteOrRestEvent(AldaStringReader& s)
 
 	if (m_noteNumber < 0 && letter != 'r') { throw ParserError("expected note letter or rest"); }
 
+    m_noteNumber += s.readAccidentals();
+
 	s.consume(FLUFF);
 
     if (s.isDigit())
@@ -591,6 +593,7 @@ void NoteOrRestEvent::eval(Score& score, Part& part, int)
 {
 	Voice* v = part.currentVoice;
 	float fullDuration = m_duration >= 0 ? m_duration : v->defaultDuration;
+    v->defaultDuration = fullDuration;
 
 	if (m_noteNumber < 0)
 	{

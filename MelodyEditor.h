@@ -50,7 +50,6 @@ namespace lmms
 			void loadFile(const QString& filename) override;
 
 			void setMidiClip(MidiClip* midiClip) { m_midiClip = midiClip; }
-			inline void flag(bool value) {this->m_liveCodingModel->setValue(value); }
 
 			PluginView* instantiateView(QWidget*) override;
 

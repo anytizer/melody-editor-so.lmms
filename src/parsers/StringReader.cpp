@@ -7,6 +7,8 @@
 
 #include "StringReader.h"
 
+#include "AbstractParser.h"
+
 
 namespace
 {
