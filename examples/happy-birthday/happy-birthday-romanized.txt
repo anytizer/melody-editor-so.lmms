@@ -1,9 +1,0 @@
-# Happy Birthday
-# Time Signature: 3/4
-# Tempo: 180 BPM
-# Parser: SARGAM
-
-x r,r g  - r M - m -
-x r,r g  - r M - M -
-x r,r r* - n M - g -
-x N,N n  - M d - M -
