@@ -1,7 +1,8 @@
-# @todo Tests pending
+# # @todo Tests pending
+### # Despite being manual, this document is parseable.
 
 ### # Defining dialects using macro
-#### note name = key number
+#### # note name = key number
 
 ```
 c = key 60
@@ -45,7 +46,7 @@ lo = key 77
 ```
 
 ### # Matches longest first
-#### no matter what order they were defined in
+#### # no matter what order they were defined in
 
 ```
 lolongerlonglongerlo
@@ -106,7 +107,7 @@ c d e transpose 3 c d e transpose 0 c d e
 ```
 
 ### # Parse/Want bar lines?
-#### Define them as nothing
+#### # Define them as nothing
 
 ```
 |=
