@@ -34,6 +34,7 @@ BUILD_PLUGIN(
     # Notation System Icons
     src/assets/ns-abc.svg
     src/assets/ns-alda.svg
+    src/assets/ns-bhatkhande.svg
     src/assets/ns-hindustani.svg
     src/assets/ns-english.svg
 )

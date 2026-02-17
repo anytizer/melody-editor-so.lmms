@@ -248,7 +248,7 @@ public:
     BhatkhandeParser();
 
     QString name() const override { return "Bhatkhande"; }
-    std::string icon() const override { return "ns-hindustani"; }
+    std::string icon() const override { return "ns-bhatkhande"; }
     QString help() const override { return ""; } // @todo
     QString logMessages() const override { return ""; }  // @todo?
 
