@@ -1,6 +1,9 @@
 ### # The "Radio Standard" (ABABCB)
 
 ```
+# @todo define keys in macro
+# ...
+
 # sets the mood and establishes the rhythm.
 intro = {
 

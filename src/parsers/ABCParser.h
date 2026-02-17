@@ -20,8 +20,8 @@ class ABCParser : public AbstractParser
 public:
 	QString name() const override { return "ABC Parser"; }
 	std::string icon() const override { return "ns-abc"; }
-	QString help() const override { return "TODO"; }
-	QString logMessages() const override { return "TODO"; }
+	QString help() const override { return ""; }
+	QString logMessages() const override { return ""; }
 
 	void parse(const QString& string) override;
 

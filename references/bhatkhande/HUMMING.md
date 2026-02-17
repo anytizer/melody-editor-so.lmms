@@ -16,8 +16,8 @@ N = key 71
 x = rest
 
 humming = {
-S     R     -     S     G    -  -  x
-R     GR   D.    S     -     -  -  x
+    S     R     -    S     G     -    -    x
+    R     GR   D.    S     -     -    -    x
 }
 
 transpose 1 humming*1

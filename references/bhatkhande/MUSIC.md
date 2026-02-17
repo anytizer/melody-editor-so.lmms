@@ -17,7 +17,7 @@ x = rest
 
 music1 = {
     R    G    P    D    n    -    -    -
-    D    P    D    -    -    -    -    x
+    D    P    D    -    -    -    -    -
     N    P    D    R    N    -    -    -
 }
 

@@ -1,0 +1,1 @@
+These are the source files for associted icons in 48x48 pixel size.

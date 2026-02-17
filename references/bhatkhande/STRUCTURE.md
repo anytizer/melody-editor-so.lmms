@@ -1,4 +1,4 @@
-### # with song strcuture
+### # song strcuture
 
 ```
 s = key 60
