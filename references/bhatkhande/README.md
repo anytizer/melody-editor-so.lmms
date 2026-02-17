@@ -1,8 +1,9 @@
 # # @todo Tests pending
-### # Despite being manual, this document is parseable.
+### # Despite being a quick manual,
+### # this document is parseable (html preview only).
 
 ### # Defining dialects using macro
-#### # note name = key number
+#### # note name = key [number]
 
 ```
 c = key 60
@@ -15,7 +16,42 @@ b = key 71
 x = rest
 ```
 
-### # Now you can use them
+#### # Testing usage
+
+```
+c d e f g a b
+```
+
+### # or, redefine with sharps and flats
+
+```
+c = key 60
+c# = key 61
+db = key 61
+d = key 62
+d# = key 63
+eb = key 63
+e = key 64
+f = key 65
+f# = key 66
+gb = key 66
+g = key 67
+g# = key 68
+ab = key 68
+a = key 69
+a# = key 70
+bb = key 70
+b = key 71
+x = rest
+```
+
+#### # and use them
+
+```
+c c# d d# e f f# g g# a a# b
+```
+
+### # general usage
 
 ```
 c d e x e d c x
