@@ -1,77 +1,87 @@
-# This is how you define dialects
-# could be made directly in code using Macro
-# ... somehow
+### # Defining dialects using macro
+### # note name = key number
+```
 c = key 60
 d = key 62
 e = key 64
+f = key 65
+g = key 67
+a = key 69
+b = key 71
 x = rest
+```
 
-# Now you can use them
+### # Now you can use them
 c d e x e d c x
 
-# Concatenation makes it split the beat
+### # Concatenation makes it split the beat
 cde
 
-# Supports any characters
+### # Supports any characters
 ä = key 65
 😀 = key 67
 🐟 = key 68
 
 ää 😀🐟 😀🐟
 
-# Or words
+### # or, words
 long = key 75
 longer = key 76
 lo = key 77
 
-# Matches longest first, no matter what order
-# they were defined in
+### # Matches longest first, no matter what order they were defined in
 lolongerlonglongerlo
 
-# Can save melodies as variables too
+### # Can save melodies as variables too
 melody = c d ed
 
-# Using it
+### # Using saved melody
 cc melody d e
 
-# Change of octave and repeat
-c' c'' c. c.. c*3
+### # Change of octave
+c' c'' c. c..
 
-# Works for groups too
+### # Repeat
+c*3
+
+### # Works for groups too
 melody' melody*2
 
-# Advanced split the beat
+### # Advanced split the beat
 ((c d) (c d e))
 
-# Extend
+### # Extend
 c - - -
 
-# Works across split beats
+### # Works across split beats
 cd -d -c d-c
 
-# Transpose command
+### # Transpose command
 c d e transpose 3 c d e transpose 0 c d e
 
-# Want bar lines? Define them as nothing
+### # Parse/Want bar lines?
+### # Define them as nothing
 |=
 
-# They will be ignored
+### # Then, they will be ignored
 c|d|e
 
-# Oh right, I almost forgot glides
+### # Glides
 [c d e]
 
-# And you can group thing into a single beat like so
+### # Group things into a single beat like so
 [cd]d
 
-# Its the same as
+### # It is same as
 ([(c d)] d)
 
-# Groups are good for repeating
+### # Groups are good for repeating
 {c d}*2
 
-# Or to make a multi line variable
+### # Or to make a multi line variable
+```
 m = {c d e
      e d e}
 
 m
+```
