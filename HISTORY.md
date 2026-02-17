@@ -1,9 +1,18 @@
 # Significant Changes (Monthly)
 
+## 2026-02
+
+- Bhatkhande like support has been added.
+  - manually assigned keys
+  - repeatitions of notations
+  - macros
+  - glides
+
 ## 2026-01
- 
+
+ - Converted/Created simple parsers to use different dialects.
  - Ctrl + / to toggle a comment with # sign.
- - Auto close a chord boundary: [] {} () ""
+ - Auto close a chord boundary: [] {} () "" in the editor
  - Format option added, hiding bar lines.
  - Zoom slider control added.
  - Line numbers implemented.
@@ -13,17 +22,15 @@
  - Using Note.h for directly putting notes into MIDI Clip, without xml/xpt. 
  - Parsers mentioned in example notations.
  - Live coding enable/disable with a button.
- - Dropped off temprary repositories.
- - Namespace simplified | needs to reserve.
+ - Namespace simplified | __needs to reserve__.
  - User selected text preferred first, instead of parsing whole text.
  - Placeholder icons added.
  - Activated a most of the parsers with empty functionalities.
  - ALDA parser added from @allejok96's efforts.
  - Started to study [ALDA](https://alda.io/).
  - Started to study [ABC notation](https://abcnotation.com/) system.
- - Reviewing [ABC](https://abc.sourceforge.net/)
  - Using __const_cast__ instead of modifying LMMS's code, to pull piano roll in editor mode.
- - Temorarily removed incomplete parsers.
+ - Temporarily removed incomplete parsers.
  - Completely removed missing and none parsers.
 
 ## 2025-12
@@ -43,7 +50,6 @@
  - Smoother text zoom; factor realculations
  - Applied scroll bar with text zoom.
  - Removed unnecessary UI elements that were originally intended to write to external files.
- - A lot of source code commented, in order to remove them in future.
 
 ## 2025-09
 

@@ -9,9 +9,7 @@ feeding Alda, SARGAM and English Notations.
 It is asscessible from `Tools > Melody Editor`.
 
 This plguin allows a user to type in or drop in song notations file into an editor area.
-These notations are then parsed to create a MIDI Clip Data within the Piano-Roll window.
-
-<!-- ~~An intermediary XML string is created on the fly that simulates Import MIDI Clip feature; as if you are working with .xpt file.~~ Direct pasting into Piano Roll. -->
+These notations are then __parsed__ to create a MIDI Clip Data within the Piano-Roll window.
 
 # Features
 
@@ -20,22 +18,18 @@ These notations are then parsed to create a MIDI Clip Data within the Piano-Roll
 - Double click on text area to choose a notation file.
 - Drag and Drop of a notation file into the melody editor area.
 - Extremely powerful parsers
-  - English and SARGAM notations
-  - A little memory usage while operating.
-  - Fast, light weight, and small footprint.
-  - 20kb limits applied on input size.
-  - Does not obstruct live playing in the Piano Roll.
-  - Stable
-
-~~Multiple parsers in progress (Carnatic, English, ABC, ALDA and some more).~~
+- A little memory usage while operating.
+- Fast, light weight, and small footprint.
+- 20kb limits applied on input size.
+- Does not obstruct live playing in the Piano Roll.
 
 # Quick Manual
 
  - Open song editor.
- - Double click on it to open a piano roll window.
+ - Double click on it to open a Piano-Roll window.
  - Go to: Tools > Melody Editor.
+ - Choose your parser.
  - Fill in the notations
- - Choose your proper parser.
  - Click on Update MIDI Clip.
 
  Thats it!
@@ -43,9 +37,9 @@ These notations are then parsed to create a MIDI Clip Data within the Piano-Roll
 ## Next Steps
 
  - Learn about how to write notations [here](https://github.com/anytizer/melody-editor.so.lmms) for this plugin.
- - Also in LMMS Discussion page [here](https://github.com/LMMS/lmms/discussions/7950).
+ - Also in Discussion page [here](https://github.com/LMMS/lmms/discussions/7950).
 
-# Compile as a native plugin for LMMS
+# To compile as a native plugin for LMMS
 
 1. Clone the source code somewhere.
 2. Import this plugin into LMMS's plugin repository.
@@ -88,13 +82,6 @@ Example 3 - silence / pause | `C x D x E x G -`  | `S x R x G x P -` | ??
 Help Link / Discuss   | [here](https://github.com/LMMS/lmms/discussions/7950) | [here](https://github.com/LMMS/lmms/discussions/7950) | [here](https://github.com/LMMS/lmms/discussions/7950)
 
 `*`: Feature is in test mode
-
-# Trouble-Shooting
-
-* Chords must have been terminated with corresponding `]`.
-* __Error Count__: Number of notes that were NOT converted for use in LMMS is returned. __Remedies__:
-  - Look for accidentally joined notations.
-  - Or illegal notes or characters like: __E#__, __J__.
 
 # Testing Examples
 
@@ -209,6 +196,6 @@ Example: `/` for `|`. `~` for `-`. Please study the source code variables for fi
 # ToDOs and History
 
 - Need to support multiple instruments at once?
-- Please see [ToDOs](TODO.md) file. Also, a help is needed.
+- Please see [ToDo](TODO.md) file. Also, a help is needed.
 - Please see [History](HISTORY.md) file for change logs.
-- Please see [references](WHERE.md) used to learn.
+- Please see [References](WHERE.md) that were used to learn.

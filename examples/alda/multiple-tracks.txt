@@ -10,4 +10,3 @@ timpani:
 vibraphone:
 a e g {a e g}
 a e g e <<{a> e g}2*4
-
