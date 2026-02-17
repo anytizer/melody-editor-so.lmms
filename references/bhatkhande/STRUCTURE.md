@@ -1,4 +1,4 @@
-### with song strcuture
+### # with song strcuture
 
 ```
 s = key 60
@@ -28,7 +28,12 @@ music2 = {
     N    P    D    R    N.   -    -    -
 }
 
-# # now, the song structure
+counter = {
+    N    P    D    R    N.   -    -    -
+}
+
+# now, the song structure
 music1*2
 music2*2
+counter*1
 ```
