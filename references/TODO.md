@@ -2,25 +2,9 @@
 
 @see issues in GitHub.
 
-## Implement ALDA Parser
-
-<!--
-```
-cd alda-lang
-chmod +x alda
-cd alda
-scripts/install-fluidr3
-alda start
-alda play --file examples/something.alda
-alda play --code "piano: f e d c"
-alda stop
-```
--->
-
 ## UI
 
 - Ctrl+UP/DOWN to control LMMS Host Playing.
-- ~~Latchable push button for enabling live-write mode.~~
 
 ## Others
 
@@ -88,7 +72,7 @@ alda stop
 - To save the melody file to an external path.
 
 ## Done
-
+- Latchable push button for enabling live-write mode.
 - Obtain white icons for MeldoyEditor.
 - Apply `#define` guards to all .cpp and .h files.
 - Warn when a too big notation file is dropped, typed in or pasted.

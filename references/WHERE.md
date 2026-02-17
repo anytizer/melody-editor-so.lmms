@@ -71,8 +71,8 @@ Linked for references only.
 
 ### Some videos explaining how to write the notes
 
-* https://www.youtube.com/watch?v=Z0XXbU3NyLY
-* https://www.youtube.com/watch?v=kLopt9b66Dc
+* https://www.youtube.com/watch?v=Z0XXbU3NyLY - How to write carnatic notations
+* https://www.youtube.com/watch?v=kLopt9b66Dc - Rules For Writing Notation
 
 ### Educational Resources
 

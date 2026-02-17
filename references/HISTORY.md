@@ -2,6 +2,7 @@
 
 ## 2026-02
 
+- Documents placed together
 - Bhatkhande like support has been added.
   - manually assigned keys
   - repeatitions of notations

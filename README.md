@@ -8,13 +8,13 @@ Creates a libmelodyeditor.so - plugin for LMMS under Qt6.
 
 ## Parsers Supported
 
-Parser              | Mode   | Readable Link
---------------------| -------|-------------
-ABC Parser          | Basic  | [Quick Manual](references/ABC.md), using third party [library](ABC-parser/)
-ALda Parser         | Basic  | [Quick Manual](references/ALDA.md)
-Bhatkhande Parser   | Basic  | [Quick Manual](references/bhatkhande/README.md)
-English Parser      | Basic  | [Quick Manual](references/ENGLISH.md)
-SARGAM Parser       | Basic  | [Quick Manual](references/ENGLISH.md)
+Parser              | Mode   | Readable Link                     | Depends on
+--------------------| -------|-----------------------------------|-------------
+ABC Parser          | Basic  | [Quick Manual](references/ABC.md) | [ABC-parser](https://github.com/MeesCode/ABC-parser/)
+ALda Parser         | Basic  | [Quick Manual](references/ALDA.md) |
+Bhatkhande Parser   | Basic  | [Quick Manual](references/bhatkhande/README.md) |
+English Parser      | Basic  | [Quick Manual](references/ENGLISH.md) |
+SARGAM Parser       | Basic  | [Quick Manual](references/SARGAM.md) |
 
 ## Other readable links
 
