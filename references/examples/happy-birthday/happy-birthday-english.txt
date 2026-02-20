@@ -2,6 +2,8 @@
 # Time Signature: 3/4
 # Tempo: 180 BPM
 # Parser: English
+# Credits to the Original: Patty Hill and Mildred J. Hill in 1893
+# AI Search Results and Human Edits
 
 x C#,C# D#  - C# F# - F  -
 x C#,C# D#  - C# F# - F# -

@@ -4,8 +4,6 @@
 Creates a libmelodyeditor.so - plugin for LMMS under Qt6.
 ```
 
-[read more...](references/README.md)
-
 ## Parsers Supported
 
 Parser              | Mode   | Readable Link                                   | Depends on
@@ -17,10 +15,11 @@ English Parser      | Basic  | [Quick Manual](references/ENGLISH.md)           |
 SARGAM Parser       | Basic  | [Quick Manual](references/SARGAM.md)            | Hindustani / Carnatic Dialect
 
 ## Other readable links
-
+- [How to compile as LMMS Plugin](references/LMMS.md)
 - [History](references/HISTORY.md)
 - [WHERE](references/WHERE.md)
 - [ToDo](references/TODO.md)
+- [Quick Manual](references/README.md)
 
 ## Examples
 

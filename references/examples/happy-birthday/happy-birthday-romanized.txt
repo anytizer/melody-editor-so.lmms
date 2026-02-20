@@ -2,6 +2,8 @@
 # Time Signature: 3/4
 # Tempo: 180 BPM
 # Parser: SARGAM
+# Credits to the Original: Patty Hill and Mildred J. Hill in 1893
+# AI Search Results and Human Edits
 
 x r,r g  - r M - m -
 x r,r g  - r M - M -

@@ -1,5 +1,7 @@
-### Example 5: Numbered (unfinished, listing only)
+# Example 5: Numbered (parser is unfinished, listing only)
 # For this notation set, pick "Nashville".
+# Credits to the Original: Patty Hill and Mildred J. Hill in 1893
+# AI Search Results and Human Edits
 
 ```
 # Happy Birthday to You

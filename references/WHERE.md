@@ -1,7 +1,6 @@
 # Where can I find the notes?
 
-The materials may be copyrighted.
-Linked for references only.
+The materials may be copyrighted. Linked here for references only.
 
 ## ALDA Notation System
 
@@ -56,6 +55,7 @@ Linked for references only.
 ## Nashville Number System
 
 * eg.: https://www.grossepointemusicacademy.com/nashville-number-system/
+
 ```
 // eg. 1-4-5-4 progression in the key of C => chords C, F, G, and F.
 // Same progression in the key of A => A, D, E, and D.

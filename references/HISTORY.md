@@ -2,8 +2,8 @@
 
 ## 2026-02
 
-- Documents placed together
-- Bhatkhande like support has been added.
+- Documents placed together in references.
+- Bhatkhande like support has been added by @allejok96.
   - manually assigned keys
   - repeatitions of notations
   - macros

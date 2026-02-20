@@ -4,7 +4,7 @@
 
 ## UI
 
-- Ctrl+UP/DOWN to control LMMS Host Playing.
+- [#1](https://github.com/anytizer/melody-editor-so.lmms/issues/1) Ctrl+UP/DOWN to control LMMS Host Playing.
 
 ## Others
 

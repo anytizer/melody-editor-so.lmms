@@ -12,7 +12,7 @@
 
 namespace lmms
 {
-class MelodyEditor;
+	class MelodyEditor;
 }
 
 
