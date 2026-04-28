@@ -18,6 +18,6 @@ namespace lmms::PLUGIN_NAME
             int width = 6;
         
         public:
-            QString format(QString notations);
+            QString format(QString notations, bool keepSpecialComments);
     };
 }

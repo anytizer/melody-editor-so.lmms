@@ -4,77 +4,120 @@
  *
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
+ * 
+ * Notes: Code enhanced with AI
  */
 
+#include <algorithm> // for std::clamp
+
+#include <QStringList>
 #include <QRegularExpression>
 
 #include "NotationsFormatter.h"
 
 namespace lmms::PLUGIN_NAME
 {
-    QString NotationsFormatter::format(QString notations)
+    namespace
     {
-        // let us NOT support these characters
-        notations.replace("\r", "");
+        struct Row
+        {
+            QStringList columns;
+            bool isSpecialComment = false;
+        };
 
-        // best range: 1 to 6.
-        // 4/4 time signature * width = 4 x 4 x 6 = 96 characters wide per line
-        // can fit well on maximized window
-        int max_width = 3;
+        constexpr int kMinWidth = 3;
+        constexpr int kMaxWidth = 8;
+        constexpr int kPadding  = 2;
+    }
 
-        QVector<QStringList> matrix;
+    QString NotationsFormatter::format(QString notations, bool keepSpecialComments)
+    {
+        // Normalize line endings
+        notations.remove('\r');
 
-        // first part of the loop splits, prepares matrix and analyses the column's width required
+        int maxColumnWidth = kMinWidth;
+        QVector<Row> rows;
 
-        QStringList lines = notations.split(QRegularExpression("[\\n]"), Qt::SkipEmptyParts);
+        const QStringList lines = notations.split('\n', Qt::SkipEmptyParts);
+        rows.reserve(lines.size());
+
+        // -------- First pass: parse + measure --------
         for (const QString &line : lines)
         {
-            QStringList processedColumns;
-            if(!line.startsWith("#"))
+            // Handle comments
+            if (line.startsWith('#'))
             {
-                QStringList columns = line.split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
-                int totalColumns = columns.count();
-                for(int c=0; c<totalColumns; ++c)
+                if (keepSpecialComments && line.startsWith("#!"))
                 {
-                    QString column = columns[c];
-
-                    // do not show bar lines
-                    if(column=="|" || column=="/")
-                        continue;
-
-                    if(column.length()>max_width)
-                    {
-                        max_width = column.length();
-                    }
-                    
-                    processedColumns.append(column);
+                    rows.append(Row{{line}, true});
                 }
-                
-                matrix.append(processedColumns);
+                continue;
             }
-        }
-        
-        max_width += 2; //  cusioning space: +2
-        int width = std::clamp(max_width, 3, 8);
-        char padWith = 0x20; // [SPACE] character
-        
-        // second part of the similar loop joins the notations in a text block
-        // without trailing \n at the end
-        // and without padwidth in the last column
 
-        QStringList outputBuffer;
-        for (const QStringList &row : matrix)
-        {
-            QStringList formattedColumns;
-            for (const QString &col : row)
+            const QStringList columns = line.split(QRegularExpression("\\s+"),
+                                                   Qt::SkipEmptyParts);
+
+            QStringList processed;
+            processed.reserve(columns.size());
+
+            for (const QString &column : columns)
             {
-                formattedColumns.append(col.left(width).leftJustified(width, padWith));
+                // Skip bar markers
+                if (column == "|" || column == "/")
+                    continue;
+
+                maxColumnWidth = std::max(maxColumnWidth, column.size());
+                processed.append(column);
             }
 
-            // remove the ending spaces in the last column
-            outputBuffer.append(formattedColumns.join("").trimmed());
+            if (!processed.isEmpty())
+            {
+                rows.append(Row{processed, false});
+            }
         }
-        
-        return outputBuffer.join("\n");
+
+        const int finalWidth =
+            std::clamp(maxColumnWidth + kPadding, kMinWidth, kMaxWidth);
+
+        const QChar padChar = u' ';
+
+        QStringList output;
+        output.reserve(rows.size());
+
+        // -------- Second pass: format --------
+        for (const Row &row : rows)
+        {
+            if (row.isSpecialComment)
+            {
+                output.append(row.columns.first());
+                continue;
+            }
+
+            QString line;
+            line.reserve(row.columns.size() * finalWidth);
+
+            const int last = row.columns.size();
+            for (int i = 0; i < last; ++i)
+            {
+                QString col = row.columns[i];
+
+                if (col.size() > finalWidth)
+                    col.truncate(finalWidth);
+
+                // Do not pad the last column
+                if (i == last -1)
+                {
+                    line += col;
+                }
+                else
+                {
+                    line += col.leftJustified(finalWidth, padChar);
+                }
+            }
+
+            output.append(line);
+        }
+
+        return output.join('\n');
     }
 }

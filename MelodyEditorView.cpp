@@ -246,9 +246,11 @@ namespace lmms::gui
 
 	void MelodyEditorView::formatNotes()
 	{
+		bool keepSpecialComments = true; // lines starting with: #! (note: !)
+		
 		QString notations = m_plugin->m_document->toPlainText();
 		NotationsFormatter* nf = new NotationsFormatter();
-		notations = nf->format(notations);
+		notations = nf->format(notations, keepSpecialComments);
 
 		m_plugin->m_document->setPlainText(notations);
 	}
