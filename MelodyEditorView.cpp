@@ -269,7 +269,6 @@ namespace lmms::gui
 			{
 				QString notations = this->getSelectedNotations();
 				m_plugin->parseNotations(notations);
-				// Engine::getSong()->play();
 				return;
 			}
 		}
