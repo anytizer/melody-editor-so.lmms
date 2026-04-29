@@ -34,7 +34,7 @@ namespace lmms::PLUGIN_NAME
             QTextStream in(&file);
             
             // Preferably ASCII Contents only.
-            // However, Devangarari Scripts based Notations are also tested.
+            // However, Devanagari Scripts based Notations are also tested.
             notations = in.readAll();
             
             file.close();
