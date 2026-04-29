@@ -24,8 +24,6 @@
 #include <QColor>
 #include <QSlider>
 
-#include <QDebug>
-
 #include "MelodyEditor.h"
 #include "MelodyEditorView.h"
 #include "MelodyEditorTextArea.h"
@@ -61,8 +59,8 @@ namespace lmms::gui
 		connect(getGUI()->pianoRoll(), &PianoRollWindow::currentMidiClipChanged, this, &MelodyEditorView::setClipFromPianoRoll);
 		this->setClipFromPianoRoll();
 
-		auto textArea(new MelodyEditorTextArea());
-		textArea->setDocument(m_plugin->m_document);
+		this->textArea = new MelodyEditorTextArea();
+		this->textArea->setDocument(m_plugin->m_document);
 		connect(textArea, &MelodyEditorTextArea::fileDropped, m_plugin, &MelodyEditor::loadFile);
 		connect(textArea, &MelodyEditorTextArea::doubleClicked, this, &MelodyEditorView::openNotationsFileSelector);
 
@@ -75,7 +73,7 @@ namespace lmms::gui
 		zoomSlider->setRange(MIN_FONTSIZE, MAX_FONTSIZE);
 		zoomSlider->setValue(14);
 		//zoomSlider->setTickPosition(QSlider::TicksBelow);
-		connect(zoomSlider, &QSlider::valueChanged, this, [this, textArea](int value){
+		connect(zoomSlider, &QSlider::valueChanged, this, [this](int value){
 			// zoom is also controlled with Ctrl+Wheel
 			QFont font = textArea->font();
 			font.setPointSize(std::clamp(value, MIN_FONTSIZE, MAX_FONTSIZE));
@@ -136,20 +134,9 @@ namespace lmms::gui
 		updateButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		updateButton->setToolTip("Update Piano-Roll");
 		updateButton->setFixedHeight(buttonHeight);
-		connect(updateButton, &QPushButton::clicked, m_plugin, [this, textArea]{
-			QString notations = "";
-			QTextCursor cursor = textArea->textCursor();
-
-			if(cursor.hasSelection())
-			{
-				notations = cursor.selectedText();
-				notations.replace(QChar::ParagraphSeparator, "\n");
-			}
-			else
-			{
-				notations = textArea->toPlainText();
-			}
-
+		//connect(updateButton, &QPushButton::clicked, m_plugin, &MelodyEditorView::playSelectedNotes);
+		connect(updateButton, &QPushButton::clicked, m_plugin, [this]{
+			QString notations = this->getSelectedNotations();
 			m_plugin->parseNotations(notations);
 		});
 
@@ -255,4 +242,37 @@ namespace lmms::gui
 		m_plugin->m_document->setPlainText(notations);
 	}
 
-} // namespace lmms::gui
+	QString MelodyEditorView::getSelectedNotations()
+	{
+		QString notations = "";
+		QTextCursor cursor = textArea->textCursor();
+
+		if(cursor.hasSelection())
+		{
+			notations = cursor.selectedText();
+			notations.replace(QChar::ParagraphSeparator, "\n");
+		}
+		else
+		{
+			notations = textArea->toPlainText();
+		}
+
+		return notations;
+	}
+
+	void MelodyEditorView::keyPressEvent(QKeyEvent* event)
+	{
+		auto key = event->key();
+		if(event->modifiers() == Qt::ControlModifier)
+		{
+			if(key == Qt::Key_P || key == Qt::Key_Space)
+			{
+				QString notations = this->getSelectedNotations();
+				m_plugin->parseNotations(notations);
+				// Engine::getSong()->play();
+				return;
+			}
+		}
+	}
+
+	} // namespace lmms::gui

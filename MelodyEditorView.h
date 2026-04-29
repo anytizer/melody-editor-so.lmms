@@ -9,6 +9,7 @@
 
 #include "ToolPluginView.h"
 
+#include "MelodyEditorTextArea.h"
 
 namespace lmms
 {
@@ -18,6 +19,7 @@ namespace lmms
 
 namespace lmms::gui
 {
+	using lmms::gui::melodyeditor::MelodyEditorTextArea;
 
 	class MelodyEditorView : public ToolPluginView
 	{
@@ -25,14 +27,19 @@ namespace lmms::gui
 			Q_OBJECT
 
 			MelodyEditor* m_plugin;
+			MelodyEditorTextArea* textArea;
 
 		public:
 			MelodyEditorView(MelodyEditor* plugin);
 			
-			public slots:
+		public slots:
 			void openNotationsFileSelector();
 			void setClipFromPianoRoll();
 			void formatNotes();
+			QString getSelectedNotations();
+		
+		protected:
+			void keyPressEvent(QKeyEvent* event) override;
 	};
 
 } // namespace lmms::gui

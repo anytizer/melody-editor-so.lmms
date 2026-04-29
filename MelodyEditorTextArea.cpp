@@ -24,11 +24,15 @@
 #include "MelodyEditorTextArea.h"
 #include "src/includes/Utilities.h"
 
+#include "Engine.h"
+#include "Song.h"
+
 
 using namespace lmms::melodyeditor;
 
 namespace lmms::gui::melodyeditor
 {
+	using lmms::Song;
 
 	MelodyEditorTextArea::MelodyEditorTextArea()
 	{
@@ -55,7 +59,7 @@ namespace lmms::gui::melodyeditor
 		this->setPlaceholderText(
 			"# 1. Type or paste melody notations here.\n"
 			"# 2. Double-Click to load a file.\n"
-			"# 3. Press Ctrl + / to toggle comments.\n"
+			"# 3. Ctrl + / toggles comments.\n"
 		);
 		
 		// Disable right click menus.
@@ -231,13 +235,50 @@ namespace lmms::gui::melodyeditor
 			return;
 		}
 
-		if (e->modifiers() == Qt::ControlModifier && key == Qt::Key_Slash) {
-            toggleComments();
-            return;
-        }
+		if(key == Qt::Key_F9)
+		{
+			Engine::getSong()->togglePause();
+			return;
+		}
+
+		if (e->modifiers() == Qt::ControlModifier)
+		{
+			if(key == Qt::Key_Slash)
+			{
+            	toggleComments();
+         	    return;
+        	}
+
+			if(key == Qt::Key_F9) // Ctrl+F9
+			{
+				Engine::getSong()->togglePause();
+				return;
+			}
+
+			// if(key == Qt::Key_Left) // Ctrl + Left Arrow
+			// {
+			// 	Song *song = Engine::getSong();
+
+			// 	// Get current position (in ticks)
+			// 	int current = song->getPlayPos();
+
+			// 	// Define how far to jump back (e.g., 2 bars)
+			//  // TimePos::ticksPerBar()
+			// 	int ticksPerBar = song->getTimeSigNumerator() * song->getTicksPerBeat();
+			// 	int jump = ticksPerBar * 2;
+
+			// 	int newPos = current - jump;
+			// 	if(newPos < 0)
+			// 		newPos = 0;
+
+			// 	song->setPlayPos(newPos);
+
+			// 	return;
+			// }
+		}
 
 		// Others to implement
-		// F9: Play at the cursor line
+		// F9, Ctrl+F9, Ctrl+UP, Ctrl+Down: Play at the cursor line
 		// CTRL+UP: Play
 		// CTRL+DOWN: Pause
 		// CTRL+LEFT: jump backwards
