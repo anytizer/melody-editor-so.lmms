@@ -43,8 +43,8 @@ You need to format your notations into human readable form with the following co
 
 Features              | Western notes Parser           | SARGAM notes Parser          | Virtual Keyboard Parser
 ----------------------|--------------------------------|------------------------------|-------------------------
-Natural notes         | `C D E F G A B` | `S R G P D N`, `m` | Alpha-Numerals (QWERTY) keyboard
-Shaprs/Flat notes     | `C# D# F# G# A#` | `r g d n`, `M`    | Alpha-Numerals (QWERTY) keyboard
+Natural notes         | `C`, `D`, `E`, `F`, `G`, `A`, `B` | `S`, `R`, `G`, `m`, `P`, `D`, `N` | Alpha-Numerals (QWERTY) keyboard
+Shaprs/Flat notes     | `C#`, `D#`, `F#`, `G#`, `A#` | `r`, `g`, `M`, `d`, `n` | Alpha-Numerals (QWERTY) keyboard
 Higher octaves marker | Append octave number eg. `C5 D6` | Append an asterisk `*` eg. `S*, R**` | ??
 Lower octaves marker  | Append octave number eg. `C3 D2` | Append a dot `.` eg. `S., R..` | ??
 Chord Making `*`      | Brace notes within `[` and `]` | Brace notes within `[` and `]` | Brace notes within `[` and `]`
@@ -128,7 +128,7 @@ You can pick your notation system and allowed notes. [reference reading...](http
 MIDI Key       | 60 | 61  | 62 | 63  | 64 | 65 | 66  | 67 | 68 | 69 | 70  | 71 
 ---------------|----|-----|----|-----|----|----|-----|----|----|----|-----|----
 SARGAM         | S  | r   | R  | g   | G  | m  | M   | P  | d  | D  | n   | N  
-स र ग म        | सा  | रे॒   | रे  | ग॒    | ग  | म  | म॑   | प  | ध॒  | ध  | नि॒   | नि 
+स र ग म        | सा  | रे॒   | रे  | ग॒    | ग  | म  | म॑   | प  | ध॒  | ध  | नि॒  | नि 
 English        | C  | C#  | D  | D#  | E  | F  | F#  | G  | G# | A  | A#  | B
 English        | C4 | C#4 | D4 | D#4 | E4 | F4 | F#4 | G4 | G#4| A4 | A#4 | B4
 
