@@ -39,8 +39,8 @@
 
 
 using lmms::gui::melodyeditor::MelodyEditorTextArea;
-using lmms::PLUGIN_NAME::MIN_FONTSIZE;
-using lmms::PLUGIN_NAME::MAX_FONTSIZE;
+using lmms::melodyeditor::MIN_FONTSIZE;
+using lmms::melodyeditor::MAX_FONTSIZE;
 using namespace lmms::melodyeditor;
 
 

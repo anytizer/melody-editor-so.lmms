@@ -19,7 +19,7 @@ namespace lmms
 }
 
 
-namespace lmms::PLUGIN_NAME
+namespace lmms::melodyeditor
 {
     QString fileContents(QString filePath);
     

@@ -83,10 +83,12 @@ MelodyEditor::MelodyEditor()
     connect(m_document, &QTextDocument::contentsChanged, this, &MelodyEditor::parse);
 }
 
+
 QString MelodyEditor::nodeName() const
 {
 	return melodyeditor_plugin_descriptor.name;
 }
+
 
 PluginView* MelodyEditor::instantiateView(QWidget*)
 {
@@ -94,15 +96,11 @@ PluginView* MelodyEditor::instantiateView(QWidget*)
 }
 
 
-
-
 void MelodyEditor::loadFile(const QString& filename)
 {
 	m_document->setPlainText(fileContents(filename));
 	m_file = filename;
 }
-
-
 
 
 void MelodyEditor::importFromClip()
@@ -134,8 +132,6 @@ void MelodyEditor::parseNotations(QString notations)
 }
 
 
-
-
 //! Live coding: Parse whole text
 void MelodyEditor::parse()
 {
@@ -143,7 +139,6 @@ void MelodyEditor::parse()
 	
 	this->parseNotations(m_document->toPlainText());
 }
-
 
 
 //! Select a parser

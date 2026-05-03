@@ -15,7 +15,7 @@
 
 #include "NotationsFormatter.h"
 
-namespace lmms::PLUGIN_NAME
+namespace lmms::melodyeditor
 {
     namespace
     {

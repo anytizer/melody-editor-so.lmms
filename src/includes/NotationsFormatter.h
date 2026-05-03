@@ -9,7 +9,7 @@
 
  #include <QString>
 
-namespace lmms::PLUGIN_NAME
+namespace lmms::melodyeditor
 {
     class NotationsFormatter
     {

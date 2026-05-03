@@ -18,7 +18,7 @@
 #include "MidiClip.h"
 
 
-namespace lmms::PLUGIN_NAME
+namespace lmms::melodyeditor
 {
     /**
      * Return the melody notations text from external file.
