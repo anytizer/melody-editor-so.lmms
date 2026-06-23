@@ -212,10 +212,10 @@ namespace lmms::gui
 
 	void MelodyEditorView::openNotationsFileSelector()
 	{
-		QString dir = m_plugin->m_file.isEmpty() ? "" : QFileInfo(m_plugin->m_file).dir().path();
-		FileDialog ofd( this, "Open melody notations", "", "Melodies (*.txt)");
+		//QString dir = m_plugin->m_file.isEmpty() ? "" : QFileInfo(m_plugin->m_file).dir().path(); // @todo Remove this line
+		FileDialog ofd(this, "Open melody notations", "", "Melody Notations (*.txt)");
 		ofd.setFileMode(FileDialog::ExistingFiles);
-		if( ofd.exec () == QDialog::Accepted && !ofd.selectedFiles().isEmpty() )
+		if(ofd.exec() == QDialog::Accepted && !ofd.selectedFiles().isEmpty())
 		{
 			auto filename = ofd.selectedFiles()[0];
 			QString basename = QFileInfo(filename).fileName();
