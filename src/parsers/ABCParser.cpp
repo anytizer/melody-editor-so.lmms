@@ -19,13 +19,15 @@ namespace lmms::melodyeditor
 {
 
 static constexpr int MAX_VOICES = 20;
-static constexpr int MAX_NOTES = 128;
+static constexpr int MAX_NOTES = 1024; // 512; // 256; // 128; // pool exhausted
 
 void ABCParser::parse(const QString& string)
 {
 	static NotePool g_pools[MAX_VOICES];
 	static struct note g_storage[MAX_VOICES][MAX_NOTES];
 	static struct sheet g_sheet;
+
+	m_notes.clear();
 
 	// Initialize pools with storage
 	for (int i = 0; i < MAX_VOICES; i++)
@@ -36,9 +38,13 @@ void ABCParser::parse(const QString& string)
 
 	// Parse ABC notation
 	int result = abc_parse(&g_sheet, string.toStdString().c_str());
-	if (result < 0) { return; }
-
-	m_notes.clear();
+	if (result < 0)
+	{
+		// -1: invalid input
+		// -2: pool exhausted
+		throw ParserError("Too many notes.");
+		return;
+	}
 
 	for (int poolNum = 0; poolNum < MAX_VOICES; poolNum++)
 	{

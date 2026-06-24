@@ -25,7 +25,8 @@ namespace lmms::gui::melodyeditor
 				"# 3. Ctrl+/ toggles the commented lines.\n"
 				"# 4. Ctrl+UP/DOWN, Ctrl+F9/F10 controls player.\n"
 				"# 5. Refer to specific parser for notations.\n"
-				"# 6. F1 - for help [ @anytizer, @allejok96 ].\n"
+				"# 6. Ctrl+P on selection == partial parse.\n"
+				"# 7. F1 - for help [ @anytizer, @allejok96 ].\n"
 			;
 
 			void toggleComments();
