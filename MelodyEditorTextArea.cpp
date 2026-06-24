@@ -18,6 +18,7 @@
 #include <QEvent>
 #include <QPainter>
 #include <QTextBlock>
+#include <QRegularExpression>
 
 #include <QMessageBox>
 #include <QDebug>
@@ -238,9 +239,22 @@ namespace lmms::gui::melodyeditor
 
 		if(key == Qt::Key_F1)
 		{
+			// take first 10 lines of the placeholder text
 			QString helpText = this->helpText;
-			helpText.remove("# ");
-			
+
+			helpText.replace(
+				QRegularExpression("^#\\s*\\d+\\.\\s*", QRegularExpression::MultilineOption),
+             	""
+			);
+
+			QStringList lines = helpText.split('\n', Qt::SkipEmptyParts);
+			if (lines.size() > 10) {
+				lines = lines.mid(0, 9);
+				lines.append("...");
+			}
+
+			helpText = lines.join('\n');
+
 			QMessageBox::information(this, "Help - Melody Editor", helpText);
 			
 			return;
