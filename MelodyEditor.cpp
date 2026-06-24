@@ -63,7 +63,7 @@ MelodyEditor::MelodyEditor()
 		new BhatkhandeParser(),
 		new SimpleParser(ENGLISH_DIALECT),
 		new SimpleParser(HINDUSTANI_DIALECT),
-		//new SimpleParser(CARNATIC_DIALECT)
+		// new SimpleParser(CARNATIC_DIALECT)
 	}
 	, m_parserModel(new ComboBoxModel(this, "Parser"))
 	, m_liveCodingModel(new BoolModel(true, this, "Live Coding"))

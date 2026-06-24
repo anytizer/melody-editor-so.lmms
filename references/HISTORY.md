@@ -1,5 +1,10 @@
 # Significant Changes (Monthly)
 
+## 2026-06
+
+- Documentation retouch.
+- Help text and F1 key introduced.
+
 ## 2026-02
 
 - Documents placed together in references.
@@ -80,5 +85,5 @@
  - Improve and fix typos in comments.
  - Bring .h file contents together on top of the code.
  - Bit length controller in pixels - comments changed for Cell.
- - fr changed to replaces.
+ - fr (Finds and Replaces) changed to replaces.
  - Removed some completed todos.

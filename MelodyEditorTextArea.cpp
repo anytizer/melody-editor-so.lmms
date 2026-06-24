@@ -19,6 +19,7 @@
 #include <QPainter>
 #include <QTextBlock>
 
+#include <QMessageBox>
 #include <QDebug>
 
 #include "MelodyEditorTextArea.h"
@@ -45,7 +46,7 @@ namespace lmms::gui::melodyeditor
 
 		this->setAcceptDrops(true);
 
-		// Try to be OS neutral.
+		// Try to load OS neutral font.
 		// @todo embed a font for uniform experience across all platforms.
 		QFont font("Consolas", 14); // Consolas | sans-serif @ 14 points
 		this->setFont(font);
@@ -55,22 +56,20 @@ namespace lmms::gui::melodyeditor
 			"selection-color: #d908f0;"
 		);
 
-		//this->setPlainText("# Double-Click to load a file.");
-		this->setPlaceholderText(
-			"# 1. Type or paste melody notations here.\n"
-			"# 2. Double-Click to load a file.\n"
-			"# 3. Ctrl + / toggles comments.\n"
-		);
-		
 		// Disable right click menus.
 		// But still, keep the shortcuts enabled eg. ctrl+C, ctrl+v
 		// this->setContextMenuPolicy(Qt::NoContextMenu);
-		
+
+		//this->setPlainText("# Double-Click to load a file.");
+		this->setPlaceholderText(this->helpText);
+
 		// Enforce
 		this->setLineWrapMode(QPlainTextEdit::NoWrap);
 		this->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+		//this->ensureCursorVisible();
+		this->moveCursor(QTextCursor::End);
+		this->setFocus(Qt::OtherFocusReason);
 		this->setCursor(Qt::IBeamCursor);
-		this->ensureCursorVisible();
 	}
 
 	MelodyEditorTextArea::~MelodyEditorTextArea()
@@ -125,6 +124,8 @@ namespace lmms::gui::melodyeditor
 	}
 
 
+
+	// for line numbers
 
 
 	int MelodyEditorTextArea::lineNumberAreaWidth() {
@@ -232,6 +233,16 @@ namespace lmms::gui::melodyeditor
 			QTextCursor c = this->textCursor();
 			c.movePosition(QTextCursor::Left);
 			this->setTextCursor(c);
+			return;
+		}
+
+		if(key == Qt::Key_F1)
+		{
+			QString helpText = this->helpText;
+			helpText.remove("# ");
+			
+			QMessageBox::information(this, "Help - Melody Editor", helpText);
+			
 			return;
 		}
 

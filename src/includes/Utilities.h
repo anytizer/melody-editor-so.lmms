@@ -24,19 +24,19 @@ namespace lmms::melodyeditor
     QString fileContents(QString filePath);
     
     /**
-     * To not to allow large file sizes
+     * Do NOT allow large file sizes
      */ 
     bool sizeCheck(QString filePath);
 
     /**
      * 20kb notations gives around 2000 to 5000 measures.
      * This is nearly 1 hour long play time, @160 bpm.
-     * Processing too large text may cause crash or delay.
+     * Processing too large text may cause crash, freezing or delay.
      */ 
     const int MAX_INPUT_LIMIT = 20480;
 
     /**
-     * File name extension for dropping one.
+     * File name extension for dropping into editor.
      */
     const QString MELODY_EXTENSION = "txt";
 

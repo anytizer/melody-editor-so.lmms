@@ -94,7 +94,7 @@ void SimpleParser::parse(const QString& string)
 		if(line.startsWith('#'))
 			continue;
 
-		QRegularExpression re("\\s+"); // linearly access
+		QRegularExpression re("\\s+"); // linear access
 		QStringList words = line.split(re, Qt::SkipEmptyParts);
 		int columnNumber = 0;
 		for(QString word: words)

@@ -34,7 +34,7 @@ namespace lmms::melodyeditor
             QTextStream in(&file);
             
             // Preferably ASCII Contents only.
-            // However, Devanagari Scripts based Notations are also tested.
+            // However, Devanagari Scripts based Notations are also tested, partially.
             notations = in.readAll();
             
             file.close();
@@ -45,7 +45,7 @@ namespace lmms::melodyeditor
 
 
     /**
-     * Do NOT process too large files.
+     * Determine the file size limits allowed
      */
     bool sizeCheck(QString filePath)
     {

@@ -14,8 +14,7 @@ namespace lmms::melodyeditor
     class NotationsFormatter
     {
         private:
-            // re-calculated during formatting
-            int width = 6;
+            int width = 6; // re-calculated during phase #1 of formatting
         
         public:
             QString format(QString notations, bool keepSpecialComments);

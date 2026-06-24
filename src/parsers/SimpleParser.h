@@ -36,7 +36,7 @@ public:
 		//@todo
 		return true;
 
-		// This caused the button not to send data to currently open MIDI clip
+		// The following caused the button not to send data to currently open MIDI clip
 		// return std::find(previous.begin(), previous.end(), clipInPianoRoll) != previous.end();
 	}
 

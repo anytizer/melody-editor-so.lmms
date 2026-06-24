@@ -8,6 +8,7 @@
 #pragma once
 
 #include <QPlainTextEdit>
+#include <QString>
 
 class QWheelEvent;
 
@@ -18,6 +19,14 @@ namespace lmms::gui::melodyeditor
 		private:
 			Q_OBJECT
 			QWidget *lineNumberArea;
+			const QString helpText =
+				"# 1. Type or paste melody notations here.\n"
+				"# 2. Double click this area to open a file.\n"
+				"# 3. Ctrl+/ toggles the commented lines.\n"
+				"# 4. Ctrl+UP/DOWN, Ctrl+F9/F10 controls player.\n"
+				"# 5. Refer to specific parser for notations.\n"
+				"# 6. F1 - for help [ @anytizer, @allejok96 ].\n"
+			;
 
 			void toggleComments();
 

@@ -14,7 +14,7 @@
 
 namespace
 {
-static constexpr double DEFAULT_STEP = 0.25; // one quater note
+	static constexpr double DEFAULT_STEP = 0.25; // one quater note
 }
 
 
@@ -75,10 +75,10 @@ void BhatkhandeLexer::flushBuffer()
 		}
 		catch (std::invalid_argument& e)
 		{
-			throw ParserError("invalid number", m_bufferStartPos);
+			throw ParserError("Invalid number", m_bufferStartPos);
 		}
 		catch (const std::out_of_range& e) {
-			throw ParserError("number out of range", m_bufferStartPos);
+			throw ParserError("Number out of range", m_bufferStartPos);
 		}
 		addToken(token);
 		return;

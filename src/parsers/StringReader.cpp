@@ -15,7 +15,7 @@ namespace
 	constexpr auto LAST_PRINTABLE_ASCII_CHAR = '~'; // 0x7E?
 	const auto INTEGER_PATTERN = QRegularExpression("\\d+");
 	const auto FLOAT_PATTERN = QRegularExpression("\\d+([.]\\d+)?");
-	static const QRegularExpression WORD_PATTERN("[^\r\n\t ]+"); // SPACE included
+	static const QRegularExpression WORD_PATTERN("[^\r\n\t ]+"); // [SPACE] included
 }
 
 
@@ -27,12 +27,12 @@ char StringReader::peek()
 {
 	if (reachedEOF())
 	{
-		throw ParserError(QString("unexpected end of file: (%1, %2)").arg(m_line).arg(m_column));
+		throw ParserError(QString("Unexpected end of file: (%1, %2)").arg(m_line).arg(m_column));
 	}
 	else if (m_string.at(m_pos) > LAST_PRINTABLE_ASCII_CHAR)
 	{
 		// @todo Should support unicode comments too, after a # symbol
-		throw ParserError(pos() + "unsupported character: " + m_string.at(m_pos)+" in: "+m_string);
+		throw ParserError(pos() + "Unsupported character: " + m_string.at(m_pos)+" in: "+m_string);
 	}
 
 	return m_string.at(m_pos).toLatin1();

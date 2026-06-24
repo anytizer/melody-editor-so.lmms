@@ -1,10 +1,10 @@
 # ToDos for MelodyEditor
 
-@see issues in GitHub.
+@see issues in GitHub for full ToDos.
 
 ## UI
 
-- [#1](https://github.com/anytizer/melody-editor-so.lmms/issues/1) Ctrl+UP/DOWN to control LMMS Host Playing.
+- [#1](https://github.com/anytizer/melody-editor-so.lmms/issues/1) Ctrl+UP, Ctrl+/DOWN to control Host (LMMS) Playing.
 
 ## Others
 
@@ -24,11 +24,12 @@
 - Apply F11 as widget's fullscreen to enter and exit.
 - Text mark as "incomplete" parsers like German and Numered to inform other developers.
 - Use tr() translate texts.
-- Replace all icons with proper identificatons, eg. ns-abc.
+- Replace all icons with proper notation system identifications, eg. ns-abc.
 
 ## Discuss
 
-- Reserve a namespace for this plugin, with the community polls.
+- Reserve a namespace for this plugin, with the community polls to acquire global namespace under LMMS.
+- Rename Bhatkhande Parser to better name by its qualities. eg. Expressive Replacer.
 
 ## Difficult/Overlapping notes:
 - Arpeggio

@@ -1,5 +1,5 @@
 /**
- * NotationsFormatter.cpp - Extracts just notations in easy-to-view columns.
+ * NotationsFormatter.cpp - Extracts just the notations in easy-to-view columns.
  *                        - Comments are stripped out.
  *
  * Copyright (c) 2026 Bimal Poudel <anytizer@users.noreply.github.com>
@@ -32,8 +32,7 @@ namespace lmms::melodyeditor
 
     QString NotationsFormatter::format(QString notations, bool keepSpecialComments)
     {
-        // Normalize line endings
-        notations.remove('\r');
+        notations.remove('\r'); // Normalize line endings
 
         int maxColumnWidth = kMinWidth;
         QVector<Row> rows;

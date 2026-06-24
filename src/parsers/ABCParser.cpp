@@ -9,6 +9,7 @@
 
 extern "C"
 {
+	// third party tool
      #include "../../ABC-parser/abc_parser.h"
 }
 
@@ -27,7 +28,8 @@ void ABCParser::parse(const QString& string)
 	static struct sheet g_sheet;
 
 	// Initialize pools with storage
-	for (int i = 0; i < MAX_VOICES; i++) {
+	for (int i = 0; i < MAX_VOICES; i++)
+	{
 		note_pool_init(&g_pools[i], g_storage[i], MAX_NOTES, ABC_MAX_CHORD_NOTES);
 	}
 	sheet_init(&g_sheet, g_pools, MAX_VOICES);
@@ -42,7 +44,8 @@ void ABCParser::parse(const QString& string)
 	{
 		int timePos = 0;
 		struct note *n = pool_first_note(&g_pools[poolNum]);
-		while (n) {
+		while (n)
+		{
 			for (int noteNum=0; noteNum < n->chord_size; noteNum++)
 			{
 				m_notes.push_back(Note(n->duration, timePos, n->midi_note[noteNum]));

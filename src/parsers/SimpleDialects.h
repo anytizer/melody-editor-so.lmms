@@ -43,8 +43,7 @@ struct Dialect
  *
  * And the regular symbols: x, -, . (period), COMMA (,)
  *
- * @todo Flats are not parsed.
- * Rather use sharps only.
+ * @todo Flats are not parsed. Rather use sharps only.
  */
 const Dialect ENGLISH_DIALECT = {
 	"Western / English",
@@ -61,11 +60,10 @@ const Dialect ENGLISH_DIALECT = {
 		{"7", "***"},
 		{"8", "****"},
 		{"9", "*****"},
-		}
+	}
 };
 
-// temporarily disabled, though.
-// testing required.
+// @todo Temporarily disabled. Testing required.
 const Dialect CARNATIC_DIALECT = {
 	"SARGAM / Carnatic",
 	"ns-carnatic",
@@ -116,7 +114,7 @@ const Dialect CARNATIC_DIALECT = {
  * 	 * Expects that user types notations in Classical SARGAMS based on Roman letters.
  * 	 * Allowed letters: S, r, R, g, G, m, M, P, d, D, n, N
  * Allowed symbols: x, -, |, *, . (period), , (comma)
- * 	 * @todo Find an alternative way to replace strings
+ * @todo Find an alternative way to replace strings sequentially
  * @see https://stackoverflow.com/questions/12048256/
  */
 const Dialect HINDUSTANI_DIALECT = {
