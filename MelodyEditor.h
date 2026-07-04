@@ -57,7 +57,6 @@ namespace lmms
 			void importFromClip();
 			void parse();
 			void parseNotations(QString notations);
-			void writeToClip();
 
 		private:
 			AbstractParser* parser();

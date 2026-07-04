@@ -65,7 +65,7 @@ namespace lmms::melodyeditor
                 if (column == "|" || column == "/")
                     continue;
 
-                maxColumnWidth = std::max(maxColumnWidth, column.size());
+                maxColumnWidth = qMax(maxColumnWidth, column.size());
                 processed.append(column);
             }
 

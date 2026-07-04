@@ -23,9 +23,9 @@ namespace lmms::melodyeditor
 
 struct SourcePos
 {
-	int line;
-	int column;
-	size_t index;
+	int line = 0;
+	int column = 0;
+	size_t index = 0;
 	size_t length = 1;
 };
 
