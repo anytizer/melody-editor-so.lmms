@@ -1,4 +1,4 @@
-# melody-editor-so.lmms
+# Melody Editor
 
 Creates a libmelodyeditor.so - a plugin for [LMMS](https://github.com/LMMS/lmms/) under Qt5/Qt6.
 
