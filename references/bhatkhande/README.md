@@ -1,6 +1,4 @@
 # # @todo Tests pending
-### # Despite being a quick manual,
-### # this document is parseable (html preview only).
 
 ### # Defining dialects using macro
 #### # note name = key [number]
