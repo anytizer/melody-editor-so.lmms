@@ -1,5 +1,7 @@
 # ToDos for MelodyEditor
 
+- Supply sample songs and notations for each parser engine.
+
 @see issues in GitHub for full ToDos.
 
 ## UI
