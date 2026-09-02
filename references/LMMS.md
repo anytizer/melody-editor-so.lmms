@@ -10,7 +10,7 @@ ln -s /media/USER/DISK/path/to/[melody-editor-so.lmms] MelodyEditor
 
 Or, copy the plugin's source code (aka melody-editor-so.lmms) into `lmms/plugins` folder.
 
-- Enable or Add `MelodyEditor` in `cmake/modules/PluginList.cmake` file.
+- Enable or Add `MelodyEditor` in [cmake/modules/PluginList.cmake](https://github.com/LMMS/lmms/blob/master/cmake/modules/PluginList.cmake) file.
 - Then `make` or compile the copy of your LMMS.
 
 Optionally, you can add this project as git a subodule for lmms.
