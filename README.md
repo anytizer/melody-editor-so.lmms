@@ -1,6 +1,6 @@
 # Melody Editor | Stable
 
-Special note: Compile [this plugin](references/LMMS.md) along with [LMMS](httos:://github.com/LMMS/lmms/) to obtain [libmelodyeditor.so](https://github.com/LMMS/lmms/).
+Special note: Compile [this plugin](references/LMMS.md) along with [LMMS](httos:://github.com/LMMS/lmms/) to obtain libmelodyeditor.so.
 
 MelodyEditor then builds MIDI Clips directly from your musical notations in text format.
 
