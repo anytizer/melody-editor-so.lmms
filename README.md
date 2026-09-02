@@ -1,8 +1,11 @@
-# Melody Editor
+# Melody Editor | Stable
 
-Creates a libmelodyeditor.so - a plugin for [LMMS](https://github.com/LMMS/lmms/) under Qt5/Qt6. 
+Special note: Compile [this plugin](references/LMMS.md) along with [LMMS](httos:://github.com/LMMS/lmms/) to obtain [libmelodyeditor.so](https://github.com/LMMS/lmms/).
 
-You will have to [compile this source code](references/LMMS.md) along with LMMS code base.
+MelodyEditor then builds MIDI Clips directly from your musical notations in text format.
+
+- For support, please ask or tag: [@anytizer](https://github.com/anytizer/melody-editor-so.lmms/issues) or associated volunteers.
+- Your ideas to improve this plugin are welcomed.
 
 ## Parsers Supported
 
