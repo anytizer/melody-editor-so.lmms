@@ -8,6 +8,7 @@
 #pragma once
 
 #include <QString>
+#include <QList>
 
 #include "Note.h"
 
@@ -36,9 +37,10 @@ namespace lmms::melodyeditor
     const int MAX_INPUT_LIMIT = 20480;
 
     /**
-     * File name extension for dropping into editor.
+     * File name extensions for dropping into editor.
+     * Lower cases only.
      */
-    const QString MELODY_EXTENSION = "txt";
+    const QList<QString> MELODY_EXTENSIONS{"txt", "alda", "abc", "sargam"};
 
     /**
      * Zoom factors on notations editor

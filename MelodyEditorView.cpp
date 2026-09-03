@@ -37,12 +37,10 @@
 #include "PianoRoll.h"
 #include "PatternStore.h"
 
-
 using lmms::gui::melodyeditor::MelodyEditorTextArea;
 using lmms::melodyeditor::MIN_FONTSIZE;
 using lmms::melodyeditor::MAX_FONTSIZE;
 using namespace lmms::melodyeditor;
-
 
 namespace lmms::gui
 {
@@ -113,7 +111,7 @@ namespace lmms::gui
 		});
 
 		auto openButton = new QPushButton("Open", this);
-		openButton->setToolTip("Open melody text file");
+		openButton->setToolTip("Open melody notations");
 		openButton->setFixedHeight(buttonHeight);
 		openButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		connect(openButton, &QPushButton::clicked, this, &MelodyEditorView::openNotationsFileSelector);
@@ -213,8 +211,8 @@ namespace lmms::gui
 
 	void MelodyEditorView::openNotationsFileSelector()
 	{
-		//QString dir = m_plugin->m_file.isEmpty() ? "" : QFileInfo(m_plugin->m_file).dir().path(); // @todo Remove this line
-		FileDialog ofd(this, "Open melody notations", "", "Melody Notations (*.txt)");
+		FileDialog ofd(this, "Open melody notations", "", "Melody Notations (*.txt *.abc *.alda)");
+
 		ofd.setFileMode(FileDialog::ExistingFiles);
 		if(ofd.exec() == QDialog::Accepted && !ofd.selectedFiles().isEmpty())
 		{
@@ -231,7 +229,9 @@ namespace lmms::gui
 		}
 	}
 
-
+	/**
+	 * Confirm and format notes.
+	 */
 	void MelodyEditorView::formatNotes()
 	{
 		const auto result = QMessageBox::question(
@@ -285,4 +285,4 @@ namespace lmms::gui
 		}
 	}
 
-	} // namespace lmms::gui
+} // namespace lmms::gui

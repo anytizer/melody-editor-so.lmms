@@ -5,6 +5,8 @@
  * Copyright (c) 2026 Alex <allejok96@users.noreply.github.com>
  */
 
+ #include <string>
+
 #include <QWidget>
 
 #include "MelodyEditorView.h"
@@ -34,7 +36,6 @@ namespace lmms
 
 extern "C"
 {
-
 	Plugin::Descriptor PLUGIN_EXPORT melodyeditor_plugin_descriptor = {
 		LMMS_STRINGIFY(PLUGIN_NAME),
 		"Melody Editor",
@@ -43,7 +44,7 @@ extern "C"
 		0x0100,
 		Plugin::Type::Tool,
 		new PluginPixmapLoader("logo"),
-		"txt", // nullptr,
+		"txt,alda,abc,sargam", // MELODY_EXTENSIONS.join(",").toStdString()
 		nullptr,
 	};
 
@@ -100,6 +101,8 @@ void MelodyEditor::loadFile(const QString& filename)
 {
 	m_document->setPlainText(fileContents(filename));
 	m_file = filename;
+
+	m_log->setPlainText("");
 }
 
 

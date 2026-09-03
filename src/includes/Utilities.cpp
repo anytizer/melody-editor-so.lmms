@@ -60,7 +60,8 @@ namespace lmms::melodyeditor
         {
             if (!url.isLocalFile()) { continue; }
             QString path = url.toLocalFile();
-            if (QFileInfo(path).suffix().toLower() == MELODY_EXTENSION)
+            
+            if (MELODY_EXTENSIONS.contains(QFileInfo(path).suffix().toLower()))
             {
                 return path;
             }

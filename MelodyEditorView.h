@@ -16,7 +16,6 @@ namespace lmms
 	class MelodyEditor;
 }
 
-
 namespace lmms::gui
 {
 	using lmms::gui::melodyeditor::MelodyEditorTextArea;
