@@ -1,5 +1,13 @@
 # # @todo Tests pending
 
+## # Examples
+### # [EXAMPLE.md](EXAMPLE.md)
+### # [HUMMING.md](HUMMING.md)
+### # [MUSIC.md](MUSIC.md)
+### # [RADIO.md](RADIO.md)
+### # [SARGAM.md](SARGAM.md)
+### # [STRUCTURE.md](STRUCTURE.md)
+
 ### # Defining dialects using macro
 #### # note name = key [number]
 
