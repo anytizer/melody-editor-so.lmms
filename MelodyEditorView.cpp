@@ -53,6 +53,7 @@ namespace lmms::gui
 	{
 		int buttonHeight = 32;
 
+		this->setWindowTitle("Melody Editor (Text Based)"); // optional
 		this->setAcceptDrops(true);
 		this->setMinimumSize(600, 400);
 
@@ -118,7 +119,7 @@ namespace lmms::gui
 		connect(openButton, &QPushButton::clicked, this, &MelodyEditorView::openNotationsFileSelector);
 
 		auto formatButton = new QPushButton("Format", this);
-		formatButton->setToolTip("Refformatting to become printer friendly");
+		formatButton->setToolTip("Reformat notations to become Printer-Friendly");
 		formatButton->setFixedHeight(buttonHeight);
 		formatButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		connect(formatButton, &QPushButton::clicked, this, &MelodyEditorView::formatNotes);
@@ -233,6 +234,16 @@ namespace lmms::gui
 
 	void MelodyEditorView::formatNotes()
 	{
+		const auto result = QMessageBox::question(
+        	this,
+			"Format Notes",
+			"Are you sure to format the notes?\nYou will lose the current formatting.",
+			QMessageBox::Yes | QMessageBox::No,
+			QMessageBox::No
+		);
+
+		if (result != QMessageBox::Yes) return;
+		
 		bool keepSpecialComments = true; // lines starting with: #! (note: !)
 		
 		QString notations = m_plugin->m_document->toPlainText();

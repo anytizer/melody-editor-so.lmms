@@ -6,15 +6,13 @@
 
 ## UI
 
-- [#1](https://github.com/anytizer/melody-editor-so.lmms/issues/1) Ctrl+UP, Ctrl+/DOWN to control Host (LMMS) Playing.
-
 ## Others
 
 - Provide an example of copyrights free notation for all parsers registered.
 - Apply input/output filters for .abc, .txt, .lrc, .alda (while .lrc is out of scope) in LMMS way.
 - Update drop zone accept these file types immediately. Replace openNotationsFileSelector().
 - Apply note lengths differences within chords and strums.
-- Try with `#pragma once` and remove current long guard names.
+- Try with `#pragma once` and remove current long c++ guard names.
 - Utilities could be reused from LMMS (open a file, read its contents).
 - Continuous / live writing mode - Update MIDI as soon as a **valid** keypress is found.
 - ~~Discuss status for `MidiClip* currentMidiClip() ()` to remove `const` portion.~~
@@ -75,6 +73,7 @@
 - To save the melody file to an external path.
 
 ## Done
+- [#1](https://github.com/anytizer/melody-editor-so.lmms/issues/1) Ctrl+F9 to control Host (LMMS) Playing.
 - Latchable push button for enabling live-write mode.
 - Obtain white icons for MeldoyEditor.
 - Apply `#define` guards to all .cpp and .h files.

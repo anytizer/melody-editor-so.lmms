@@ -22,7 +22,7 @@ namespace lmms::gui::melodyeditor
 			QWidget *lineNumberArea;
 
 			const QString helpText =
-				"# 1. Type or paste melody notations here.\n"
+				"# 1. Type/Paste melody notations here.\n"
 				"# 2. Double click - to import a file.\n"
 				"# 3. Ctrl+/ - toggles the commented lines.\n"
 				"# 4. F9, Ctrl+F9/F10 controls player.\n"
